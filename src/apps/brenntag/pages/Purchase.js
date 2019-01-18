@@ -5,34 +5,25 @@ import { Button, Icon } from "../../../core";
 import Products from "./Products";
 
 export default class Purchase extends Products {
-  static path = "/purchase/:id";
+  static path = ["/purchase", "/purchase/:id"];
   static layout = "Top_MainRight";
 
   state = {
-    order: {
-      productID: "",
-      requestedQuantity: "1 mT",
-      deliveryDate: ""
-    },
     productID: "",
-    requestedQuantity: "",
     editDeliveryAddress: false,
-    editBillingAddress: false,
-    modeOfShipment: "Sea",
-    POReference: ""
+    editBillingAddress: false
   };
 
   componentWillMount() {
     const id = this.props.match.params.id;
     this.props.ProductOrderLoadCache(id);
-    this.setState({ order: { ...this.state.order, productID: id } });
   }
 
   renderRight() {
-    const { product, orderInfo, orderResult } = this.props.Product;
-    const { modeOfShipment, POReference, orderItems } = orderInfo;
+    const { order, orderResult } = this.props.Product;
+    const { modeOfShipment, poReference, specialInstructions } = order;
+    const { notifyViaEmail } = order;
     const { totalMaterialPrice, totalAmount, taxAmount } = orderResult.data;
-    const { order } = this.state;
     return [
       <Paper key="container" className="right-container">
         <div className="inputfield">
@@ -42,7 +33,11 @@ export default class Purchase extends Products {
             type="text"
             placeholder="Mode of Shipment"
             value={modeOfShipment}
-            onChange={e => this.setState({ modeOfShipment: e.target.value })}
+            onChange={e =>
+              this.props.ProductOrderInfoUpdate({
+                modeOfShipment: e.target.value
+              })
+            }
           />
         </div>
         <div className="inputfield">
@@ -51,8 +46,12 @@ export default class Purchase extends Products {
             className="input"
             type="text"
             placeholder="PO Reference"
-            value={POReference}
-            onChange={e => this.setState({ POReference: e.target.value })}
+            value={poReference}
+            onChange={e =>
+              this.props.ProductOrderInfoUpdate({
+                poReference: e.target.value
+              })
+            }
           />
         </div>
         <div className="inputfield">
@@ -61,11 +60,31 @@ export default class Purchase extends Products {
             className="input"
             type="text"
             placeholder="Special Instructions (Optional)"
+            value={specialInstructions}
+            onChange={e =>
+              this.props.ProductOrderInfoUpdate({
+                specialInstructions: e.target.value
+              })
+            }
           />
         </div>
         <div className="inputfield checkboxfield">
-          <Checkbox className="checkbox" />
-          <label>Notify via Email when the order status change</label>
+          <Checkbox
+            className="checkbox"
+            checked={notifyViaEmail}
+            onChange={(e, checked) =>
+              this.props.ProductOrderInfoUpdate({ notifyViaEmail: checked })
+            }
+          />
+          <label
+            onClick={e =>
+              this.props.ProductOrderInfoUpdate({
+                notifyViaEmail: !notifyViaEmail
+              })
+            }
+          >
+            Notify via Email when the order status change
+          </label>
         </div>
         <div className="payment-info">
           <div className="payment-terms">
@@ -93,12 +112,55 @@ export default class Purchase extends Products {
       </div>
     ];
   }
+  renderOrderItem(product, i) {
+    return (
+      <Paper key={i} className="quantity">
+        <h5>
+          {product.description}
+          <div>{product.casNumber || "Cas: 9004-32-4 /  HS: 3048304"}</div>
+          <div className="documents">
+            <div
+              className="doc msds"
+              onClick={e =>
+                product.msdsLink ? global.open(product.msdsLink) : false
+              }
+            />
+            <div
+              className="doc tds"
+              onClick={e =>
+                product.tdsLink ? global.open(product.tdsLink) : false
+              }
+            />
+            <div
+              className="doc remove"
+              onClick={e => this.props.ProductOrderItemRemove(product)}
+            />
+          </div>
+        </h5>
+        <div className="inputfield">
+          <label>Order Quantity</label>
+          <input
+            className="input"
+            type="number"
+            placeholder="Order Quantity"
+            value={product.requestedQuantity}
+            onChange={e =>
+              this.props.ProductPlaceOrder({
+                ...product,
+                requestedQuantity: parseFloat(e.target.value)
+              })
+            }
+          />
+        </div>
+        <div className="price">{(product.price || 0).currency("AUD ", "")}</div>
+      </Paper>
+    );
+  }
   renderMain() {
-    const { product, orderInfo } = this.props.Product;
-    const { desiredDeliveryDate, orderItems } = orderInfo;
-    const { order } = this.state;
+    const { order } = this.props.Product;
+    const { desiredDeliveryDate, orderItems } = order;
     const renderAddress = (field, name) => {
-      const value = orderInfo[field];
+      const value = order[field];
       const { houseNumber, street, city } = value;
       const { postalCode, country, countryCode } = value;
       const open = this.state[`edit${field.ucfirst()}`];
@@ -135,49 +197,14 @@ export default class Purchase extends Products {
           {renderAddress("deliveryAddress", "Delivery Address")}
           {renderAddress("billingAddress", "Billing Address")}
         </Paper>
-        <Paper className="quantity">
-          <h5>
-            {product.description}
-            <div>{product.casNumber || "Cas: 9004-32-4 /  HS: 3048304"}</div>
-            <div className="documents">
-              <div
-                className="doc msds"
-                onClick={e =>
-                  product.msdsLink ? global.open(product.msdsLink) : false
-                }
-              />
-              <div
-                className="doc tds"
-                onClick={e =>
-                  product.tdsLink ? global.open(product.tdsLink) : false
-                }
-              />
-              <div className="doc remove" />
-            </div>
-          </h5>
-          <div className="inputfield">
-            <label>Order Quantity</label>
-            <input
-              className="input"
-              type="text"
-              placeholder="Order Quantity"
-              value={order.requestedQuantity}
-              onChange={e =>
-                this.setState({
-                  order: {
-                    ...this.state.order,
-                    requestedQuantity: e.target.value
-                  }
-                })
-              }
-            />
-          </div>
-          <div className="price">
-            {(product.price || 0).currency("AUD ", "")}
-          </div>
-        </Paper>
+        {orderItems.map((o, i) => this.renderOrderItem(o, i))}
         <Paper className="add-more">
-          <div className="add-more-icon">Add more products</div>
+          <div
+            className="add-more-icon"
+            onClick={e => this.props.history.push("/products")}
+          >
+            Add more products
+          </div>
         </Paper>
       </div>
     );

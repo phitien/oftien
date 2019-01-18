@@ -164,36 +164,28 @@ Object.keys(pages).map(o => {
   const component = pages[o];
   const { path, isDefault } = component;
   const connectedCmp = connect({ component });
-  if (isDefault && path !== "/")
+  const paths = [].merge(path);
+  paths.map(p => {
+    if (isDefault && p !== "/")
+      global.routes.push(
+        <Route
+          key="default"
+          exact
+          path="/"
+          render={() => <Redirect to={p || `/${o.lcfirst()}`} />}
+        />
+      );
     global.routes.push(
       <Route
-        key="default"
+        key={o}
         exact
-        path="/"
-        render={() => <Redirect to={path || `/${o.lcfirst()}`} />}
+        path={p || `/${o.lcfirst()}`}
+        render={props =>
+          React.createElement(connectedCmp, { ...props, className: o.lower() })
+        }
       />
     );
-  global.routes.push(
-    <Route
-      key={o}
-      exact
-      path={path || `/${o.lcfirst()}`}
-      render={props =>
-        React.createElement(connectedCmp, { ...props, className: o.lower() })
-      }
-    />
-  );
-  // global.routes.push(
-  //   <Route
-  //     key="notfound"
-  //     render={props =>
-  //       React.createElement(global.NotFound, {
-  //         ...props,
-  //         className: "notfound"
-  //       })
-  //     }
-  //   />
-  // );
+  });
 });
 
 export { global };

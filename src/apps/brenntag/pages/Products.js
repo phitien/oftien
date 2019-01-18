@@ -13,7 +13,7 @@ export default class Products extends Page {
   }
 
   onPlaceOrder = async o => {
-    await this.props.ProductOrder(o);
+    await this.props.ProductPlaceOrder(o);
     await this.props.history.push(`/purchase/${o.productID}`);
   };
 

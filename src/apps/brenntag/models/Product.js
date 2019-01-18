@@ -3,7 +3,6 @@ const { app } = global.constants;
 export const defaultState = {
   filter: { size: 10, page: 0 },
   pageInfo: {},
-  product: {},
   products: [],
   orderResult: {
     data: {
@@ -14,7 +13,11 @@ export const defaultState = {
     error: null,
     meta: null
   },
-  orderInfo: {
+  order: {
+    modeOfShipment: "Sea",
+    poReference: "9494842",
+    specialInstructions: "",
+    notifyViaEmail: false,
     deliveryAddress: {
       // delivery address
       houseNumber: "43", // House number
@@ -41,8 +44,8 @@ export const defaultState = {
   }
 };
 export const actions = [].merge(
-  ["List", "Filter"],
-  ["Order", "OrderLoadCache", "OrderInfoUpdate", "OrderResult"]
+  ["List", "Filter", "OrderItemRemove"],
+  ["PlaceOrder", "OrderLoadCache", "OrderInfoUpdate", "OrderResult"]
 );
 export const apis = {
   list: {
@@ -61,14 +64,32 @@ export const apis = {
 export function reducer(state = defaultState, action) {
   const { type, payload } = action;
   if (type === "ProductOrderLoadCache") {
-    return { ...state, product: JSON.parse(localStorage.getItem(payload)) };
+    return {
+      ...state,
+      order: { ...state.order, ...JSON.parse(localStorage.getItem("order")) }
+    };
   }
   if (type === "ProductOrderInfoUpdate") {
-    return { ...state, orderInfo: { ...state.orderInfo, ...payload } };
+    return { ...state, order: { ...state.order, ...payload } };
   }
-  if (type === "ProductOrder") {
-    localStorage.setItem(payload.productID, JSON.stringify(payload));
-    return { ...state, product: payload };
+  if (type === "ProductOrderItemRemove") {
+    const found = state.order.orderItems.find(
+      o => o.productID === payload.productID
+    );
+    if (found)
+      state.order.orderItems.splice(state.order.orderItems.indexOf(found), 1);
+    localStorage.setItem("order", JSON.stringify(state.order));
+    return { ...state };
+  }
+  if (type === "ProductPlaceOrder") {
+    const found = state.order.orderItems.find(
+      o => o.productID === payload.productID
+    );
+    if (!found)
+      state.order.orderItems.push({ ...payload, requestedQuantity: 1 });
+    else Object.assign(found, payload);
+    localStorage.setItem("order", JSON.stringify(state.order));
+    return { ...state };
   }
   if (type === "ProductOrderResult")
     return { ...state, orderResult: payload.data };
