@@ -1,0 +1,112 @@
+body {
+  font-family: $font-family;
+  font-size: $font-size;
+  font-feature-settings: "liga";
+  line-height: $line-height;
+  color: white;
+  background-color: #121316;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 300;
+  }
+  h1 {
+    line-height: 46px;
+    font-size: 38px;
+  }
+  h2 {
+    line-height: 36px;
+    font-size: 28px;
+  }
+  h3 {
+    line-height: 28px;
+    font-size: 24px;
+  }
+  h4 {
+    line-height: 24px;
+    font-size: 20px;
+  }
+  h5 {
+    line-height: 24px;
+    font-size: 16px;
+  }
+  a {
+    color: #06a4df;
+  }
+  .btn {
+    .image-icon {
+      width: 14px;
+      margin-right: 4px;
+    }
+  }
+  .space {
+    flex: 1;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .searchbar {
+    border-radius: 30px;
+    height: 36px;
+    background-position: 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-image: url(/brenntag/assets/search.png);
+    padding: 0 12px 0 36px;
+    display: flex;
+    align-items: center;
+    input {
+      width: 180px;
+      background-color: transparent;
+      color: white;
+    }
+  }
+  form,
+  input,
+  textarea {
+    outline: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 110%;
+    color: white;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  .checkboxfield {
+    display: flex;
+    align-items: center;
+  }
+  .inputfield {
+    width: 100%;
+    label {
+      display: block;
+      margin-bottom: 6px;
+    }
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #565659;
+      background-color: #1c1f23;
+      border-radius: 3px;
+      overflow: hidden;
+      height: 44px;
+      &:hover,
+      &:focus {
+        background-color: #ffffff;
+        color: #000000;
+      }
+    }
+    textarea {
+      height: 7080pxpx;
+    }
+  }
+}
