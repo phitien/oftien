@@ -6,7 +6,7 @@ defaultState.user = {};
 defaultState.menu = [];
 export const actions = [].merge(
   ["LoadConfig", "LoadToken", "Authenticate", "Unauthorized", "Logout"],
-  ["Spinning", "ClearError", "AddError"]
+  ["Spinning", "ClearError", "AddError", "DismissNotification"]
 );
 export const apis = {
   config: {
@@ -18,6 +18,11 @@ export const apis = {
 export function reducer(state = defaultState, action) {
   const { type, payload } = action;
   const { tokenName } = global.constants;
+  if (type === "ApplicationDismissNotification") {
+    const idx = state.notifications.indexOf(payload);
+    if (idx >= 0) state.notifications.splice(idx, 1);
+    return { ...state };
+  }
   if (type === "ApplicationSpinning") return { ...state, loading: payload };
   if (type === "ApplicationLoadConfig") return { ...state, ...payload };
   if (type === "ApplicationLoadToken")

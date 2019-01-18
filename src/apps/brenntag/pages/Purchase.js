@@ -9,7 +9,6 @@ export default class Purchase extends Products {
   static layout = "Top_MainRight";
 
   state = {
-    productID: "",
     editDeliveryAddress: false,
     editBillingAddress: false
   };
@@ -19,11 +18,35 @@ export default class Purchase extends Products {
     this.props.ProductOrderLoadCache(id);
   }
 
+  onConfirm = async e => {
+    const { api, apis } = global;
+    const { order, desiredDeliveryDate } = this.props.Product;
+    api(apis.Product.confirm, {
+      ...order,
+      orderItems: order.orderItems.map(o => {
+        return {
+          productID: o.productID,
+          requestedQuantity: `${o.requestedQuantity} mT`,
+          deliveryDate: desiredDeliveryDate
+        };
+      })
+    }).then(e => {
+      if (!e.error) this.props.history.push("/success");
+    });
+  };
+
   renderRight() {
     const { order, orderResult } = this.props.Product;
     const { modeOfShipment, poReference, specialInstructions } = order;
-    const { notifyViaEmail } = order;
+    const { notifyViaEmail, orderItems } = order;
     const { totalMaterialPrice, totalAmount, taxAmount } = orderResult.data;
+    const subtotal = orderItems.reduce((rs, o) => {
+      const { requestedQuantity, price } = o;
+      rs += (parseFloat(price) || 0) * (parseFloat(requestedQuantity) || 0);
+      return rs;
+    }, 0);
+    const tax = subtotal * 0.1;
+    const total = subtotal + tax;
     return [
       <Paper key="container" className="right-container">
         <div className="inputfield">
@@ -92,24 +115,29 @@ export default class Purchase extends Products {
           </div>
           <div className="payment-subtotal">
             Sub Total
-            <span>
-              {(parseFloat(totalMaterialPrice) || 0).currency("AUD ", "")}
-            </span>
+            <span>{(parseFloat(subtotal) || 0).currency("AUD ", "")}</span>
           </div>
           <div className="payment-vat">
             VAT 10%
-            <span>{(parseFloat(taxAmount) || 0).currency("AUD ", "")}</span>
+            <span>{(parseFloat(tax) || 0).currency("AUD ", "")}</span>
           </div>
           <div className="payment-total">
             Total
-            <span>{(parseFloat(totalAmount) || 0).currency("AUD ", "")}</span>
+            <span>{(parseFloat(total) || 0).currency("AUD ", "")}</span>
           </div>
         </div>
-        <Button label="Confirm" fullWidth big color="secondary" />
+        <Button
+          label="Confirm"
+          fullWidth
+          big
+          color="secondary"
+          onClick={this.onConfirm}
+        />
       </Paper>,
       <div key="save-for-later" className="save-for-later-icon">
         Save for later
-      </div>
+      </div>,
+      <div key="support-button" className="support-button" />
     ];
   }
   renderOrderItem(product, i) {
@@ -142,6 +170,7 @@ export default class Purchase extends Products {
           <input
             className="input"
             type="number"
+            step={0.1}
             placeholder="Order Quantity"
             value={product.requestedQuantity}
             onChange={e =>

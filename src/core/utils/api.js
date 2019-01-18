@@ -87,7 +87,7 @@ const api = (global.api = async (opts, data, path) => {
     })
     .catch(async err => {
       console.log("API: error", err);
-      err = { type: "error", message: "Unknown error", ...err };
+      err = { error: true, type: "error", message: "Unknown error", ...err };
       await dispatchLog({ type: "ApplicationAddError", payload: err });
       await dispatchAll(err, failure);
       return err;

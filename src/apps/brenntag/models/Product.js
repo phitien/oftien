@@ -1,5 +1,3 @@
-const { app } = global.constants;
-
 export const defaultState = {
   filter: { size: 10, page: 0 },
   pageInfo: {},
@@ -54,8 +52,9 @@ export const apis = {
     success: "ProductList",
     failure: "NotificationNotify"
   },
-  order: {
+  confirm: {
     method: "post",
+    dataField: "data",
     url: `https://api.101digital.io:8243/imp-service/v0.0.1/orders`,
     success: "ProductOrderResult",
     failure: "NotificationNotify"
@@ -92,7 +91,7 @@ export function reducer(state = defaultState, action) {
     return { ...state };
   }
   if (type === "ProductOrderResult")
-    return { ...state, orderResult: payload.data };
+    return { ...state, orderResult: { ...state.orderResult, ...payload.data } };
   if (type === "ProductFilter")
     return { ...state, filter: { ...state.filter, ...payload } };
   if (type === "ProductList")

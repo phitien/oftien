@@ -165,7 +165,7 @@ Object.keys(pages).map(o => {
   const { path, isDefault } = component;
   const connectedCmp = connect({ component });
   const paths = [].merge(path);
-  paths.map(p => {
+  paths.map((p, i) => {
     if (isDefault && p !== "/")
       global.routes.push(
         <Route
@@ -177,7 +177,7 @@ Object.keys(pages).map(o => {
       );
     global.routes.push(
       <Route
-        key={o}
+        key={`${o}${i}`}
         exact
         path={p || `/${o.lcfirst()}`}
         render={props =>

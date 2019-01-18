@@ -101,6 +101,18 @@
       padding-left: 0;
     }
   }
+  .support-button {
+    right: 0;
+    top: calc(50%);
+    cursor: pointer;
+    position: fixed;
+    width: 97px;
+    height: 145px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(/brenntag/assets/support.png);
+  }
   .payment-info {
     > div {
       color: grey;
