@@ -90,8 +90,11 @@ export function reducer(state = defaultState, action) {
     localStorage.setItem("order", JSON.stringify(state.order));
     return { ...state };
   }
-  if (type === "ProductOrderResult")
-    return { ...state, orderResult: { ...state.orderResult, ...payload.data } };
+  if (type === "ProductOrderResult") {
+    Object.assign(state.orderResult, payload);
+    return { ...state };
+  }
+
   if (type === "ProductFilter")
     return { ...state, filter: { ...state.filter, ...payload } };
   if (type === "ProductList")

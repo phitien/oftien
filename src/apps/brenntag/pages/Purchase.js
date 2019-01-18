@@ -31,7 +31,11 @@ export default class Purchase extends Products {
         };
       })
     }).then(e => {
-      if (!e.error) this.props.history.push("/success");
+      console.log(this.props.Product.orderResult);
+      if (!e.error) {
+        const { poReference, orderReference } = this.props.Product.orderResult;
+        this.props.history.push(`/successful/${poReference}/${orderReference}`);
+      }
     });
   };
 

@@ -5,7 +5,7 @@
 ### `docker-compose up`
 
 From this project directory, start up your application by running.<br>
-Open [http://localhost:2810](http://localhost:2810) to view it in the browser.
+Open [http://localhost:1028](http://localhost:1028) to view it in the browser.
 
 ## Available Scripts
 

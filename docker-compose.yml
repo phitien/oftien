@@ -6,6 +6,6 @@ services:
       dockerfile: Dockerfile
     container_name: oftien
     ports:
-      - 7080:2810
+      - 1028:2810
     entrypoint: ["sh", "-c"]
     command: ["yarn start"]

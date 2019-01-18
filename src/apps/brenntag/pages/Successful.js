@@ -1,14 +1,17 @@
 import React from "react";
-import { Checkbox, Paper } from "@material-ui/core";
 
-import { Button, Icon } from "../../../core";
-import Products from "./Products";
+import { Page } from "../../../core";
 
-export default class Successful extends Products {
-  static path = "/success";
+export default class Successful extends Page {
+  static path = "/successful/:poReference/:orderReference";
   static layout = "Main";
 
   renderMain() {
-    return <iframe src="/successful" />;
+    const { poReference, orderReference } = this.props.match.params;
+    return (
+      <iframe
+        src={`/successful.html?poReference=${poReference}&orderReference=${orderReference}`}
+      />
+    );
   }
 }

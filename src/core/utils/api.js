@@ -76,7 +76,7 @@ const api = (global.api = async (opts, data, path) => {
             type: "ApplicationAddError",
             payload: json.error
           });
-        return dataField ? json[dataField] : json;
+        return (json = dataField ? json[dataField] : json);
       }
       const err = { message: "Unknown error", ...json };
       throw err;
