@@ -59,6 +59,12 @@ Object.isEmpty = _.isEmpty;
 /**** default environment variables *****/
 process.env.OFT_APP = process.env.APP || "oftien";
 process.env.OFT_WEB_NAME = process.env.WEB_NAME || "OfTien";
+process.env.OFT_WEB_AUTHOR =
+  process.env.WEB_AUTHOR || "Phi Tien<im.phitien@gmail.com>";
+process.env.OFT_WEB_KEYWORDS =
+  process.env.WEB_KEYWORDS || "OfTien Framework, ReactJS";
+process.env.OFT_WEB_DESCRIPTION =
+  process.env.WEB_DESCRIPTION || "OfTien Framework, ReactJS";
 process.env.OFT_LOGO = process.env.LOGO || "/oftien/assets/logo.png";
 process.env.OFT_DEFAULT_PATH = process.env.DEFAULT_PATH || "/";
 process.env.OFT_DATE_FORMAT = process.env.DATE_FORMAT || "d/m/yy";
