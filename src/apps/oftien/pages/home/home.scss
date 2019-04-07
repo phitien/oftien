@@ -121,3 +121,77 @@
     }
   }
 }
+@media screen and (max-width: 900px) {
+  .page.page-home-main {
+    padding: 0;
+  }
+  .page.page-home-main .layout {
+    @include flex-width(100%);
+    display: block;
+  }
+  .page.page-home-main .layout.cols > .content .main .wrraper {
+    margin-right: 0;
+  }
+  .page.page-home-main .layout .right {
+    @include flex-width(100%);
+  }
+}
+@media screen and (max-width: 600px) {
+  .page.page-home-main .layout {
+    padding: 24px 24px 12px;
+  }
+  .page.page-home-main
+    .layout.cols
+    > .content
+    .main
+    .wrraper
+    > div:first-child {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 24px;
+    .avatar {
+      margin: 0 0 12px;
+    }
+  }
+  .page.page-home-main .heading {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .page.page-home-main .layout .section h3 {
+    margin: 24px 0 16px;
+  }
+  .page.page-home-main .heading .role {
+    margin: 0 4px;
+    padding-left: 4px;
+  }
+  .page.page-home-main
+    .layout.cols
+    > .content
+    .main
+    .wrraper
+    > div:first-child {
+    text-align: center;
+  }
+  .page.page-home-main .layout .right {
+    margin-top: 24px;
+    .wrraper > div:first-child {
+      height: auto;
+      padding-bottom: 24px;
+      &:before {
+        content: "Contact";
+        line-height: 32px;
+        font-size: 26px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 24px 0 16px;
+        border-top: 5px solid;
+        padding-top: 24px;
+        display: block;
+      }
+      &:after {
+        background-color: #505050;
+      }
+    }
+  }
+}
