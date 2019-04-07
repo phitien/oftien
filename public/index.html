@@ -34,6 +34,20 @@
     <meta name="keywords" content="%REACT_APP_webKeywords%" />
     <meta name="author" content="%REACT_APP_webAuthor%" />
     <meta name="description" content="%REACT_APP_webDescription%" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_googleAnalyticsTrackingId%"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "%REACT_APP_googleAnalyticsTrackingId%");
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

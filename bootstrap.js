@@ -19,6 +19,9 @@ process.env.OFT_BE_PORT = process.env.BE_PORT || 1028;
 
 process.env.OFT_SOCKET_PORT = process.env.SOCKET_PORT || 28100;
 
+process.env.OFT_GOOGLE_ANALYTICS_TRACKING_ID =
+  process.env.GOOGLE_ANALYTICS_TRACKING_ID || "";
+
 process.env.OFTS_DATA_ENCRYPTION_KEYS =
   process.env.DATA_ENCRYPTION_KEYS ||
   "IGCD9HaeoE++tNpSQV55dTsnSb819dvchEOTk33e/YA=";
@@ -32,5 +35,6 @@ process.env.OFTS_EMAIL_PASSWORD = process.env.EMAIL_PASSWORD || "Password@1234";
 process.env.OFTS_DB_ADAPTER = process.env.DB_ADAPTER || "sails-mongo";
 process.env.OFTS_DB_LINK =
   process.env.DB_LINK || `mongodb://${ip_address}/oftien`;
+
 /**** ****/
 require("./src/settings");
