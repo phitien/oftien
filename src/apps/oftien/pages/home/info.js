@@ -5,7 +5,7 @@ export default {
   occupation: "Senior UI Developer (Web & Mobile)",
   quote: "Love what we do, do what we love. Life is now & happiness is you.",
   intro:
-    "A passionate, responsible senior developer with an ability to learn anything related to IT (of course if have a chance)",
+    "A passionate, responsible senior developer with an ability to learn and do anything related to IT (of course if have a chance)",
   contact: (
     <div className="info">
       <a className="website" target="_blank" href="http://info.oftien.com">
