@@ -1,43 +1,24 @@
 import React from "react";
-import jQuery from "jquery";
-import datepickerFactory from "jquery-datepicker";
-import datepickerJAFactory from "jquery-datepicker/i18n/jquery.ui.datepicker-ja";
-import _ from "lodash";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { Route, Redirect } from "react-router-dom";
 
 import { connect, createStore } from "./redux";
+const jQuery = require("jquery");
+const datepickerFactory = require("jquery-datepicker");
+const datepickerJAFactory = require("jquery-datepicker/i18n/jquery.ui.datepicker-ja");
 
 datepickerFactory(jQuery);
 datepickerJAFactory(jQuery);
-
 global.$ = global.jQuery = jQuery;
-global._ = _;
+
 global.themes = require("./themes");
 
-//Convenience functions for Object
-Object.omit = _.omit;
-Object.isEmpty = _.isEmpty;
-
 //constants
-const constants = {};
-Object.keys(process.env).map(o => {
-  const reg = /^REACT_APP_/gi;
-  if (reg.test(o)) constants[o.replace(reg, "")] = process.env[o];
-  return o;
-});
-global.constants = constants;
+const { constants } = global;
 const { app } = constants;
-if (!app)
-  throw new Error("Pleace indicate REACT_APP_app value in enviroment file");
+if (!app) throw new Error("Pleace indicate APP value in enviroment file");
 
-const { themename, dateformat, logging, notificationTimeout } = constants;
-const { defaultPath, tokenName } = constants;
-constants.tokenName = tokenName || "token";
-constants.defaultPath = defaultPath || "/products";
-constants.themename = themename || "black";
-constants.dateformat = dateformat || "dd/mm/yy";
-constants.notificationTimeout = parseInt(notificationTimeout) || 7000;
+const { theme, logging } = constants;
 
 //import styles
 require("./scss/index.scss");
@@ -45,63 +26,11 @@ try {
   require(`../apps/${app}/scss/index.scss`);
 } catch (e) {}
 try {
-  require(`../apps/${app}/scss/${themename}.scss`);
+  require(`../apps/${app}/scss/${theme}.scss`);
 } catch (e) {}
 
-//Convenience functions for array
-Array.prototype.merge = function(...args) {
-  return this.concat(...args).filter(o => o !== undefined && o !== null);
-};
-Array.prototype.diff = function(...args) {
-  let rs = this;
-  args.map(a => (rs = rs.filter(o => a.indexOf(o) < 0)));
-  return rs;
-};
-//Convenience functions for Date
-Date.prototype.format = function(f = constants.dateformat) {
-  return global.jQuery.datepicker.formatDate(f, this);
-};
-Date.prototype.toStandard = function() {
-  return this.format("yy-mm-dd");
-};
-//Convenience functions for Number
-Number.prototype.format = function(d, prefix = "", suffix = "") {
-  return d
-    ? `${prefix}${this.toFixed(d)}${suffix}`
-    : `${prefix}${this}${suffix}`;
-};
-Number.prototype.percentage = function(d) {
-  return (this * 100).format(d, "", "%");
-};
-Number.prototype.currency = function(prefix = "", suffix = "$", d = 2) {
-  return this.format(d, prefix, suffix);
-};
-//Convenience functions for String
-String.prototype.lower = function() {
-  return this.toLowerCase();
-};
-String.prototype.upper = function() {
-  return this.toUpperCase();
-};
-String.prototype.lcfirst = function() {
-  return this.substr(0, 1).lower() + this.substr(1);
-};
-String.prototype.ucfirst = function() {
-  return this.substr(0, 1).upper() + this.substr(1);
-};
-String.prototype.camel = function() {
-  const reg = /^([A-Z])|\s([a-z])/g;
-  return this.replace(reg, function(m, p1, p2, offset) {
-    if (p2) return ` ${p2.upper()}`;
-    return p1.lower();
-  });
-};
-String.prototype.toDate = function(f = constants.dateformat) {
-  return global.jQuery.datepicker.parseDate(f, this);
-};
-
 //theme
-global.theme = createMuiTheme(global.themes[global.constants.themename]);
+global.theme = createMuiTheme(global.themes[theme]);
 //models, reducers, actions, apis, store
 global.models = {};
 global.reducers = {};
@@ -159,9 +88,16 @@ global.NotFound =
   require(`./components`).NotFound;
 //routes
 global.routes = [];
-const pages = require(`../apps/${app}/pages`);
-Object.keys(pages).map(o => {
-  const component = pages[o];
+const addRoutes = pages => {
+  Object.keys(pages)
+    .filter(o => pages[o])
+    .map(o => {
+      const component = pages[o];
+      if (component.name) addRoute(o, component);
+      else addRoutes(component);
+    });
+};
+const addRoute = (o, component) => {
   const { path, isDefault } = component;
   const connectedCmp = connect({ component });
   const paths = [].merge(path);
@@ -177,7 +113,7 @@ Object.keys(pages).map(o => {
       );
     global.routes.push(
       <Route
-        key={`${o}${i}`}
+        key={`${o}${i}${component.name}`}
         exact
         path={p || `/${o.lcfirst()}`}
         render={props =>
@@ -186,6 +122,5 @@ Object.keys(pages).map(o => {
       />
     );
   });
-});
-
-export { global };
+};
+addRoutes(require(`../apps/${app}/pages`));

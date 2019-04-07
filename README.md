@@ -11,7 +11,7 @@ Open [http://localhost:1028](http://localhost:1028) to view it in the browser.
 
 In the project directory, you can run:
 
-### `npm install`
+### `npm run setup`
 
 Runs the command at the first time you clone the project to install node modules.<br>
 
@@ -19,11 +19,3 @@ Runs the command at the first time you clone the project to install node modules
 
 Runs the app in the development mode.<br>
 Open [http://localhost:2810](http://localhost:2810) to view it in the browser.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!

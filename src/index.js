@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { global } from "./core/bootstrap";
-
 import * as serviceWorker from "./serviceWorker";
+
+require("./settings");
+require("./core/bootstrap");
 
 const { App, store, theme } = global;
 
