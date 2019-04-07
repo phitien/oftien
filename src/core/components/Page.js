@@ -18,6 +18,9 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
+  componentDidMount() {
+    global.jQuery("body").addClass(this.constructor.className || "");
+  }
   renderLeft_TopMainBottom_Right() {
     return (
       <div className="layout cols Left_TopMainBottom_Right">

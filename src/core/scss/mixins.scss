@@ -1,0 +1,219 @@
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color;
+    font-size: 97%;
+    font-style: italic;
+  }
+}
+@mixin pingpong-animation($w: 0px) {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: calc(100% - #{$w});
+  }
+  100% {
+    left: 0;
+  }
+}
+@mixin left-to-right-animation($w: 0px) {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: calc(100% - #{$w});
+  }
+}
+@mixin table-style(
+  $height,
+  $thead-height,
+  $rheight: 26px,
+  $cwidth: 34px,
+  $bg: #252525,
+  $border: #7d7d7d,
+  $bg-head: #252525,
+  $cl-head: #d0bc44,
+  $hover: #515151,
+  $selected: #6f5353
+) {
+  .table {
+    height: $height;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-color: $border !important;
+    border: 1px solid;
+    box-sizing: border-box;
+    .trow {
+      border-color: $border !important;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      width: fit-content;
+      min-width: 100%;
+      border-bottom: 1px solid;
+    }
+    .tcell {
+      @include flex-width($cwidth);
+      border-color: $border !important;
+      cursor: pointer;
+      box-sizing: border-box;
+      font-size: 11px;
+      height: $rheight;
+      vertical-align: top;
+      padding: 6px 3px;
+      border-right: 1px solid;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:before {
+        margin-right: 2px;
+        font-size: 8px;
+        color: white;
+      }
+      &:last-child {
+        flex: 1;
+        width: initial;
+        max-width: initial;
+        border-right: none;
+      }
+    }
+    .thead {
+      overflow: hidden;
+      height: $thead-height;
+      background-color: $bg-head;
+      position: sticky;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: $cl-head;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      &::-webkit-scrollbar-button:vertical:start:increment,
+      &::-webkit-scrollbar-button:vertical:end:decrement,
+      &::-webkit-scrollbar:horizontal {
+        display: none !important;
+      }
+      .trow {
+        align-items: flex-start;
+        flex: 1;
+        .tcell {
+          color: $cl-head;
+          font-weight: bold;
+          border-bottom: none;
+          height: 100%;
+          vertical-align: top;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+        .tgroup {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          width: fit-content;
+          .tcell {
+            border-right: 1px solid;
+          }
+          .month {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid $border;
+            border-right: 1px solid $border;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            &.small {
+              font-size: 80%;
+            }
+            &.xsmall {
+              font-size: 50%;
+              white-space: normal;
+            }
+          }
+          .days {
+            display: flex;
+            flex: 1;
+          }
+          &:last-child {
+            .month {
+              border-right: none;
+            }
+            .tcell:last-child {
+              border-right: none;
+            }
+          }
+        }
+      }
+      &:hover {
+        overflow-x: auto;
+      }
+    }
+    .tbody {
+      flex: 1;
+      &::-webkit-scrollbar:vertical {
+        display: none;
+      }
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      .trow {
+        &:hover {
+          background-color: $hover;
+        }
+        &.selected {
+          background-color: $selected;
+        }
+        .tcell:last-child {
+          border-right: none;
+        }
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      &:hover {
+        overflow: auto;
+      }
+    }
+  }
+}
+@mixin flex-width($w) {
+  flex: 0 0 $w;
+  width: $w;
+  min-width: $w;
+  max-width: $w;
+}
+@mixin flex-height($h) {
+  flex: 0 0 $h;
+  height: $h;
+  min-height: $h;
+  max-height: $h;
+}
+@mixin flex($f) {
+  flex: $f;
+  width: initial;
+  max-width: initial;
+  min-width: initial;
+}
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}

@@ -88,16 +88,16 @@ global.NotFound =
   require(`./components`).NotFound;
 //routes
 global.routes = [];
-const addRoutes = pages => {
+const addRoutes = (p, pages) => {
   Object.keys(pages)
     .filter(o => pages[o])
     .map(o => {
       const component = pages[o];
-      if (component.name) addRoute(o, component);
-      else addRoutes(component);
+      if (component.name) addRoute(p, o, component);
+      else addRoutes(o, component);
     });
 };
-const addRoute = (o, component) => {
+const addRoute = (pkg, o, component) => {
   const { path, isDefault } = component;
   const connectedCmp = connect({ component });
   const paths = [].merge(path);
@@ -117,10 +117,13 @@ const addRoute = (o, component) => {
         exact
         path={p || `/${o.lcfirst()}`}
         render={props =>
-          React.createElement(connectedCmp, { ...props, className: o.lower() })
+          React.createElement(connectedCmp, {
+            ...props,
+            className: `page-${pkg ? `${pkg.lower()}-` : ""}${o.lower()}`
+          })
         }
       />
     );
   });
 };
-addRoutes(require(`../apps/${app}/pages`));
+addRoutes("", require(`../apps/${app}/pages`));
