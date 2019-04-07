@@ -15,41 +15,57 @@
     color: #000;
     margin: 0 0 8px;
   }
+  .heading {
+    .name {
+    }
+    .role {
+      margin: 0 12px;
+      display: inline-block;
+      padding-left: 12px;
+      border-left: 1px solid;
+      &:after {
+        content: ",";
+      }
+    }
+    .period {
+      opacity: 0.6;
+      font-size: 13px;
+    }
+  }
   .layout {
     @include flex-width(1024px);
     background-color: white;
     padding: $space $space;
     box-shadow: 0 0 8px white;
     color: #505050;
-    &.cols > .content .main {
-      .wrraper {
-        margin-right: $space;
-        > div:first-child {
-          font-weight: 600;
-          position: relative;
-          padding-bottom: $space;
-          .avatar {
-            height: 120px;
-            width: 120px;
-            border-radius: 50%;
-            background-image: url(/apps/oftien/assets/avatar.png);
-            background-repeat: no-repeat;
-            background-position: 0px -18px;
-            background-size: 120px auto;
-            margin-right: 24px;
-          }
-          h2.name {
-            margin: 0 0 8px;
-          }
-          &:after {
-            position: absolute;
-            bottom: 0;
-            content: "";
-            display: block;
-            height: 5px;
-            width: 100%;
-            background-color: #505050;
-            border-radius: 5px;
+    &.cols > .content {
+      .main {
+        .wrraper {
+          margin-right: $space;
+          > div:first-child {
+            font-weight: 600;
+            position: relative;
+            padding-bottom: $space;
+            .avatar {
+              height: 120px;
+              width: 120px;
+              border-radius: 50%;
+              background-image: url(/apps/oftien/assets/avatar.png);
+              background-repeat: no-repeat;
+              background-position: 0px -18px;
+              background-size: 120px auto;
+              margin-right: 24px;
+            }
+            &:after {
+              position: absolute;
+              bottom: 0;
+              content: "";
+              display: block;
+              height: 5px;
+              width: 100%;
+              background-color: #505050;
+              border-radius: 5px;
+            }
           }
         }
       }

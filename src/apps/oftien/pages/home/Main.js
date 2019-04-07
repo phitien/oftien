@@ -1,7 +1,12 @@
 import "./home.scss";
 
 import React from "react";
+import uuidv4 from "uuid/v4";
+
 import { Button, Logo, Page } from "../../../../core";
+
+import experiences from "./experiences";
+import skills from "./skills";
 
 export default class Home extends Page {
   static isDefault = true;
@@ -12,18 +17,48 @@ export default class Home extends Page {
   renderSection(heading, children) {
     return (
       <div className="section">
-        <h3>{heading}</h3>
+        <h3 className="heading">{heading}</h3>
         {children || null}
       </div>
     );
   }
-  renderBlock(heading, children) {
+  renderBlock(heading, children, i) {
+    const props =
+      typeof children === "string"
+        ? { dangerouslySetInnerHTML: { __html: children } }
+        : { children };
     return (
-      <div className="block">
-        <h4>{heading}</h4>
-        {children || null}
+      <div key={i || uuidv4()} className="block">
+        <h4 className="heading">{heading}</h4>
+        <div {...props} />
       </div>
     );
+  }
+  renderPeriod(start, end) {
+    return (
+      <span className="period">
+        <span className="start">{start}</span>
+        {" - "}
+        <span className="end">{end}</span>
+      </span>
+    );
+  }
+  renderExperience(o, i) {
+    const { name, role, period, description } = o;
+    const { start, end } = period;
+    return this.renderBlock(
+      [
+        <span className="name">{name}</span>,
+        <span className="role">{role}</span>,
+        this.renderPeriod(start, end)
+      ],
+      description,
+      i
+    );
+  }
+  renderSkill(o, i) {
+    const { name, items } = o;
+    return this.renderBlock(name, items, i);
   }
   renderMain() {
     return (
@@ -35,17 +70,12 @@ export default class Home extends Page {
             <div className="occupation">Senior UI Developer (Web & Mobile)</div>
           </div>
         </div>
-        {this.renderSection("Experience", [
-          this.renderBlock("Amaris.AI | Frontend Lead"),
-          this.renderBlock("PureCode | Former, CTO"),
-          this.renderBlock("Standard Chartered Bank | Frontend Lead"),
-          this.renderBlock("Golden Equator Consulting | Developer, DevOps"),
-          this.renderBlock(
-            "Bosch Software Innovations | Web & Mobile Developer"
-          ),
-          this.renderBlock("FPT Software | Web Developer"),
-          this.renderBlock("ESNC | Web Developer")
-        ])}
+        {}
+        {this.renderSection(
+          "Experience",
+          experiences.map((o, i) => this.renderExperience(o, i))
+        )}
+        {this.renderSection("Projects", [])}
       </div>
     );
   }
@@ -76,49 +106,10 @@ export default class Home extends Page {
           <div className="mobile">(+65)85986657, (+84)946847882</div>
           <div className="address">Vietnam, Singapore</div>
         </div>
-        {this.renderSection("Skills", [
-          this.renderBlock(
-            "Domains",
-            "Artificial Intelligence, Banking, Finance, Crowdfunding, ICO, Web Enterprise, Mobile, Website"
-          ),
-          this.renderBlock(
-            "Abilities",
-            "Web Enterprise app, Mobile app, Websites, Blog, DevOps, ICO"
-          ),
-
-          this.renderBlock(
-            "OS",
-            "Linux (Ubuntu, CentOS, Alpine, Fedora), MacOS, Windows"
-          ),
-          this.renderBlock(
-            "Programming Langagues",
-            "Node, JS, Html, CSS, Python, Java, C#, C++, Objective C, Bash, PowerShell"
-          ),
-          this.renderBlock("Clouds", ["AWS3", "GCP", "Firebase"]),
-          this.renderBlock("Frameworks, Libraries", [
-            "ReactJS, React Native, VueJS, AngularJS, SailsJS, jQuery, KnockoutJS, PubNub, Express, SocketIO.",
-            <br />,
-            "Django, Flask, Spring framework.",
-            <br />,
-            "Bootstrap, Material Design, FontAwesome.",
-            <br />,
-            "Zend framework, CakePHP, Phalcon."
-          ]),
-          this.renderBlock("Open sources", "Laravel", "Magento", "Joomla"),
-          this.renderBlock("Big Data", "TagUI, UIPath, Automagica"),
-          this.renderBlock("Visualisation", "Tableau, D3, GoJS, Echarts"),
-          this.renderBlock("RPA (Automation)", "TagUI, UIPath, Automagica"),
-          this.renderBlock("Langagues", "English, Vietnamese"),
-          this.renderBlock(
-            "Education",
-            <div className="education">
-              Hanoi Water Resources University (2002 - 2007),
-              <br />
-              Bachelor of Computer Science, <br />
-              Information Technology
-            </div>
-          )
-        ])}
+        {this.renderSection(
+          "Skills",
+          skills.map((o, i) => this.renderSkill(o, i))
+        )}
       </div>
     );
   }
