@@ -47,14 +47,27 @@
             position: relative;
             padding-bottom: $space;
             .avatar {
+              @include flex-width(120px);
               height: 120px;
-              width: 120px;
               border-radius: 50%;
               background-image: url(/apps/oftien/assets/avatar.png);
               background-repeat: no-repeat;
               background-position: 0px -18px;
               background-size: 120px auto;
               margin-right: 24px;
+            }
+            .intro {
+              font-weight: 400;
+            }
+            .quote {
+              font-weight: 400;
+              opacity: 0.6;
+              &:before {
+                content: "*** + ";
+              }
+              &:after {
+                content: " ... ***";
+              }
             }
             &:after {
               position: absolute;

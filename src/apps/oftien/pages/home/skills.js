@@ -11,20 +11,30 @@ export default [
   {
     name: "Programming Langagues",
     items:
-      "Node, JS, Html, CSS, Python, Java, C#, C++, Objective C, Bash, PowerShell"
+      "Node, JS, Html, CSS, SCSS, Python, Java, C#, C++, Objective C, Bash, PowerShell"
+  },
+  {
+    name: "Build tools",
+    items: "webpack, gulp, grunt..."
+  },
+  {
+    name: "Servers",
+    items:
+      "webpack-dev-server, express, apache, apache-tomcat, pm2, forever, nohub, flask, spring-boot, openfaas"
   },
   {
     name: "Operating Systems (OS)",
-    items: "Linux (Ubuntu, CentOS, Alpine, Fedora), MacOS, Windows"
+    items:
+      "Linux (Ubuntu, CentOS, Alpine, Fedora), MacOS, Windows...<br/>brew, apt-get, apt, apk, yum, nuget, mvn, pip, pod"
   },
   {
     name: "Clouds & Dev tools",
-    items: "AWS3, GCP, Firebase.<br/>nginx, git, svn, rsync, ftp, ssh, scp, "
+    items: "AWS S3, GCP, Firebase.<br/>nginx, git, svn, rsync, ftp, ssh, scp, "
   },
   {
     name: "Frameworks, Libraries",
     items:
-      "ReactJS, React Native, VueJS, AngularJS, SailsJS, jQuery, KnockoutJS, PubNub, Express, SocketIO.<br/>Django, Flask, Spring framework.<br/>Bootstrap, Material Design, FontAwesome.<br/>Zend framework, CakePHP, Phalcon."
+      "ReactJS, React Native, VueJS, AngularJS, SailsJS, jQuery, KnockoutJS, PubNub, SocketIO.<br/>Django, Spring framework.<br/>Bootstrap, Material Design, FontAwesome.<br/>Zend framework, CakePHP, Phalcon."
   },
   {
     name: "Databases",
@@ -49,10 +59,5 @@ export default [
   {
     name: "Langagues",
     items: "English, Vietnamese"
-  },
-  {
-    name: "Education",
-    items:
-      "Hanoi Water Resources University (2002 - 2007), <br/>Bachelor of Computer Science, <br/>Information Technology"
   }
 ];

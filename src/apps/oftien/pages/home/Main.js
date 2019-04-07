@@ -6,6 +6,7 @@ import uuidv4 from "uuid/v4";
 import { Button, Logo, Page } from "../../../../core";
 
 import experiences from "./experiences";
+import info from "./info";
 import skills from "./skills";
 
 export default class Home extends Page {
@@ -15,10 +16,14 @@ export default class Home extends Page {
   static className = "route-home";
 
   renderSection(heading, children) {
+    const props =
+      typeof children === "string"
+        ? { dangerouslySetInnerHTML: { __html: children } }
+        : { children };
     return (
       <div className="section">
         <h3 className="heading">{heading}</h3>
-        {children || null}
+        <div {...props} />
       </div>
     );
   }
@@ -61,13 +66,16 @@ export default class Home extends Page {
     return this.renderBlock(name, items, i);
   }
   renderMain() {
+    const { name, occupation, quote, intro } = info;
     return (
       <div className="wrraper">
         <div className="horizontal middle">
           <div className="avatar" />
           <div className="info">
-            <h2 className="name">Phi Tien</h2>
-            <div className="occupation">Senior UI Developer (Web & Mobile)</div>
+            <h2 className="name">{name}</h2>
+            <div className="occupation">{occupation}</div>
+            <div className="quote">{quote}</div>
+            <div className="intro">{intro}</div>
           </div>
         </div>
         {}
@@ -76,36 +84,18 @@ export default class Home extends Page {
           experiences.map((o, i) => this.renderExperience(o, i))
         )}
         {this.renderSection("Projects", [])}
+        {this.renderSection(
+          "Education",
+          "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
+        )}
       </div>
     );
   }
   renderRight() {
+    const { contact } = info;
     return (
       <div className="wrraper">
-        <div className="info">
-          <a className="website" target="_blank" href="http://info.oftien.com">
-            http://info.oftien.com
-          </a>
-          <a
-            className="github"
-            target="_blank"
-            href="https://github.com/phitien"
-          >
-            https://github.com/phitien
-          </a>
-          <a
-            className="email"
-            target="_blank"
-            href="mailto://im.phitien@gmail.com"
-          >
-            im.phitien@gmail.com
-          </a>
-          <a className="skype" target="_blank" href="skype://im.phitien">
-            skype: im.phitien
-          </a>
-          <div className="mobile">(+65)85986657, (+84)946847882</div>
-          <div className="address">Vietnam, Singapore</div>
-        </div>
+        {contact}
         {this.renderSection(
           "Skills",
           skills.map((o, i) => this.renderSkill(o, i))
