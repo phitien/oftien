@@ -29,7 +29,8 @@ export default [
   },
   {
     name: "Clouds & Dev tools",
-    items: "AWS S3, GCP, Firebase.<br/>nginx, git, svn, rsync, ftp, ssh, scp, "
+    items:
+      "Docker, Kubernetes.<br/>AWS S3, GCP, Firebase.<br/>nginx, git, svn, rsync, ftp, ssh, scp, "
   },
   {
     name: "Frameworks, Libraries",
