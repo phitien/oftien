@@ -7,6 +7,7 @@ import { Button, Logo, Page } from "../../../../core";
 
 import experiences from "./experiences";
 import info from "./info";
+import projects from "./projects";
 import skills from "./skills";
 
 export default class Home extends Page {
@@ -61,6 +62,14 @@ export default class Home extends Page {
       i
     );
   }
+  renderProject(o, i) {
+    const { name, role, company, used, description } = o;
+    return this.renderBlock(
+      name,
+      `${role} at ${company}.<br/> Used: ${used}<br/>${description}`,
+      i
+    );
+  }
   renderSkill(o, i) {
     const { name, items } = o;
     return this.renderBlock(name, items, i);
@@ -83,7 +92,10 @@ export default class Home extends Page {
           "Experience",
           experiences.map((o, i) => this.renderExperience(o, i))
         )}
-        {this.renderSection("Projects", [])}
+        {this.renderSection(
+          "Projects",
+          projects.map((o, i) => this.renderProject(o, i))
+        )}
         {this.renderSection(
           "Education",
           "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
