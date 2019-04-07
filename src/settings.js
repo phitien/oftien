@@ -65,7 +65,7 @@ process.env.OFT_WEB_KEYWORDS =
   process.env.WEB_KEYWORDS || "OfTien Framework, ReactJS";
 process.env.OFT_WEB_DESCRIPTION =
   process.env.WEB_DESCRIPTION || "OfTien Framework, ReactJS";
-process.env.OFT_LOGO = process.env.LOGO || "/oftien/assets/logo.png";
+process.env.OFT_LOGO = process.env.LOGO || "/icons/logo_vJi_5.ico";
 process.env.OFT_DEFAULT_PATH = process.env.DEFAULT_PATH || "/";
 process.env.OFT_DATE_FORMAT = process.env.DATE_FORMAT || "d/m/yy";
 process.env.OFT_THEME = process.env.THEME || "black";
