@@ -121,6 +121,37 @@
     }
   }
 }
+@media print {
+  .fullscreen,
+  #root,
+  .viewport,
+  .main-content {
+    position: initial;
+  }
+  .page.page-home-main {
+    background-color: #fff;
+    display: block;
+    padding: 0 0;
+  }
+  .page.page-home-main .layout {
+    padding: 24px 24px;
+  }
+  .page.page-home-main .layout .right {
+    @include flex-width(280px);
+  }
+  .page.page-home-main .layout .section h3 {
+    margin: 32px 0 16px;
+  }
+  .page.page-home-main .layout.cols > .content .main .wrraper {
+    margin-right: 24px;
+    > div:first-child {
+      padding-bottom: 24px;
+    }
+  }
+  .page.page-home-main .layout .right .wrraper > div:first-child {
+    height: 176px - 56px + 24px;
+  }
+}
 @media screen and (max-width: 900px) {
   .page.page-home-main {
     padding: 0;
