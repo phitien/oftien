@@ -96,10 +96,6 @@ export default class Home extends Page {
           "Projects",
           projects.map((o, i) => this.renderProject(o, i))
         )}
-        {this.renderSection(
-          "Education",
-          "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
-        )}
       </div>
     );
   }
@@ -111,6 +107,10 @@ export default class Home extends Page {
         {this.renderSection(
           "Skills",
           skills.map((o, i) => this.renderSkill(o, i))
+        )}
+        {this.renderSection(
+          "Education",
+          "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
         )}
       </div>
     );
