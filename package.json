@@ -46,8 +46,9 @@
     "eject": "react-scripts eject",
     "start": "echo \"ENV=${ENV:-local}\" > .env && concurrently \"node --max_old_space_size=4096 pm2/app.js\" \"node public/services/api/app.js\"",
     "ui": "echo \"ENV=${ENV:-local}\" > .env && node --max_old_space_size=4096 pm2/app.js",
+    "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start --max_old_space_size=4096 pm2/app.js",
     "be": "echo \"ENV=${ENV:-local}\" > .env && node public/services/api/app.js",
-    "start-brenntag": "echo \"ENV=${ENV:-brenntag}\" > .env && concurrently \"node --max_old_space_size=4096 pm2/app.js\" \"node public/services/api/app.js\""
+    "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start public/services/api/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"
