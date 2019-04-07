@@ -1,0 +1,10 @@
+assets/**/*
+db/**/*
+executor/**/*
+executor_override/**/*
+node_modules/**/*
+node_modules_override/**/*
+products/**/*
+processes/**/*
+tasks/**/*
+views/**/*
