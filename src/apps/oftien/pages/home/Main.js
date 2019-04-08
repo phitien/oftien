@@ -21,6 +21,7 @@ export default class Main extends Page {
   static className = "route-home-main";
 
   state = {
+    editing: false,
     username: this.props.match.params.username || "oftien",
     info: {},
     avatar: "",
@@ -219,12 +220,11 @@ export default class Main extends Page {
   renderButtons() {
     return [
       <div key="top" className="fixed top">
-        <Button
-          icon="fas fa-chevron-up"
-          className="scroll-up"
-          onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
-        />
         <Button icon="fas fa-print" onClick={e => global.print()} />
+        <Button
+          icon="far fa-edit"
+          onClick={e => this.setState({ editing: !this.state.editing })}
+        />
       </div>,
       <div key="bottom" className="fixed bottom">
         <Button
@@ -232,7 +232,6 @@ export default class Main extends Page {
           className="scroll-up"
           onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
         />
-        <Button icon="fas fa-print" onClick={e => global.print()} />
       </div>
     ];
   }

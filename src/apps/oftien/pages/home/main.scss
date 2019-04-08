@@ -53,12 +53,19 @@ $cl-lightgrey: #ebebeb;
     }
   }
   .fixed {
-    top: 24px;
     right: 24px;
     z-index: 1;
+    .btn:nth-child(n + 2) {
+      margin-left: 4px;
+    }
     .scroll-up {
       display: none;
-      margin-right: 4px;
+    }
+    &.top {
+      top: 24px;
+    }
+    &.bottom {
+      bottom: 24px;
     }
   }
   .section {
@@ -276,8 +283,11 @@ $cl-lightgrey: #ebebeb;
         display: block;
       }
     }
-    .section h3 {
-      margin: 24px 0 16px;
+    .section {
+      padding-bottom: 24px;
+      h3 {
+        margin: 24px 0 16px;
+      }
     }
     .layout {
       padding: 24px 24px 12px;
@@ -326,8 +336,10 @@ $cl-lightgrey: #ebebeb;
     .fixed {
       display: none;
     }
-    .section h3 {
-      margin: 32px 0 16px;
+    .section {
+      h3 {
+        margin: 32px 0 16px;
+      }
     }
     .layout {
       padding: 24px 24px;
