@@ -1,32 +1,53 @@
-import "./home.scss";
+import "./main.scss";
 
 import React from "react";
 import uuidv4 from "uuid/v4";
 
-import { Button, Logo, Page } from "../../../../core";
+import { Button, Icon, Logo, Page } from "../../../../core";
 
-import experiences from "./experiences";
-import info from "./info";
-import projects from "./projects";
-import skills from "./skills";
+export const loadProfile = async username => {
+  username = !username || username === ":username" ? "oftien" : username;
+  const { api } = global;
+  return api({
+    url: `/apps/oftien/profiles/${username}.json`
+  });
+};
 
-export default class Home extends Page {
+export default class Main extends Page {
   static isDefault = true;
   static path = "/";
   static layout = "Main_Right";
-  static className = "route-home";
+  static className = "route-home-main";
+
+  state = {
+    username: "oftien",
+    info: {},
+    avatar: "",
+    experiences: [],
+    projects: [],
+    skills: [],
+    contact: []
+  };
 
   get layoutDom() {
-    return global.$(".page.page-home-main .layout");
+    return global.$(`.page.page-home-${this.constructor.name.lower()} .layout`);
   }
 
-  componentDidMount() {
-    super.componentDidMount();
+  async componentDidMount() {
+    await super.componentDidMount();
     this.layoutDom.on("scroll", function(e) {
       const me = global.$(this);
       if (this.scrollTop > 0) me.addClass("scrolling");
       else me.removeClass("scrolling");
     });
+    this.loadProfile();
+  }
+
+  loadProfile() {
+    const { username } = this.state;
+    loadProfile(username).then(res =>
+      res.error ? false : this.setState({ ...res, username })
+    );
   }
 
   renderSection(heading, children) {
@@ -55,7 +76,7 @@ export default class Home extends Page {
   }
   renderPeriod(start, end) {
     return (
-      <span className="period">
+      <span key="period" className="period">
         <span className="start">{start}</span>
         {" - "}
         <span className="end">{end}</span>
@@ -67,9 +88,15 @@ export default class Home extends Page {
     const { start, end } = period;
     return this.renderBlock(
       [
-        <span className="name">{name}</span>,
-        <span className="role">{role}</span>,
-        <span className="location">{location}</span>,
+        <span key="name" className="name">
+          {name}
+        </span>,
+        <span key="role" className="role">
+          {role}
+        </span>,
+        <span key="location" className="location">
+          {location}
+        </span>,
         this.renderPeriod(start, end)
       ],
       description,
@@ -89,11 +116,18 @@ export default class Home extends Page {
     return this.renderBlock(name, items, i);
   }
   renderMain() {
+    const { info, experiences, projects, avatar, avatarMargin } = this.state;
     const { name, occupation, quote, intro } = info;
     return (
       <div className="wrraper">
         <div className="horizontal middle">
-          <div className="avatar" />
+          <div
+            className="avatar"
+            style={{
+              backgroundImage: `url(${avatar})`,
+              backgroundPosition: avatarMargin || "0 0"
+            }}
+          />
           <div className="info">
             <h2 className="name">{name}</h2>
             <div className="occupation">{occupation}</div>
@@ -120,11 +154,56 @@ export default class Home extends Page {
       </div>
     );
   }
+  renderContact() {
+    const { contact } = this.state;
+    const getHref = o =>
+      `${o.protocol}${o.value}${o.query ? `?${o.query}` : ""}`;
+    const renderMobile = (o, i) => {
+      return [
+        <span key={i} className="mobile">
+          <a className="tel" href={`tel:${o.value}`}>
+            {o.value}
+          </a>
+          <a className="sms" href={`sms:${o.value};?&body=[OfTien] Hi`}>
+            <Icon icon="fas fa-comment-dots" />
+          </a>
+          {o.whatsapp ? (
+            <a
+              target="_blank"
+              className="whatsapp"
+              href={`https://wa.me/${o.value}${o.whatsapp_query}`}
+            >
+              <Icon icon="fab fa-whatsapp" />
+            </a>
+          ) : null}
+        </span>
+      ];
+    };
+    return (
+      <div className="contact">
+        {contact.map((o, i) =>
+          o.type === "mobile" ? (
+            renderMobile(o, i)
+          ) : (
+            <a
+              key={i}
+              className={o.type}
+              target={o.external ? "_blank" : ""}
+              href={getHref(o)}
+            >
+              {o.value}
+              {o.type === "skype" ? <Icon icon="fab fa-skype" /> : null}
+            </a>
+          )
+        )}
+      </div>
+    );
+  }
   renderRight() {
-    const { contact } = info;
+    const { skills } = this.state;
     return (
       <div className="wrraper">
-        {contact}
+        {this.renderContact()}
         {this.renderSection(
           "Skills",
           skills.map((o, i) => this.renderSkill(o, i))

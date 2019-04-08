@@ -102,7 +102,7 @@
     .right {
       @include flex-width(210px);
       .wrraper {
-        > div:first-child {
+        .contact {
           height: 176px;
           position: relative;
           padding-top: 0px;
@@ -111,6 +111,28 @@
           > * {
             display: block;
             margin-bottom: 4px;
+          }
+          a {
+            text-decoration: none;
+          }
+          .email:before {
+            content: "Email: ";
+            color: #505050;
+          }
+          .skype:before {
+            content: "Skype: ";
+            color: #505050;
+          }
+          .mobile {
+            a {
+              color: #505050;
+            }
+            .sms {
+              margin: 0 4px;
+            }
+          }
+          .address {
+            color: #505050;
           }
           &:after {
             position: absolute;
