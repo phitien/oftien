@@ -3,7 +3,10 @@
     "name": "Tien Doan (Mitch)",
     "occupation": "Senior UI Developer (Web & Mobile)",
     "quote": "Love what we do, do what we love. Life is now & happiness is you.",
-    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT (of course if have a chance)"
+    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT (of course if have a chance)",
+    "author": "Doan Mitch<doan.mitch@gmail.com",
+    "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
+    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript"
   },
   "contact": [
     {
@@ -11,26 +14,26 @@
       "protocol": "",
       "external": true,
       "query": "",
-      "value": "http://info.oftien.com"
+      "value": "http://info.oftien.com/mitch"
     },
     {
       "type": "github",
       "protocol": "",
       "external": true,
       "query": "",
-      "value": "https://github.com/phitien"
+      "value": "https://github.com/mitch"
     },
     {
       "type": "email",
       "protocol": "mailto:",
       "query": "subject=[OfTien] Contact for an opportunity&body=Hello Tien,",
-      "value": "im.phitien@gmail.com"
+      "value": "doan.mitch@gmail.com"
     },
     {
       "type": "skype",
       "protocol": "skype:",
       "query": "?userinfo",
-      "value": "im.phitien"
+      "value": "doan.mitch"
     },
     {
       "type": "mobile",

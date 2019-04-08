@@ -1,9 +1,10 @@
 import "./main.scss";
 
 import React from "react";
+import { Helmet } from "react-helmet";
 import uuidv4 from "uuid/v4";
 
-import { Button, Icon, Logo, Page } from "../../../../core";
+import { Button, Icon, Page } from "../../../../core";
 
 export const loadProfile = async username => {
   username = !username || username === ":username" ? "oftien" : username;
@@ -20,7 +21,7 @@ export default class Main extends Page {
   static className = "route-home-main";
 
   state = {
-    username: "oftien",
+    username: this.props.match.params.username || "oftien",
     info: {},
     avatar: "",
     experiences: [],
@@ -32,6 +33,9 @@ export default class Main extends Page {
   get layoutDom() {
     return global.$(`.page.page-home-${this.constructor.name.lower()} .layout`);
   }
+  get username() {
+    return this.state.username;
+  }
 
   async componentDidMount() {
     await super.componentDidMount();
@@ -42,11 +46,16 @@ export default class Main extends Page {
     });
     this.loadProfile();
   }
-
+  updateMetadata = () => {
+    const { info } = this.state;
+    // document.title = `${info.name}'s profile'`;
+  };
   loadProfile() {
-    const { username } = this.state;
+    const { username } = this;
     loadProfile(username).then(res =>
-      res.error ? false : this.setState({ ...res, username })
+      res.error
+        ? false
+        : this.setState({ ...res, username }, this.updateMetadata)
     );
   }
 
@@ -118,8 +127,15 @@ export default class Main extends Page {
   renderMain() {
     const { info, experiences, projects, avatar, avatarMargin } = this.state;
     const { name, occupation, quote, intro } = info;
+    const { keywords, author, description } = info;
     return (
       <div className="wrraper">
+        <Helmet>
+          <title>{`${name}'s Profile'`}</title>
+          <meta name="keywords" content={keywords} />
+          <meta name="author" content={author} />
+          <meta name="description" content={description} />
+        </Helmet>
         <div className="horizontal middle">
           <div
             className="avatar"
