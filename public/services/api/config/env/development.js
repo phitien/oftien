@@ -5,7 +5,9 @@ function envBuilder() {
   const dbAdapter = process.env.dbAdapter;
   const dbLink = process.env.dbLink;
   const uiBaseUrl = process.env.uiBaseUrl;
-  const allowOrigins = Array.from(new Set(process.env.allowOrigins || [uiBaseUrl]));
+  const allowOrigins = Array.from(
+    new Set(process.env.allowOrigins || [uiBaseUrl])
+  );
   const internalEmailAddress = process.env.internalEmailAddress;
   const modelsMigrate = process.env.modelsMigrate;
   const logLevel = process.env.logLevel;
@@ -87,14 +89,12 @@ function envBuilder() {
     custom: {
       baseUrl,
       rootUrl,
-      cdapUrl,
       uiBaseUrl,
       tokenName,
       internalEmailAddress,
       activationRequired,
       sessionBuffer,
-      jwtSecret,
-      taguipath
+      jwtSecret
     }
   };
 }

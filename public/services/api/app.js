@@ -1,5 +1,5 @@
 /**********************************************************************/
-require("../../bootstrap");
+require("../../../bootstrap");
 process.env.PORT = process.env.bePort;
 const chalk = require("chalk");
 console.log(
