@@ -104,13 +104,15 @@
       .wrraper {
         .contact {
           height: 176px;
+          font-size: 13px;
+          line-height: 16px;
           position: relative;
           padding-top: 0px;
           display: flex;
           flex-direction: column;
           > * {
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 1px;
           }
           a {
             text-decoration: none;

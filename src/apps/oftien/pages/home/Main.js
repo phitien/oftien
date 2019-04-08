@@ -177,17 +177,22 @@ export default class Main extends Page {
     const renderMobile = (o, i) => {
       return [
         <span key={i} className="mobile">
-          <a className="tel" href={`tel:${o.value}`}>
+          <a className="tel" href={`tel:${o.value.replace(/[\W]/g, "")}`}>
             {o.value}
           </a>
-          <a className="sms" href={`sms:${o.value};?&body=[OfTien] Hi`}>
+          <a
+            className="sms"
+            href={`sms:${o.value.replace(/[\W]/g, "")};?&body=[OfTien] Hi`}
+          >
             <Icon icon="fas fa-comment-dots" />
           </a>
           {o.whatsapp ? (
             <a
               target="_blank"
               className="whatsapp"
-              href={`https://wa.me/${o.value}${o.whatsapp_query}`}
+              href={`https://wa.me/${o.value.replace(/[\W]/g, "")}${
+                o.whatsapp_query
+              }`}
             >
               <Icon icon="fab fa-whatsapp" />
             </a>
@@ -200,6 +205,10 @@ export default class Main extends Page {
         {contact.map((o, i) =>
           o.type === "mobile" ? (
             renderMobile(o, i)
+          ) : !o.protocol && !o.query ? (
+            <span key={i} className={o.type}>
+              {o.value}
+            </span>
           ) : (
             <a
               key={i}
