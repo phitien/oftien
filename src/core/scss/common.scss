@@ -159,6 +159,9 @@ body {
       height: 7080pxpx;
     }
   }
+  .fixed {
+    position: fixed;
+  }
   .horizontal {
     display: flex;
     flex-direction: row;
@@ -215,6 +218,117 @@ body {
     }
     &.bottom {
       justify-content: flex-end;
+    }
+  }
+  .btn {
+    border: 1px solid #3e3e3e;
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: inherit;
+    font-size: 20px;
+    // font-weight: bold;
+    min-width: auto;
+    min-height: 36px;
+    padding: 0 12px;
+    background-color: #333333;
+    cursor: pointer;
+    .span:first-child {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    svg {
+      margin-right: 8px;
+    }
+    &.no-name {
+      padding: 0;
+      width: 36px;
+      i:before {
+        margin-right: 0;
+      }
+    }
+    &.bold {
+      height: 32px;
+    }
+    &.small {
+      &.circle {
+        height: 24px;
+        width: 24px;
+        font-size: 10px;
+      }
+    }
+    &.circle {
+      border-radius: 50%;
+      min-width: auto;
+      height: 36px;
+      width: 36px;
+      min-height: auto;
+      padding: 0;
+      i:before {
+        margin-right: 0;
+      }
+    }
+    &.nopadding {
+      padding: 0;
+    }
+    &.transparent,
+    &.transparent:hover {
+      cursor: text;
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    &.freecolor {
+      color: inherit;
+      &:hover {
+        color: inherit;
+      }
+    }
+    &.green {
+      color: #eff8f3;
+      background-color: #51aa66;
+      &:hover {
+        background-color: #eff8f3;
+        color: #51aa66;
+      }
+    }
+    &.red {
+      color: #ff6464;
+      &:hover {
+        background: #ff6464;
+        color: black;
+      }
+    }
+    &.bgred {
+      color: #fcf2f2;
+      background-color: #f07874;
+      &:hover {
+        color: #f07874;
+        background-color: #fcf2f2;
+      }
+    }
+    &.yellow {
+      color: black;
+      background-color: #f8d800;
+      border-color: #f8d800;
+      &:hover {
+        color: white;
+        background-color: #f8d800;
+      }
+    }
+    &.uppercase {
+      text-transform: uppercase;
+    }
+    i:before {
+      margin-right: 12px;
+    }
+    &:hover {
+      box-shadow: 1px 3px 11px rgba(0, 0, 0, 0.7);
+      background-color: #00b3c8;
+      color: black;
     }
   }
 }

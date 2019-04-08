@@ -16,6 +16,19 @@ export default class Home extends Page {
   static layout = "Main_Right";
   static className = "route-home";
 
+  get layoutDom() {
+    return global.$(".page.page-home-main .layout");
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    this.layoutDom.on("scroll", function(e) {
+      const me = global.$(this);
+      if (this.scrollTop > 0) me.addClass("scrolling");
+      else me.removeClass("scrolling");
+    });
+  }
+
   renderSection(heading, children) {
     const props =
       typeof children === "string"
@@ -50,12 +63,13 @@ export default class Home extends Page {
     );
   }
   renderExperience(o, i) {
-    const { name, role, period, description } = o;
+    const { name, role, location, period, description } = o;
     const { start, end } = period;
     return this.renderBlock(
       [
         <span className="name">{name}</span>,
         <span className="role">{role}</span>,
+        <span className="location">{location}</span>,
         this.renderPeriod(start, end)
       ],
       description,
@@ -87,7 +101,6 @@ export default class Home extends Page {
             <div className="intro">{intro}</div>
           </div>
         </div>
-        {}
         {this.renderSection(
           "Experience",
           experiences.map((o, i) => this.renderExperience(o, i))
@@ -96,6 +109,14 @@ export default class Home extends Page {
           "Projects",
           projects.map((o, i) => this.renderProject(o, i))
         )}
+        <div className="fixed">
+          <Button
+            icon="fas fa-chevron-up"
+            className="scroll-up"
+            onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
+          />
+          <Button icon="fas fa-print" onClick={e => global.print()} />
+        </div>
       </div>
     );
   }
