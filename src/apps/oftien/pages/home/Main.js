@@ -218,11 +218,12 @@ export default class Main extends Page {
     );
   }
   renderButtons() {
+    const { editing } = this.state;
     return [
       <div key="top" className="fixed top">
         <Button icon="fas fa-print" onClick={e => global.print()} />
         <Button
-          icon="far fa-edit"
+          icon={editing ? "fas fa-save" : "far fa-edit"}
           onClick={e => this.setState({ editing: !this.state.editing })}
         />
       </div>,
@@ -250,6 +251,28 @@ export default class Main extends Page {
           "Education",
           "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
         )}
+      </div>
+    );
+  }
+  renderComponent() {
+    const { editing, username } = this.state;
+    const { info, avatar, experiences, projects, skills, contact } = this.state;
+    const data = { info, avatar, experiences, projects, skills, contact };
+    if (!editing) return super.renderComponent();
+    return (
+      <div className={this.className}>
+        <div className="editor">
+          <textarea
+            value={JSON.stringify(data, undefined, 2)}
+            onChange={e => {
+              try {
+                const json = JSON.parse(e.target.value);
+                this.setState(json);
+              } catch (e) {}
+            }}
+          />
+        </div>
+        {this.renderButtons()}
       </div>
     );
   }

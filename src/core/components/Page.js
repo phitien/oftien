@@ -18,6 +18,10 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
+  get className() {
+    const { className } = this.props;
+    return classnames("page", className);
+  }
   componentDidMount() {
     global.jQuery("body").addClass(this.constructor.className || "");
   }
@@ -315,9 +319,8 @@ export class Page extends Component {
       ? this.constructor.layout
       : "Main";
     const fnName = `render${layout}`;
-    const { className } = this.props;
     return (
-      <div className={classnames("page", className)}>
+      <div className={this.className}>
         {this[fnName] ? this[fnName]() : this.renderMain()}
       </div>
     );

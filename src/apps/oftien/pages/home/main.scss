@@ -84,6 +84,17 @@ $cl-lightgrey: #ebebeb;
     h4 {
     }
   }
+  .editor {
+    @include flex-width(1024px);
+    margin: 0 auto;
+    textarea {
+      height: 100%;
+      width: 100%;
+      display: block;
+      background-color: $cl-dark;
+      padding: 4px 8px;
+    }
+  }
   .layout {
     @include flex-width(1024px);
     background-color: white;
