@@ -217,8 +217,16 @@ export default class Main extends Page {
     );
   }
   renderButtons() {
-    return (
-      <div className="fixed">
+    return [
+      <div key="top" className="fixed top">
+        <Button
+          icon="fas fa-chevron-up"
+          className="scroll-up"
+          onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
+        />
+        <Button icon="fas fa-print" onClick={e => global.print()} />
+      </div>,
+      <div key="bottom" className="fixed bottom">
         <Button
           icon="fas fa-chevron-up"
           className="scroll-up"
@@ -226,7 +234,7 @@ export default class Main extends Page {
         />
         <Button icon="fas fa-print" onClick={e => global.print()} />
       </div>
-    );
+    ];
   }
   renderLeft = this.renderRight;
   renderRight() {
