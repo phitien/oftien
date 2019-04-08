@@ -136,7 +136,7 @@ export default class Main extends Page {
           <meta name="author" content={author} />
           <meta name="description" content={description} />
         </Helmet>
-        <div className="horizontal middle">
+        <div className="overview">
           <div
             className="avatar"
             style={{
@@ -224,6 +224,7 @@ export default class Main extends Page {
       </div>
     );
   }
+  renderLeft = this.renderRight;
   renderRight() {
     const { skills } = this.state;
     return (

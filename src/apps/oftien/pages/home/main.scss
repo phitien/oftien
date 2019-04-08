@@ -1,18 +1,30 @@
 @import "../../../../core/scss/mixins";
 
+$space: 56px;
+$overview-h: 125px;
+$cl-bg: #525659;
+$cl-highlight: #06a4df;
+$cl-dark: #000;
+$cl-grey: #505050;
 .page.page-home-main {
-  $space: 56px;
-  background: #525659 url(/apps/oftien/assets/bg1.png) no-repeat center bottom;
+  background: $cl-bg url(/apps/oftien/assets/bg1.png) no-repeat center bottom;
   background-size: cover;
-  padding: 24px 0;
-  h2,
+  padding: 4px 0;
+  a {
+    color: $cl-highlight;
+  }
+  h2 {
+    color: $cl-dark;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+  }
   h3 {
-    color: #000;
+    color: $cl-highlight;
     text-transform: uppercase;
     margin: 0 0 8px;
   }
   h4 {
-    color: #000;
+    color: $cl-dark;
     margin: 0 0 8px;
   }
   .heading {
@@ -48,66 +60,74 @@
       margin-right: 4px;
     }
   }
+  .section {
+    h3 {
+      margin: $space 0 16px;
+    }
+  }
+  .block {
+    margin-bottom: 12px;
+    h4 {
+    }
+  }
   .layout {
     @include flex-width(1024px);
     background-color: white;
     padding: $space $space;
     box-shadow: 0 0 8px white;
-    color: #505050;
-    &.cols > .content {
-      .main {
-        .wrraper {
-          margin-right: $space;
-          > div:first-child {
-            font-weight: 600;
-            position: relative;
-            padding-bottom: $space;
-            .avatar {
-              @include flex-width(120px);
-              height: 120px;
-              border-radius: 50%;
-              background-image: url(/apps/oftien/assets/avatar.png);
-              background-repeat: no-repeat;
-              background-position: 0px -18px;
-              background-size: 120px auto;
-              margin-right: 24px;
-            }
-            .intro {
-              font-weight: 400;
-            }
-            .quote {
-              font-weight: 400;
-              opacity: 0.6;
-              &:before {
-                content: "*** + ";
-              }
-              &:after {
-                content: " ... ***";
-              }
-            }
-            &:after {
-              position: absolute;
-              bottom: 0;
-              content: "";
-              display: block;
-              height: 5px;
-              width: 100%;
-              background-color: #505050;
-              border-radius: 5px;
-            }
+    color: $cl-grey;
+    > .content .main .wrraper {
+      .overview {
+        height: $overview-h + $space;
+        padding: 0 0 $space;
+        display: flex;
+        font-weight: 600;
+        position: relative;
+        .avatar {
+          @include flex-width(120px);
+          height: 120px;
+          border-radius: 50%;
+          background-image: url(/apps/oftien/assets/avatar.png);
+          background-repeat: no-repeat;
+          background-position: 0px -18px;
+          background-size: 120px auto;
+          margin-right: 24px;
+        }
+        .intro {
+          font-weight: 400;
+        }
+        .quote {
+          font-weight: 400;
+          opacity: 0.6;
+          &:before {
+            content: "*** + ";
           }
+          &:after {
+            content: " ... ***";
+          }
+        }
+        &:after {
+          position: absolute;
+          bottom: 0;
+          content: "";
+          display: block;
+          height: 5px;
+          width: 100%;
+          background-color: $cl-grey;
+          border-radius: 5px;
         }
       }
     }
+    .left,
     .right {
       @include flex-width(210px);
       .wrraper {
         .contact {
-          height: 176px;
+          height: $overview-h + $space;
+          padding: 0 0 $space;
           font-size: 13px;
           line-height: 16px;
           position: relative;
-          padding-top: 0px;
           display: flex;
           flex-direction: column;
           > * {
@@ -117,24 +137,38 @@
           a {
             text-decoration: none;
           }
+          .website,
+          .github,
+          .email,
+          .skype,
+          .mobile,
+          .address {
+            &:before {
+              content: "Website:";
+              color: $cl-grey;
+              width: 56px;
+              display: inline-block;
+            }
+          }
+          .github:before {
+            content: "GitHub:";
+          }
           .email:before {
-            content: "Email: ";
-            color: #505050;
+            content: "Email:";
           }
           .skype:before {
-            content: "Skype: ";
-            color: #505050;
+            content: "Skype:";
+          }
+          .mobile:before {
+            content: "Mobile:";
+          }
+          .address:before {
+            content: "Address:";
           }
           .mobile {
-            a {
-              color: #505050;
-            }
             .sms {
               margin: 0 4px;
             }
-          }
-          .address {
-            color: #505050;
           }
           &:after {
             position: absolute;
@@ -149,25 +183,132 @@
         }
       }
     }
-    .section {
-      h3 {
-        margin: $space 0 16px;
-      }
-    }
-    .block {
-      margin-bottom: 12px;
-      h4 {
-      }
-    }
     &.scrolling .fixed .scroll-up {
       display: inline-block;
     }
+    &.Main_Right {
+      > .content .main .wrraper {
+        margin-right: $space;
+      }
+    }
+    &.Left_Main {
+      > .content .main .wrraper {
+        margin-left: $space;
+      }
+    }
+    &.Left_Main_Right {
+      > .content .main .wrraper {
+        .overview {
+          .avatar {
+            margin-left: $space/3;
+          }
+          .info {
+            margin-right: $space/3;
+          }
+        }
+        .section {
+          padding: 0 $space/3;
+        }
+      }
+    }
   }
 }
+@media screen and (max-width: 900px) {
+  .page.page-home-main {
+    padding: 0;
+    .layout {
+      @include flex-width(100%);
+      display: block;
+      .left,
+      .right {
+        @include flex-width(100%);
+        .wrraper .contact {
+          height: fit-content;
+          &:before {
+            content: "Contact";
+            color: $cl-highlight;
+            line-height: 32px;
+            font-size: 26px;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin: 0 0 16px;
+            padding-top: $space;
+            display: block;
+          }
+          &:after {
+            background-color: $cl-grey;
+          }
+        }
+      }
+      &.Left_Main,
+      &.Main_Right {
+        > .content .main .wrraper {
+          margin-right: 0;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .page.page-home-main {
+    .heading {
+      .role {
+        margin: 0 0;
+        padding-left: 0;
+        display: block;
+        border-left: none;
+      }
+      .location {
+        display: block;
+        &:before {
+          content: "";
+        }
+      }
+      .period {
+        display: block;
+      }
+    }
+    .section h3 {
+      margin: 24px 0 16px;
+    }
+    .layout {
+      padding: 24px 24px 12px;
+      > .content .main .wrraper .overview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+        text-align: center;
+        padding-bottom: 24px;
+        .avatar {
+          margin: 0 0 12px;
+        }
+      }
+      .left,
+      .right {
+        margin-top: 24px;
+        .wrraper .contact {
+          height: auto;
+          padding-bottom: 24px;
+          &:before {
+            padding-top: 0;
+          }
+        }
+      }
+      &.Left_Main {
+        display: flex;
+        flex-direction: column-reverse;
+        height: fit-content;
+      }
+    }
+  }
+}
+
 @media print {
-  .fullscreen,
   #root,
   .viewport,
+  .fullscreen,
   .main-content {
     position: initial;
   }
@@ -178,107 +319,23 @@
     .fixed {
       display: none;
     }
-  }
-  .page.page-home-main .layout {
-    padding: 24px 24px;
-  }
-  .page.page-home-main .layout .right {
-    @include flex-width(280px);
-  }
-  .page.page-home-main .layout .section h3 {
-    margin: 32px 0 16px;
-  }
-  .page.page-home-main .layout.cols > .content .main .wrraper {
-    margin-right: 24px;
-    > div:first-child {
-      padding-bottom: 24px;
+    .section h3 {
+      margin: 32px 0 16px;
     }
-  }
-  .page.page-home-main .layout .right .wrraper > div:first-child {
-    height: 176px - 56px + 24px;
-  }
-}
-@media screen and (max-width: 900px) {
-  .page.page-home-main {
-    padding: 0;
-  }
-  .page.page-home-main .layout {
-    @include flex-width(100%);
-    display: block;
-  }
-  .page.page-home-main .layout.cols > .content .main .wrraper {
-    margin-right: 0;
-  }
-  .page.page-home-main .layout .right {
-    @include flex-width(100%);
-  }
-}
-@media screen and (max-width: 600px) {
-  .page.page-home-main .layout {
-    padding: 24px 24px 12px;
-  }
-  .page.page-home-main
-    .layout.cols
-    > .content
-    .main
-    .wrraper
-    > div:first-child {
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 24px;
-    .avatar {
-      margin: 0 0 12px;
-    }
-  }
-  .page.page-home-main .heading {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  .page.page-home-main .layout .section h3 {
-    margin: 24px 0 16px;
-  }
-  .page.page-home-main .heading .role {
-    margin: 0 0;
-    padding-left: 0;
-    display: block;
-    border-left: none;
-  }
-  .page.page-home-main .heading .location {
-    display: block;
-    &:before {
-      content: "";
-    }
-  }
-  .page.page-home-main .heading .period {
-    display: block;
-  }
-  .page.page-home-main
-    .layout.cols
-    > .content
-    .main
-    .wrraper
-    > div:first-child {
-    text-align: center;
-  }
-  .page.page-home-main .layout .right {
-    margin-top: 24px;
-    .wrraper > div:first-child {
-      height: auto;
-      padding-bottom: 24px;
-      &:before {
-        content: "Contact";
-        line-height: 32px;
-        font-size: 26px;
-        font-weight: 500;
-        text-transform: uppercase;
-        margin: 24px 0 16px;
-        border-top: 5px solid;
-        padding-top: 24px;
-        display: block;
+    .layout {
+      padding: 24px 24px;
+      .left,
+      .right {
+        @include flex-width(280px);
+        .wrraper .contact {
+          // height: 176px - 56px + 24px;
+        }
       }
-      &:after {
-        background-color: #505050;
+      > .content .main .wrraper {
+        margin-right: 24px;
+        .overview {
+          padding-bottom: 24px;
+        }
       }
     }
   }

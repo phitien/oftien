@@ -11,17 +11,17 @@
   "contact": [
     {
       "type": "website",
-      "protocol": "",
+      "protocol": "http://",
       "external": true,
       "query": "",
-      "value": "http://info.oftien.com/mitch"
+      "value": "info.oftien.com/mitch"
     },
     {
       "type": "github",
-      "protocol": "",
+      "protocol": "https://github.com/",
       "external": true,
       "query": "",
-      "value": "https://github.com/mitch"
+      "value": "mitch"
     },
     {
       "type": "email",
