@@ -6,6 +6,7 @@ $cl-bg: #525659;
 $cl-highlight: #06a4df;
 $cl-dark: #000;
 $cl-grey: #505050;
+$cl-lightgrey: #ebebeb;
 .page.page-home-main {
   background: $cl-bg url(/apps/oftien/assets/bg1.png) no-repeat center bottom;
   background-size: cover;
@@ -61,8 +62,14 @@ $cl-grey: #505050;
     }
   }
   .section {
+    padding-bottom: $space;
+    border-bottom: 2px solid $cl-lightgrey;
     h3 {
       margin: $space 0 16px;
+    }
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
     }
   }
   .block {
@@ -177,7 +184,7 @@ $cl-grey: #505050;
             display: block;
             height: 5px;
             width: 100%;
-            background-color: #ebebeb;
+            background-color: $cl-lightgrey;
             border-radius: 5px;
           }
         }

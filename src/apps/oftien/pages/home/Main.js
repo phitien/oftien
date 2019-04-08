@@ -159,14 +159,6 @@ export default class Main extends Page {
           "Projects",
           projects.map((o, i) => this.renderProject(o, i))
         )}
-        <div className="fixed">
-          <Button
-            icon="fas fa-chevron-up"
-            className="scroll-up"
-            onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
-          />
-          <Button icon="fas fa-print" onClick={e => global.print()} />
-        </div>
       </div>
     );
   }
@@ -224,11 +216,24 @@ export default class Main extends Page {
       </div>
     );
   }
+  renderButtons() {
+    return (
+      <div className="fixed">
+        <Button
+          icon="fas fa-chevron-up"
+          className="scroll-up"
+          onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
+        />
+        <Button icon="fas fa-print" onClick={e => global.print()} />
+      </div>
+    );
+  }
   renderLeft = this.renderRight;
   renderRight() {
     const { skills } = this.state;
     return (
       <div className="wrraper">
+        {this.renderButtons()}
         {this.renderContact()}
         {this.renderSection(
           "Skills",
