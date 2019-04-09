@@ -527,5 +527,8 @@ h4 {
         padding-bottom: $s-space;
       }
     }
+    .layout.Left_Main {
+      flex-direction: column-reverse;
+    }
   }
 }
