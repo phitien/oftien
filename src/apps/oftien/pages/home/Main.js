@@ -23,12 +23,11 @@ export default class Main extends Page {
   state = {
     editing: false,
     username: this.props.match.params.username || "oftien",
-    info: {},
-    avatar: "",
-    experiences: [],
-    projects: [],
-    skills: [],
-    contact: []
+    layout: {
+      main: ["experiences", "projects"],
+      left: ["skills", "education"],
+      right: ["skills", "education"]
+    }
   };
 
   get layoutDom() {
@@ -62,7 +61,7 @@ export default class Main extends Page {
       });
   }
   onShowHideEditor = () => {
-    const data = Object.omit(this.state, "editing", "username");
+    const data = Object.omit(this.state, "editing", "username", "className");
     this.editor.set(data);
   };
 
@@ -74,7 +73,7 @@ export default class Main extends Page {
     return (
       <div className="section">
         <h3 className="heading">{heading}</h3>
-        <div {...props} />
+        <div className="blocks" {...props} />
       </div>
     );
   }
@@ -90,53 +89,63 @@ export default class Main extends Page {
       </div>
     );
   }
-  renderPeriod(start, end) {
+  renderObject(k, o) {
+    if (!o) return null;
+    const keys = Object.keys(o);
     return (
-      <span key="period" className="period">
-        <span className="start">{start}</span>
-        {" - "}
-        <span className="end">{end}</span>
+      <span key={k} className={k}>
+        {keys.map(n => (
+          <span key={n} className={n}>
+            {o[n]}
+          </span>
+        ))}
       </span>
     );
   }
-  renderExperience(o, i) {
-    const { name, role, location, period, description } = o;
-    const { start, end } = period;
-    return this.renderBlock(
-      [
-        <span key="name" className="name">
-          {name}
-        </span>,
-        <span key="role" className="role">
-          {role}
-        </span>,
-        <span key="location" className="location">
-          {location}
-        </span>,
-        this.renderPeriod(start, end)
-      ],
-      description,
-      i
-    );
-  }
-  renderProject(o, i) {
-    const { name, role, company, used, description } = o;
+  renderObjectBlock(o, i) {
+    const { name } = o;
+    const keys = Object.keys(o);
+    Object.omit(keys, "name");
     return this.renderBlock(
       name,
-      `${role} at ${company}.<br/>${
-        used ? `Used: ${used}` : ""
-      }<br/>${description}`,
+      [
+        ...keys.map(k =>
+          typeof o[k] === "object" ? (
+            this.renderObject(k, o[k])
+          ) : (
+            <span key={k} className={k}>
+              {o[k]}
+            </span>
+          )
+        )
+      ],
       i
     );
   }
-  renderSkill(o, i) {
-    const { name, items } = o;
-    return this.renderBlock(name, items, i);
+  renderSectionBlock(o, i) {
+    if (!o) return null;
+    if (typeof o === "string") {
+      return <div dangerouslySetInnerHTML={{ __html: o }} />;
+    } else if (typeof o === "object") {
+      const { name, items } = o;
+      return items
+        ? this.renderBlock(name, items, i)
+        : this.renderObjectBlock(o, i);
+    }
+    return null;
   }
   renderMain() {
-    const { info, experiences, projects, avatar, avatarMargin } = this.state;
-    const { name, occupation, quote, intro, funny } = info;
-    const { keywords, author, description } = info;
+    const { state } = this;
+    const { info, avatar, avatarMargin } = state;
+    const { name, occupation, quote, intro, funny } = info || {};
+    const { keywords, author, description } = info || {};
+    const sections = (this.state.layout && this.state.layout.main
+      ? [].merge(this.state.layout.main)
+      : []
+    ).reduce((rs, k) => {
+      if (state.hasOwnProperty(k)) rs[k] = state[k];
+      return rs;
+    }, {});
     return (
       <div className="wrraper">
         <Helmet>
@@ -164,13 +173,14 @@ export default class Main extends Page {
           </div>
         </div>
         <div className="sections">
-          {this.renderSection(
-            "Experience",
-            experiences.map((o, i) => this.renderExperience(o, i))
-          )}
-          {this.renderSection(
-            "Projects",
-            projects.map((o, i) => this.renderProject(o, i))
+          {Object.keys(sections).map((k, j) =>
+            this.renderSection(
+              k.ucfirst(),
+              []
+                .merge(sections[k])
+                .map((o, i) => this.renderSectionBlock(o, i)),
+              j
+            )
           )}
         </div>
       </div>
@@ -178,6 +188,7 @@ export default class Main extends Page {
   }
   renderContact() {
     const { contact } = this.state;
+    if (!contact) return null;
     const getHref = o =>
       `${o.protocol}${o.value}${o.query ? `?${o.query}` : ""}`;
     const renderMobile = (o, i) => {
@@ -257,21 +268,45 @@ export default class Main extends Page {
       </div>
     ];
   }
-  renderLeft = this.renderRight;
   renderRight() {
-    const { skills } = this.state;
+    const sections =
+      this.state.layout && this.state.layout.right
+        ? [].merge(this.state.layout.right)
+        : [];
+    return this.renderSide(
+      sections.reduce((rs, k) => {
+        if (sections.hasOwnProperty(k)) rs[k] = sections[k];
+        return rs;
+      }, {})
+    );
+  }
+  renderLeft() {
+    const sections =
+      this.state.layout && this.state.layout.left
+        ? [].merge(this.state.layout.left)
+        : [];
+    const state = this.state;
+    return this.renderSide(
+      sections.reduce((rs, k) => {
+        if (state.hasOwnProperty(k)) rs[k] = state[k];
+        return rs;
+      }, {})
+    );
+  }
+  renderSide(sections) {
     return (
       <div className="wrraper">
         {this.renderButtons()}
         {this.renderContact()}
         <div className="sections">
-          {this.renderSection(
-            "Skills",
-            skills.map((o, i) => this.renderSkill(o, i))
-          )}
-          {this.renderSection(
-            "Education",
-            "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
+          {Object.keys(sections).map((k, j) =>
+            this.renderSection(
+              k.ucfirst(),
+              []
+                .merge(sections[k])
+                .map((o, i) => this.renderSectionBlock(o, i)),
+              j
+            )
           )}
         </div>
       </div>

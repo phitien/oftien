@@ -18,6 +18,12 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
+  get layout() {
+    const match = global.location.hash.match(/layout=([a-zA-Z_]+)/);
+    const layout = match ? match[1] : this.constructor.layout;
+    const layouts = this.constructor.layouts;
+    return layouts.includes(layout) ? layout : "Main";
+  }
   get className() {
     return classnames("page", this.props.className, this.state.className);
   }
@@ -316,11 +322,7 @@ export class Page extends Component {
     return null;
   }
   renderComponent() {
-    const layouts = this.constructor.layouts;
-    const layout = layouts.includes(this.constructor.layout)
-      ? this.constructor.layout
-      : "Main";
-    const fnName = `render${layout}`;
+    const fnName = `render${this.layout}`;
     return (
       <div key="page" className={this.className}>
         {this[fnName] ? this[fnName]() : this.renderMain()}

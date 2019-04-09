@@ -1,4 +1,9 @@
 {
+  "layout": {
+    "main": ["experiences", "projects"],
+    "left": ["skills", "education"],
+    "right": ["skills", "education"]
+  },
   "info": {
     "name": "Phi Tien",
     "occupation": "Senior UI Developer (Web & Mobile)",
@@ -9,6 +14,11 @@
     "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
     "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript"
   },
+  "avatarMargin": "0px -18px",
+  "avatar": "/apps/oftien/profiles/oftien.png",
+  "education": [
+    "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
+  ],
   "contact": [
     {
       "type": "website",
@@ -59,50 +69,50 @@
     {
       "name": "Amaris.AI",
       "role": "Frontend Lead",
-      "period": { "start": "Sep 2018", "end": "Present" },
       "location": "Singapore",
+      "period": { "start": "Sep 2018", "end": "Present" },
       "description": ""
     },
     {
       "name": "PureCode",
       "role": "Former, CTO",
-      "period": { "start": "Mar 2018", "end": "Sep 2018" },
       "location": "Singapore",
+      "period": { "start": "Mar 2018", "end": "Sep 2018" },
       "description": ""
     },
     {
       "name": "Standard Chartered Bank",
       "role": "Frontend Lead",
-      "period": { "start": "Jun 2017", "end": "Mar 2018" },
       "location": "Singapore",
+      "period": { "start": "Jun 2017", "end": "Mar 2018" },
       "description": ""
     },
     {
       "name": "Golden Equator Consulting",
       "role": "Developer, DevOps",
-      "period": { "start": "Jun 2016", "end": "Jun 2017" },
       "location": "Singapore",
+      "period": { "start": "Jun 2016", "end": "Jun 2017" },
       "description": ""
     },
     {
       "name": "Bosch Software Innovations",
       "role": "Web & Mobile Developer",
-      "period": { "start": "Oct 2011", "end": "Jun 2016" },
       "location": "Singapore",
+      "period": { "start": "Oct 2011", "end": "Jun 2016" },
       "description": ""
     },
     {
       "name": "FPT Software",
       "role": "Web Developer",
-      "period": { "start": "Sep 2009", "end": "Jul 2011" },
       "location": "Hanoi, Vietnam",
+      "period": { "start": "Sep 2009", "end": "Jul 2011" },
       "description": ""
     },
     {
       "name": "ESNC",
       "role": "Web Developer",
-      "period": { "start": "Jun 2007", "end": "Sep 2009" },
       "location": "Hanoi, Vietnam",
+      "period": { "start": "Jun 2007", "end": "Sep 2009" },
       "description": ""
     }
   ],
@@ -110,106 +120,106 @@
     {
       "name": "AI Process Automation (APA)",
       "role": "Frontend Lead, Architect",
-      "used": "ReactJS, SailJS, Python, MongoDB, TagUI, Ludwig, CDAP, GoJS, EchartsJS, HTML, CSS, SASS, Docker",
       "company": "Amaris.AI",
+      "used": "",
       "description": ""
     },
     {
       "name": "SOZO Platform for vegetable commodity trading",
       "role": "Frontend Lead, Architect",
-      "used": "PHP, jQuery, MySQL, Firebase, Html, CSS",
       "company": "PureCode",
+      "used": "",
       "description": ""
     },
     {
       "name": "ICO Landing Page template",
       "role": "Frontend Lead, Architect",
-      "used": "Gulp, NodeJS, HTML, CSS, SASS, JavaScript",
       "company": "PureCode",
+      "used": "",
       "description": ""
     },
     {
       "name": "No-Frontend Framework",
       "role": "Frontend Lead, Architect",
-      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "company": "SCB",
+      "used": "",
       "description": ""
     },
     {
       "name": "Web app generator",
       "role": "Frontend Lead, Architect",
-      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "company": "PureCode",
+      "used": "",
       "description": ""
     },
     {
       "name": "Hybrid Mobile app generator",
       "role": "Frontend Lead, Architect",
-      "used": "React Native, Material Design Icons, NativeBase",
       "company": "PureCode",
+      "used": "",
       "description": ""
     },
     {
       "name": "Crowdfunding solution",
       "role": "Frontend Lead, Architect",
-      "used": "ReactJS, Django, Wordpress, Python, PostreSQL",
       "company": "Golden Equator Consulting",
+      "used": "",
       "description": ""
     },
     {
       "name": "Smarthome, IOT mobile app",
       "role": "Native IOS Dev",
-      "used": "Objective C, C++, cocoapods, SQLLite, Xcode",
       "company": "Bosch Software Innovations",
+      "used": "",
       "description": ""
     },
     {
       "name": "Acvitve Parking Lots Manager",
       "role": "Native Android Dev",
-      "used": "Java, SQLLite, Android Studio, Gradle",
       "company": "Bosch Software Innovations",
+      "used": "",
       "description": ""
     },
     {
       "name": "BOSCH secured truck parking",
       "role": "Native Android Dev",
-      "used": "Java, SQLLite, Android Studio, Gradle",
       "company": "Bosch Software Innovations",
+      "used": "",
       "description": ""
     },
     {
       "name": "Visual Rules WebModeller",
       "role": "Frontend Dev",
-      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, Eclipse Plugin, Java, Spring boot framework, Maven",
       "company": "Bosch Software Innovations",
+      "used": "",
       "description": ""
     },
     {
       "name": "Business Data Repository.",
       "role": "Frontend Dev",
-      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, D3, Eclipse Plugin, Java, Spring boot framework, Maven",
       "company": "Bosch Software Innovations",
+      "used": "",
       "description": ""
     },
     {
       "name": "Online Shipping Services(OSS)",
       "role": "Tech Lead",
-      "used": "Zend framework, MySQL, jQuery, Html, CSS, SASS",
       "company": "FPT Software",
+      "used": "",
       "description": ""
     },
     {
       "name": "Mailroom",
       "role": "Tech Lead",
-      "used": "",
       "company": "FPT Software",
-      "description": "Zend framework, MySQL, jQuery, Html, CSS, SASS"
+      "used": "",
+      "description": ""
     },
     {
       "name": "... 50+ websites & mobile apps during free time",
       "role": "Fullstack Dev",
-      "used": "whatever applied",
       "company": "Freelance + Habit",
+      "used": "whatever applied",
       "description": ""
     }
   ],
@@ -270,7 +280,5 @@
       "name": "Langagues",
       "items": "English, Vietnamese"
     }
-  ],
-  "avatarMargin": "0px -18px",
-  "avatar": "/apps/oftien/profiles/oftien.png"
+  ]
 }
