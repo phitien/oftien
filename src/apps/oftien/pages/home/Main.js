@@ -123,7 +123,9 @@ export default class Main extends Page {
     const { name, role, company, used, description } = o;
     return this.renderBlock(
       name,
-      `${role} at ${company}.<br/> Used: ${used}<br/>${description}`,
+      `${role} at ${company}.<br/>${
+        used ? `Used: ${used}` : ""
+      }<br/>${description}`,
       i
     );
   }
@@ -133,12 +135,12 @@ export default class Main extends Page {
   }
   renderMain() {
     const { info, experiences, projects, avatar, avatarMargin } = this.state;
-    const { name, occupation, quote, intro } = info;
+    const { name, occupation, quote, intro, funny } = info;
     const { keywords, author, description } = info;
     return (
       <div className="wrraper">
         <Helmet>
-          <title>{`${name}'s Profile'`}</title>
+          <title>{`${name}'s Profile`}</title>
           <meta name="keywords" content={keywords} />
           <meta name="author" content={author} />
           <meta name="description" content={description} />
@@ -155,17 +157,22 @@ export default class Main extends Page {
             <h2 className="name">{name}</h2>
             <div className="occupation">{occupation}</div>
             <div className="quote">{quote}</div>
-            <div className="intro">{intro}</div>
+            <div className="intro">
+              {intro}
+              <span className="funny">{funny}</span>
+            </div>
           </div>
         </div>
-        {this.renderSection(
-          "Experience",
-          experiences.map((o, i) => this.renderExperience(o, i))
-        )}
-        {this.renderSection(
-          "Projects",
-          projects.map((o, i) => this.renderProject(o, i))
-        )}
+        <div className="sections">
+          {this.renderSection(
+            "Experience",
+            experiences.map((o, i) => this.renderExperience(o, i))
+          )}
+          {this.renderSection(
+            "Projects",
+            projects.map((o, i) => this.renderProject(o, i))
+          )}
+        </div>
       </div>
     );
   }
@@ -257,14 +264,16 @@ export default class Main extends Page {
       <div className="wrraper">
         {this.renderButtons()}
         {this.renderContact()}
-        {this.renderSection(
-          "Skills",
-          skills.map((o, i) => this.renderSkill(o, i))
-        )}
-        {this.renderSection(
-          "Education",
-          "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
-        )}
+        <div className="sections">
+          {this.renderSection(
+            "Skills",
+            skills.map((o, i) => this.renderSkill(o, i))
+          )}
+          {this.renderSection(
+            "Education",
+            "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
+          )}
+        </div>
       </div>
     );
   }

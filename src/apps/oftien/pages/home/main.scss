@@ -1,12 +1,14 @@
 @import "../../../../core/scss/mixins";
 
 $space: 56px;
+$s-space: 24px;
 $overview-h: 125px;
 $cl-bg: #525659;
 $cl-highlight: #06a4df;
 $cl-dark: #000;
 $cl-grey: #505050;
 $cl-lightgrey: #ebebeb;
+$font-size-section-heading: 26px;
 .page.page-home-main {
   background: $cl-bg url(/apps/oftien/assets/bg1.png) no-repeat center bottom;
   background-size: cover;
@@ -53,7 +55,7 @@ $cl-lightgrey: #ebebeb;
     }
   }
   .fixed {
-    right: 24px;
+    right: $s-space;
     z-index: 1;
     .btn:nth-child(n + 2) {
       margin-left: 4px;
@@ -62,10 +64,10 @@ $cl-lightgrey: #ebebeb;
       display: none;
     }
     &.top {
-      top: 24px;
+      top: $s-space;
     }
     &.bottom {
-      bottom: 24px;
+      bottom: $s-space;
     }
   }
   .section {
@@ -108,10 +110,19 @@ $cl-lightgrey: #ebebeb;
           background-repeat: no-repeat;
           background-position: 0px -18px;
           background-size: 120px auto;
-          margin-right: 24px;
+          margin-right: $s-space;
         }
         .intro {
           font-weight: 400;
+          .funny {
+            margin-left: 3px;
+            &:before {
+              content: "(";
+            }
+            &:after {
+              content: ")";
+            }
+          }
         }
         .quote {
           font-weight: 400;
@@ -268,7 +279,7 @@ $cl-lightgrey: #ebebeb;
             content: "Contact";
             color: $cl-highlight;
             line-height: 32px;
-            font-size: 26px;
+            font-size: $font-size-section-heading;
             font-weight: 500;
             text-transform: uppercase;
             margin: 0 0 16px;
@@ -310,30 +321,30 @@ $cl-lightgrey: #ebebeb;
       }
     }
     .section {
-      padding-bottom: 24px;
+      padding-bottom: $s-space;
       h3 {
-        margin: 24px 0 16px;
+        margin: $s-space 0 16px;
       }
     }
     .layout {
-      padding: 24px 24px 12px;
+      padding: $s-space $s-space $s-space/2;
       > .content .main .wrraper .overview {
         display: flex;
         flex-direction: column;
         align-items: center;
         height: fit-content;
         text-align: center;
-        padding-bottom: 24px;
+        padding-bottom: $s-space;
         .avatar {
           margin: 0 0 12px;
         }
       }
       .left,
       .right {
-        margin-top: 24px;
+        margin-top: $s-space;
         .wrraper .contact {
           height: auto;
-          padding-bottom: 24px;
+          padding-bottom: $s-space;
           &:before {
             padding-top: 0;
           }
@@ -359,27 +370,63 @@ $cl-lightgrey: #ebebeb;
     background-color: #fff;
     display: block;
     padding: 0 0;
+    .funny {
+      display: none;
+    }
     .fixed {
       display: none;
     }
     .section {
+      padding-bottom: $s-space;
       h3 {
         margin: 32px 0 16px;
       }
     }
     .layout {
-      padding: 24px 24px;
+      padding: $s-space $s-space;
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+      @include flex-width(100%);
       .left,
       .right {
-        @include flex-width(280px);
-        .wrraper .contact {
-          // height: 176px - 56px + 24px;
+        @include flex-width(100%);
+        .wrraper {
+          display: flex;
+          flex-direction: column-reverse;
+          height: fit-content;
+          .contact {
+            height: fit-content;
+            border-top: 2px solid $cl-lightgrey;
+            margin-top: $s-space;
+            &:before {
+              content: "Contact";
+              color: $cl-highlight;
+              line-height: 32px;
+              font-size: $font-size-section-heading;
+              font-weight: 500;
+              text-transform: uppercase;
+              margin: 0 0 $s-space/2;
+              padding-top: $s-space;
+              display: block;
+            }
+            &:after {
+              display: none;
+            }
+          }
         }
       }
       > .content .main .wrraper {
-        margin-right: 24px;
+        margin-right: $s-space;
         .overview {
-          padding-bottom: 24px;
+          padding-bottom: $s-space;
+        }
+      }
+      &.Left_Main,
+      &.Main_Right {
+        > .content .main .wrraper {
+          margin-right: 0;
+          margin-left: 0;
         }
       }
     }

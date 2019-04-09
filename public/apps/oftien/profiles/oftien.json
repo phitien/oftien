@@ -3,7 +3,8 @@
     "name": "Phi Tien",
     "occupation": "Senior UI Developer (Web & Mobile)",
     "quote": "Love what we do, do what we love. Life is now & happiness is you.",
-    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT (of course if have a chance)",
+    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT",
+    "funny": "of course if have a chance",
     "author": "Phi Tien<im.phitien@gmail.com",
     "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
     "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript"
@@ -109,91 +110,91 @@
     {
       "name": "AI Process Automation (APA)",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "ReactJS, SailJS, Python, MongoDB, TagUI, Ludwig, CDAP, GoJS, EchartsJS, HTML, CSS, SASS, Docker",
       "company": "Amaris.AI",
       "description": ""
     },
     {
       "name": "SOZO Platform for vegetable commodity trading",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "PHP, jQuery, MySQL, Firebase, Html, CSS",
       "company": "PureCode",
       "description": ""
     },
     {
       "name": "ICO Landing Page template",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "Gulp, NodeJS, HTML, CSS, SASS, JavaScript",
       "company": "PureCode",
       "description": ""
     },
     {
       "name": "No-Frontend Framework",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "company": "SCB",
       "description": ""
     },
     {
       "name": "Web app generator",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "company": "PureCode",
       "description": ""
     },
     {
       "name": "Hybrid Mobile app generator",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "React Native, Material Design Icons, NativeBase",
       "company": "PureCode",
       "description": ""
     },
     {
       "name": "Crowdfunding solution",
       "role": "Frontend Lead, Architect",
-      "used": "",
+      "used": "ReactJS, Django, Wordpress, Python, PostreSQL",
       "company": "Golden Equator Consulting",
       "description": ""
     },
     {
       "name": "Smarthome, IOT mobile app",
       "role": "Native IOS Dev",
-      "used": "",
+      "used": "Objective C, C++, cocoapods, SQLLite, Xcode",
       "company": "Bosch Software Innovations",
       "description": ""
     },
     {
       "name": "Acvitve Parking Lots Manager",
       "role": "Native Android Dev",
-      "used": "",
+      "used": "Java, SQLLite, Android Studio, Gradle",
       "company": "Bosch Software Innovations",
       "description": ""
     },
     {
       "name": "BOSCH secured truck parking",
       "role": "Native Android Dev",
-      "used": "",
+      "used": "Java, SQLLite, Android Studio, Gradle",
       "company": "Bosch Software Innovations",
       "description": ""
     },
     {
       "name": "Visual Rules WebModeller",
       "role": "Frontend Dev",
-      "used": "",
+      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, Eclipse Plugin, Java, Spring boot framework, Maven",
       "company": "Bosch Software Innovations",
       "description": ""
     },
     {
       "name": "Business Data Repository.",
       "role": "Frontend Dev",
-      "used": "",
+      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, D3, Eclipse Plugin, Java, Spring boot framework, Maven",
       "company": "Bosch Software Innovations",
       "description": ""
     },
     {
       "name": "Online Shipping Services(OSS)",
       "role": "Tech Lead",
-      "used": "",
+      "used": "Zend framework, MySQL, jQuery, Html, CSS, SASS",
       "company": "FPT Software",
       "description": ""
     },
@@ -202,7 +203,7 @@
       "role": "Tech Lead",
       "used": "",
       "company": "FPT Software",
-      "description": ""
+      "description": "Zend framework, MySQL, jQuery, Html, CSS, SASS"
     },
     {
       "name": "... 50+ websites & mobile apps during free time",
@@ -227,7 +228,7 @@
     },
     {
       "name": "Build tools",
-      "items": "webpack, gulp, grunt..."
+      "items": "webpack, Gulp, grunt..."
     },
     {
       "name": "Servers",
@@ -247,7 +248,7 @@
     },
     {
       "name": "Databases",
-      "items": "MySQL, MongoDB, SQL Server, H2, SQLLite..."
+      "items": "MySQL, MongoDB, PostreSQL, SQL Server, H2, SQLLite..."
     },
     {
       "name": "Open sources",
