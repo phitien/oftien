@@ -355,15 +355,29 @@ h4 {
     }
     .editor {
       @include flex-width(40%);
-      display: block;
+      display: flex;
+      flex-direction: column;
       height: 100%;
       background-color: #fff;
       position: fixed;
       top: 0;
       right: 0;
+      .layout-select {
+        @include flex-height(44px);
+        width: 100%;
+        background-color: $cl-dark;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .jsoneditor-container {
+        display: flex;
+        flex: 1;
+        width: 100%;
+      }
     }
     .fixed.top {
-      top: 2 * $s-space;
+      top: 4px;
     }
   }
 }

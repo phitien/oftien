@@ -4,6 +4,7 @@ import classnames from "classnames";
 import Component from "./Component";
 
 export class Page extends Component {
+  state = { layout: null };
   static layouts = [].merge(
     ["Main"], //empty
     //cols layouts

@@ -88,7 +88,10 @@ export default class Main extends Page {
         ? { dangerouslySetInnerHTML: { __html: children } }
         : { children };
     return (
-      <div className={`section ${heading.replace(/[\W]/g, "_").lower()}`}>
+      <div
+        key={heading}
+        className={`section ${heading.replace(/[\W]/g, "_").lower()}`}
+      >
         <h3 className="heading">{heading.ucfirst()}</h3>
         <div className="blocks" {...props} />
       </div>
@@ -145,7 +148,7 @@ export default class Main extends Page {
   renderSectionBlock(o, i) {
     if (!o) return null;
     if (typeof o === "string") {
-      return <div dangerouslySetInnerHTML={{ __html: o }} />;
+      return <div key={uuidv4()} dangerouslySetInnerHTML={{ __html: o }} />;
     } else if (typeof o === "object") {
       const { name, items } = o;
       return items
@@ -314,9 +317,27 @@ export default class Main extends Page {
       <div
         key="editor"
         className="editor"
-        ref={e => (this.editorDom = e)}
-        style={{ display: editing ? "block" : "none" }}
-      />
+        style={{ display: editing ? "flex" : "none" }}
+      >
+        <div className="layout-select">
+          <select
+            value={this.layout}
+            onChange={e => {
+              const hash = global.location.hash
+                .split("&")
+                .filter(o => !/layout=.*/g.test(o));
+              global.location.hash = [...hash, `layout=${e.target.value}`].join(
+                "&"
+              );
+            }}
+          >
+            <option value="Left_Main">Left_Main</option>
+            <option value="Main_Right">Main_Right</option>
+            <option value="Left_Main_Right">Left_Main_Right</option>
+          </select>
+        </div>
+        <div className="jsoneditor-container" ref={e => (this.editorDom = e)} />
+      </div>
     );
   }
 }
