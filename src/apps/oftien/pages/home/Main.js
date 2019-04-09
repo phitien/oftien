@@ -22,12 +22,7 @@ export default class Main extends Page {
 
   state = {
     editing: false,
-    username: this.props.match.params.username || "oftien",
-    layout: {
-      main: ["experiences", "projects"],
-      left: ["skills", "education"],
-      right: ["skills", "education"]
-    }
+    username: this.props.match.params.username || "oftien"
   };
 
   get layoutDom() {
@@ -35,6 +30,15 @@ export default class Main extends Page {
   }
   get username() {
     return this.state.username;
+  }
+  get settings() {
+    return {
+      main: ["experiences", "projects"],
+      left: ["skills", "education"],
+      right: ["skills", "education"],
+      avatarMargin: "0 0",
+      ...this.state.settings
+    };
   }
 
   async componentDidMount() {
@@ -54,10 +58,8 @@ export default class Main extends Page {
     );
   }
   getSections(p) {
-    const sections =
-      this.state.layout && this.state.layout[p]
-        ? [].merge(this.state.layout[p])
-        : [];
+    const { settings } = this;
+    const sections = settings && settings[p] ? [].merge(settings[p]) : [];
     const state = this.state;
     return sections.reduce((rs, k) => {
       if (state.hasOwnProperty(k)) rs[k] = state[k];
@@ -68,12 +70,16 @@ export default class Main extends Page {
     const { JSONEditor } = global;
     if (JSONEditor)
       this.editor = new JSONEditor(this.editorDom, {
+        // maxVisibleChilds: 4,
         onChange: () => this.setState(this.editor.get())
       });
   }
   onShowHideEditor = () => {
     const data = Object.omit(this.state, "editing", "username", "className");
     this.editor.set(data);
+  };
+  onSave = e => {
+    this.props.ApplicationAddPopup("To be available when my laptop is back");
   };
 
   renderSection(heading, children) {
@@ -149,9 +155,9 @@ export default class Main extends Page {
     return null;
   }
   renderMain() {
-    const { state } = this;
-    const { info, avatar, avatarMargin } = state;
-    const { name, occupation, quote, intro, funny } = info || {};
+    const { state, settings } = this;
+    const { info } = state;
+    const { name, avatar, occupation, quote, intro, funny } = info || {};
     const { keywords, author, description } = info || {};
     const sections = this.getSections("main");
     return (
@@ -167,7 +173,7 @@ export default class Main extends Page {
             className="avatar"
             style={{
               backgroundImage: `url(${avatar})`,
-              backgroundPosition: avatarMargin || "0 0"
+              backgroundPosition: settings.avatarMargin
             }}
           />
           <div className="info">
@@ -256,8 +262,9 @@ export default class Main extends Page {
     return [
       <div key="top" className="fixed top">
         <Button icon="fas fa-print" onClick={e => global.print()} />
+        {editing ? <Button icon="fas fa-save" onClick={this.onSave} /> : null}
         <Button
-          icon={editing ? "fas fa-save" : "far fa-edit"}
+          icon={editing ? "far fa-times-circle" : "far fa-edit"}
           onClick={e => {
             const { editing } = this.state;
             this.setState(

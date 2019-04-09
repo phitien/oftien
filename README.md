@@ -19,3 +19,9 @@ Runs the command at the first time you clone the project to install node modules
 
 Runs the app in the development mode.<br>
 Open [http://localhost:2810](http://localhost:2810) to view it in the browser.
+
+- const {api, apis, dispatch} = global
+- api(apis.Application.config).then(res => dispatch({
+  -- type: 'ApplicationNotify',
+  -- payload: {message: "OK", ...res}
+- }))

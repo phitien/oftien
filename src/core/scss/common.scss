@@ -87,12 +87,6 @@ body {
       }
     }
   }
-  .btn {
-    .image-icon {
-      width: 14px;
-      margin-right: 4px;
-    }
-  }
   .space {
     flex: 1;
   }
@@ -243,9 +237,16 @@ body {
     svg {
       margin-right: 8px;
     }
+    .image-icon {
+      width: 14px;
+      margin-right: 4px;
+    }
     &.no-name {
       padding: 0;
       width: 36px;
+      svg {
+        margin-right: 0;
+      }
       i:before {
         margin-right: 0;
       }
@@ -329,6 +330,71 @@ body {
       box-shadow: 1px 3px 11px rgba(0, 0, 0, 0.7);
       background-color: #00b3c8;
       color: black;
+    }
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    &.no-overlay {
+      position: initial;
+      top: initial;
+      right: initial;
+      bottom: initial;
+      left: initial;
+      z-index: initial;
+    }
+    &.popup {
+      background-color: rgba(0, 0, 0, 0.7);
+      .wrapper {
+        padding: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 0 2px black;
+        display: flex;
+        flex-direction: column;
+        .header {
+          @include flex-height(36px);
+          background-color: #333333;
+          display: flex;
+          position: relative;
+          padding: 0 4px;
+          margin: 0 0;
+          .btn {
+            @include flex-width(24px);
+            @include flex-height(24px);
+            border: none;
+            margin: 0 4px;
+          }
+          .actions {
+            position: absolute;
+            top: calc(50% - 12px);
+            right: 4px;
+          }
+        }
+        .content {
+          background-color: #676767;
+          padding: 8px 16px;
+          flex: 1;
+        }
+        &:hover {
+          box-shadow: 0 0 3px white;
+        }
+      }
+      &.maximize {
+        .wrapper {
+          width: 100%;
+          height: 100%;
+          border-radius: 0;
+        }
+      }
     }
   }
 }

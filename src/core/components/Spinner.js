@@ -6,22 +6,15 @@ import Component from "./Component";
 
 export class Spinner extends Component {
   renderComponent() {
-    const { size, overlay, inside, className } = this.props;
+    const { size, overlay, className } = this.props;
     const render = () => (
       <CircularProgress
-        size={size || inside ? 24 : 40}
-        className={classnames("spinner", overlay !== false ? "" : className)}
+        size={size || overlay === false ? 24 : 40}
+        className={classnames("spinner", overlay === false ? className : "")}
       />
     );
-    if (overlay !== false)
-      return (
-        <div
-          className={classnames("overlay", inside ? "inside" : "", className)}
-        >
-          {render()}
-        </div>
-      );
-    return render();
+    if (overlay === false) return render();
+    return <div className={classnames("overlay", className)}>{render()}</div>;
   }
 }
 export default Spinner;

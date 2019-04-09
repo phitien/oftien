@@ -36,7 +36,7 @@ global.models = {};
 global.reducers = {};
 global.actions = {};
 global.apis = {};
-global.dispatchLog = (...args) => {
+global.dispatch = global.dispatchLog = (...args) => {
   if (logging) console.log("dispatchLog", ...args);
   return global.store.dispatch(...args);
 };
@@ -44,7 +44,8 @@ global.dispatchAll = async (payload, ...acts) => {
   acts = [].merge(...acts);
   return Promise.all(acts.map(type => global.dispatchLog({ type, payload })));
 };
-const models = require(`../apps/${app}/models`);
+const coreModels = require(`./models`);
+const models = { ...coreModels, ...require(`../apps/${app}/models`) };
 Object.keys(models).map(name => {
   if (models[name]) {
     const { defaultState, reducer, actions, apis } = models[name];

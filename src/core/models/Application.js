@@ -6,21 +6,59 @@ defaultState.user = {};
 defaultState.menu = [];
 export const actions = [].merge(
   ["LoadConfig", "LoadToken", "Authenticate", "Unauthorized", "Logout"],
-  ["Spinning", "ClearError", "AddError", "DismissNotification"]
+  ["Spinning"],
+  ["ClearError", "AddError", "Notify", "Warn", "RemoveNotification"],
+  ["AddPopup", "RemovePopup", "RemoveLastPopup", "RemoveAllPopup"]
 );
 export const apis = {
   config: {
-    url: `/apps/${app}/data/application.json`,
+    url: global.constants.config || `/apps/${app}/data/application.json`,
     success: "ApplicationLoadConfig",
-    failure: "NotificationNotify"
+    failure: "ApplicationAddError"
   }
 };
 export function reducer(state = defaultState, action) {
   const { type, payload } = action;
   const { tokenName } = global.constants;
-  if (type === "ApplicationDismissNotification") {
+  if (type === "ApplicationAddPopup") {
+    state.popups.push(payload);
+    return { ...state };
+  }
+  if (type === "ApplicationRemoveLastPopup") {
+    state.popups.pop();
+    return { ...state };
+  }
+  if (type === "ApplicationRemovePopup") {
+    const idx = state.popups.indexOf(payload);
+    if (idx >= 0) state.popups.splice(idx, 1);
+    return { ...state };
+  }
+  if (type === "ApplicationRemoveAllPopup") {
+    return { ...state, popups: [] };
+  }
+  if (type === "ApplicationRemoveNotification") {
     const idx = state.notifications.indexOf(payload);
     if (idx >= 0) state.notifications.splice(idx, 1);
+    return { ...state };
+  }
+  if (
+    type === "ApplicationAddError" ||
+    type === "ApplicationNotify" ||
+    type === "ApplicationWarn"
+  ) {
+    state.notifications.push({
+      type:
+        type === "ApplicationAddError"
+          ? "error"
+          : type === "ApplicationWarn"
+          ? "warning"
+          : "message",
+      ...(typeof payload === "string" ? { message: payload } : payload)
+    });
+    return { ...state };
+  }
+  if (type === "ApplicationClearError") {
+    state.notifications = state.notifications.filter(o => o.type !== "error");
     return { ...state };
   }
   if (type === "ApplicationSpinning") return { ...state, loading: payload };
@@ -41,13 +79,5 @@ export function reducer(state = defaultState, action) {
     localStorage.setItem(tokenName, "");
     return { ...state, token: null, user: {} };
   }
-  if (type === "ApplicationAddError") {
-    state.notifications.push({ type: "error", ...payload });
-    return { ...state };
-  }
-  if (type === "ApplicationClearError") {
-    state.notifications = state.notifications.filter(o => o.type !== "error");
-    return { ...state };
-  }
-  return { ...state };
+  return state || {};
 }

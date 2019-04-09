@@ -8,7 +8,7 @@ import Component from "./Component";
 export class Notification extends Component {
   componentDidMount() {
     setTimeout(
-      e => this.props.ApplicationDismissNotification(this.props.data),
+      e => this.props.ApplicationRemoveNotification(this.props.data),
       global.constants.notificationTimeout
     );
   }
@@ -26,7 +26,7 @@ export class Notification extends Component {
       <div
         className={classnames("notification", type, className)}
         title="Click to dismiss"
-        onClick={e => this.props.ApplicationDismissNotification(data)}
+        onClick={e => this.props.ApplicationRemoveNotification(data)}
       >
         {(message || "").toString()}
       </div>

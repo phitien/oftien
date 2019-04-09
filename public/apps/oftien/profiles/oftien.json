@@ -1,9 +1,4 @@
 {
-  "layout": {
-    "main": ["experiences", "projects"],
-    "left": ["skills", "education"],
-    "right": ["skills", "education"]
-  },
   "info": {
     "name": "Phi Tien",
     "occupation": "Senior UI Developer (Web & Mobile)",
@@ -12,10 +7,15 @@
     "funny": "of course if have a chance",
     "author": "Phi Tien<im.phitien@gmail.com",
     "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
-    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript"
+    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript",
+    "avatar": "/apps/oftien/profiles/oftien.png"
   },
-  "avatarMargin": "0px -18px",
-  "avatar": "/apps/oftien/profiles/oftien.png",
+  "settings": {
+    "main": ["experiences", "projects"],
+    "left": ["skills", "education"],
+    "right": ["skills", "education"],
+    "avatarMargin": "0px -18px"
+  },
   "education": [
     "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
   ],

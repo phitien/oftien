@@ -43,10 +43,10 @@ const headers = (global.headers = (opts, data, path) => {
   };
 });
 const api = (global.api = async (opts, data, path) => {
-  const { constants, dispatchLog, dispatchAll } = global;
+  const { constants, dispatch, dispatchAll } = global;
   const { spinner, dataField, before, after, success, failure } = opts;
   if (spinner !== false)
-    await dispatchLog({ type: "ApplicationSpinning", payload: true });
+    await dispatch({ type: "ApplicationSpinning", payload: true });
   await dispatchAll([opts, data, path], before);
   return fetch(url(opts, data, path), options(opts, data, path))
     .then(async res => {
@@ -55,8 +55,8 @@ const api = (global.api = async (opts, data, path) => {
         throw err;
       }
       if (res.status === 401)
-        await dispatchLog({ type: "ApplicationUnauthorized" });
-      else await dispatchLog({ type: "ApplicationClearError" });
+        await dispatch({ type: "ApplicationUnauthorized" });
+      else await dispatch({ type: "ApplicationClearError" });
       let json;
       try {
         json = await res.json();
@@ -67,12 +67,12 @@ const api = (global.api = async (opts, data, path) => {
       if (res.ok) {
         const { tokenName } = constants;
         if (json.hasOwnProperty(tokenName))
-          await dispatchLog({
+          await dispatch({
             type: "ApplicationAuthenticate",
             payload: json
           });
         if (json.error)
-          await dispatchLog({
+          await dispatch({
             type: "ApplicationAddError",
             payload: json.error
           });
@@ -88,14 +88,14 @@ const api = (global.api = async (opts, data, path) => {
     .catch(async err => {
       console.log("API: error", err);
       err = { error: true, type: "error", message: "Unknown error", ...err };
-      await dispatchLog({ type: "ApplicationAddError", payload: err });
+      await dispatch({ type: "ApplicationAddError", payload: err });
       await dispatchAll(err, failure);
       return err;
     })
     .then(async json => {
       await setTimeout(async () => {
         if (spinner !== false)
-          await dispatchLog({ type: "ApplicationSpinning", payload: false });
+          await dispatch({ type: "ApplicationSpinning", payload: false });
         await await dispatchAll(json, after);
       }, 1000);
       return json;

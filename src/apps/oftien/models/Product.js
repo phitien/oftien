@@ -50,14 +50,14 @@ export const apis = {
     method: "get",
     url: `https://api.101digital.io:8243/imp-service/v0.0.1/products`,
     success: "ProductList",
-    failure: "NotificationNotify"
+    failure: "ApplicationAddError"
   },
   confirm: {
     method: "post",
     dataField: "data",
     url: `https://api.101digital.io:8243/imp-service/v0.0.1/orders`,
     success: "ProductOrderResult",
-    failure: "NotificationNotify"
+    failure: "ApplicationAddError"
   }
 };
 export function reducer(state = defaultState, action) {
