@@ -343,31 +343,44 @@ $font-size-section-heading: 26px;
         }
       }
     }
+    &.editing {
+      .layout {
+        @include flex-width(0%);
+      }
+      .editor {
+        @include flex-width(calc(100% - 4px));
+        display: block;
+        height: calc(100% - 4px);
+        background-color: #fff;
+        position: fixed;
+        top: 2px;
+        right: 2px;
+      }
+    }
   }
 }
 @media screen and (max-width: 600px) {
   .page.page-home-main {
-    .heading {
-      .role {
-        margin: 0 0;
-        padding-left: 0;
-        display: block;
-        border-left: none;
-      }
-      .location {
-        display: block;
-        &:before {
-          content: "";
-        }
-      }
-      .period {
-        display: block;
-      }
-    }
     .section {
       padding-bottom: $s-space;
       h3 {
         margin: $s-space 0 16px;
+      }
+    }
+    .experiences {
+      .role {
+        font-size: 14px;
+        padding-left: 0;
+        margin-left: 4px;
+        border-left: none;
+        color: $cl-highlight;
+      }
+      .location {
+        display: block;
+        &:before,
+        &:after {
+          display: none;
+        }
       }
     }
     .layout {
