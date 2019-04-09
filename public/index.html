@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="theme-color" content="#000000" />
+    <title>%REACT_APP_webName%</title>
+    <meta name="keywords" content="%REACT_APP_webKeywords%" />
+    <meta name="author" content="%REACT_APP_webAuthor%" />
+    <meta name="description" content="%REACT_APP_webDescription%" />
+    <link rel="manifest" href="/apps/%REACT_APP_app%/manifest.json" />
+    <link
+      rel="sitemap"
+      type="application/xml"
+      title="Sitemap"
+      href="/apps/%REACT_APP_app%/sitemap.xml"
+    />
     <!--link
       rel="icon"
       type="image/png"
@@ -14,16 +26,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="theme-color" content="#000000" />
-    <link rel="manifest" href="/apps/%REACT_APP_app%/manifest.json" />
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="/apps/%REACT_APP_app%/sitemap.xml"
-    />
-
+    <!-- fontawesome -->
     <link rel="stylesheet" href="/fontawesome/css/all.css" />
+    <!-- Roboto fonts -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600"
@@ -32,11 +37,10 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,500,600"
     />
+    <!-- JSONEditor -->
+    <link rel="stylesheet" href="jsoneditor/dist/jsoneditor.min.css" />
+    <script src="jsoneditor/dist/jsoneditor.min.js"></script>
 
-    <title>%REACT_APP_webName%</title>
-    <meta name="keywords" content="%REACT_APP_webKeywords%" />
-    <meta name="author" content="%REACT_APP_webAuthor%" />
-    <meta name="description" content="%REACT_APP_webDescription%" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async

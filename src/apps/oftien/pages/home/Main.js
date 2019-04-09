@@ -46,19 +46,25 @@ export default class Main extends Page {
       else me.removeClass("scrolling");
     });
     this.loadProfile();
+    this.createEditor();
   }
-  updateMetadata = () => {
-    const { info } = this.state;
-    // document.title = `${info.name}'s profile'`;
-  };
   loadProfile() {
     const { username } = this;
     loadProfile(username).then(res =>
-      res.error
-        ? false
-        : this.setState({ ...res, username }, this.updateMetadata)
+      res.error ? false : this.setState({ ...res, username })
     );
   }
+  createEditor() {
+    const { JSONEditor } = global;
+    if (JSONEditor)
+      this.editor = new JSONEditor(this.editorDom, {
+        onChange: () => this.setState(this.editor.get())
+      });
+  }
+  onShowHideEditor = () => {
+    const data = Object.omit(this.state, "editing", "username");
+    this.editor.set(data);
+  };
 
   renderSection(heading, children) {
     const props =
@@ -182,6 +188,7 @@ export default class Main extends Page {
           {o.whatsapp ? (
             <a
               target="_blank"
+              rel="noopener noreferrer"
               className="whatsapp"
               href={`https://wa.me/${o.value.replace(/[\W]/g, "")}${
                 o.whatsapp_query
@@ -207,6 +214,7 @@ export default class Main extends Page {
               key={i}
               className={o.type}
               target={o.external ? "_blank" : ""}
+              rel="noopener noreferrer"
               href={getHref(o)}
             >
               {o.value}
@@ -224,7 +232,13 @@ export default class Main extends Page {
         <Button icon="fas fa-print" onClick={e => global.print()} />
         <Button
           icon={editing ? "fas fa-save" : "far fa-edit"}
-          onClick={e => this.setState({ editing: !this.state.editing })}
+          onClick={e => {
+            const { editing } = this.state;
+            this.setState(
+              { editing: !editing, className: editing ? "" : "editing" },
+              this.onShowHideEditor
+            );
+          }}
         />
       </div>,
       <div key="bottom" className="fixed bottom">
@@ -254,26 +268,15 @@ export default class Main extends Page {
       </div>
     );
   }
-  renderComponent() {
-    const { editing, username } = this.state;
-    const { info, avatar, experiences, projects, skills, contact } = this.state;
-    const data = { info, avatar, experiences, projects, skills, contact };
-    if (!editing) return super.renderComponent();
+  renderExtra() {
+    const { editing } = this.state;
     return (
-      <div className={this.className}>
-        <div className="editor">
-          <textarea
-            value={JSON.stringify(data, undefined, 2)}
-            onChange={e => {
-              try {
-                const json = JSON.parse(e.target.value);
-                this.setState(json);
-              } catch (e) {}
-            }}
-          />
-        </div>
-        {this.renderButtons()}
-      </div>
+      <div
+        key="editor"
+        className="editor"
+        ref={e => (this.editorDom = e)}
+        style={{ display: editing ? "block" : "none" }}
+      />
     );
   }
 }
