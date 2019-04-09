@@ -79,7 +79,30 @@ export default class Main extends Page {
     this.editor.set(data);
   };
   onSave = e => {
-    this.props.ApplicationAddPopup("To be available when my laptop is back");
+    const onChangeUsername = e => {
+      e.target.value = e.target.value.replace(/[\W_]/g, "-");
+      this.setState({ username: e.target.value });
+    };
+    this.props.ApplicationAddPopup(
+      <div
+        className="fieldgroup"
+        confirm={e =>
+          this.props.ApplicationAddError(
+            "To be available when my laptop is back"
+          )
+        }
+      >
+        <div className="field">
+          <div className="field-label">Username</div>
+          <input
+            type="text"
+            placeholder="Username"
+            defaultValue={this.username}
+            onChange={onChangeUsername}
+          />
+        </div>
+      </div>
+    );
   };
 
   renderSection(heading, children) {

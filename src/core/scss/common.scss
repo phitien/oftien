@@ -117,15 +117,22 @@ body {
     margin: 0;
     padding: 0;
     border: none;
-    font-size: 110%;
-    color: white;
+    font-size: 13px;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="password"],
+  input[type="number"] {
+    height: 28px;
+    padding: 0 4px;
   }
   select {
     outline: none;
     margin: 0;
     padding: 0;
     border: none;
-    font-size: 110%;
+    font-size: 13px;
     border-radius: 0;
     border: 1px solid;
     height: 28px;
