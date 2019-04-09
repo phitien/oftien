@@ -29,25 +29,23 @@ $font-size-section-heading: 26px;
   h4 {
     color: $cl-dark;
     margin: 0 0 8px;
+    font-weight: 500;
+    font-size: 17px;
   }
   .heading {
     .name {
     }
   }
-  .role {
-    margin: 0 0 0 12px;
-    display: inline-block;
-    padding-left: 12px;
-    border-left: 1px solid;
-  }
   .location {
     opacity: 0.6;
     font-size: 13px;
     &:before {
-      content: ", ";
+      content: "|";
+      margin: 0 4px;
     }
     &:after {
-      content: ", ";
+      content: "|";
+      margin: 0 4px;
     }
   }
   .period {
@@ -61,7 +59,6 @@ $font-size-section-heading: 26px;
   .description {
     display: block;
   }
-
   .fixed {
     right: $s-space;
     z-index: 1;
@@ -97,6 +94,45 @@ $font-size-section-heading: 26px;
   .editor {
     display: none;
   }
+  .company {
+    color: $cl-highlight;
+    opacity: 1;
+  }
+  .experiences {
+    .block > h4 {
+      display: none;
+    }
+    .name {
+      @extend h4;
+    }
+    .role {
+      @extend h4;
+      margin: 0 0 0 12px;
+      display: inline-block;
+      padding-left: 12px;
+      border-left: 1px solid;
+    }
+  }
+  .projects {
+    .name {
+      display: none;
+    }
+    .company {
+      &:before {
+        content: " at ";
+        color: $cl-dark;
+      }
+    }
+    .used {
+      font-size: 90%;
+      opacity: 0.7;
+      display: block;
+      &:before {
+        content: "Used: ";
+        color: $cl-highlight;
+      }
+    }
+  }
   .layout {
     @include flex-width(1024px);
     background-color: white;
@@ -114,7 +150,7 @@ $font-size-section-heading: 26px;
           @include flex-width(120px);
           height: 120px;
           border-radius: 50%;
-          background-image: none !important;
+          background-color: $cl-lightgrey;
           background-repeat: no-repeat;
           background-position: 0px -18px;
           background-size: 120px auto;
@@ -156,7 +192,7 @@ $font-size-section-heading: 26px;
     }
     .left,
     .right {
-      @include flex-width(210px);
+      @include flex-width(25%);
       .wrraper {
         .contact {
           height: $overview-h + $space;

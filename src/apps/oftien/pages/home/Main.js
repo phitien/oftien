@@ -53,6 +53,17 @@ export default class Main extends Page {
       res.error ? false : this.setState({ ...res, username })
     );
   }
+  getSections(p) {
+    const sections =
+      this.state.layout && this.state.layout[p]
+        ? [].merge(this.state.layout[p])
+        : [];
+    const state = this.state;
+    return sections.reduce((rs, k) => {
+      if (state.hasOwnProperty(k)) rs[k] = state[k];
+      return rs;
+    }, {});
+  }
   createEditor() {
     const { JSONEditor } = global;
     if (JSONEditor)
@@ -71,8 +82,8 @@ export default class Main extends Page {
         ? { dangerouslySetInnerHTML: { __html: children } }
         : { children };
     return (
-      <div className="section">
-        <h3 className="heading">{heading}</h3>
+      <div className={`section ${heading.replace(/[\W]/g, "_").lower()}`}>
+        <h3 className="heading">{heading.ucfirst()}</h3>
         <div className="blocks" {...props} />
       </div>
     );
@@ -83,8 +94,11 @@ export default class Main extends Page {
         ? { dangerouslySetInnerHTML: { __html: children } }
         : { children };
     return (
-      <div key={i || uuidv4()} className="block">
-        <h4 className="heading">{heading}</h4>
+      <div
+        key={i || uuidv4()}
+        className={`block ${heading.replace(/[\W]/g, "_").lower()}`}
+      >
+        <h4 className="heading">{heading.ucfirst()}</h4>
         <div {...props} />
       </div>
     );
@@ -139,13 +153,7 @@ export default class Main extends Page {
     const { info, avatar, avatarMargin } = state;
     const { name, occupation, quote, intro, funny } = info || {};
     const { keywords, author, description } = info || {};
-    const sections = (this.state.layout && this.state.layout.main
-      ? [].merge(this.state.layout.main)
-      : []
-    ).reduce((rs, k) => {
-      if (state.hasOwnProperty(k)) rs[k] = state[k];
-      return rs;
-    }, {});
+    const sections = this.getSections("main");
     return (
       <div className="wrraper">
         <Helmet>
@@ -175,7 +183,7 @@ export default class Main extends Page {
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
             this.renderSection(
-              k.ucfirst(),
+              k,
               []
                 .merge(sections[k])
                 .map((o, i) => this.renderSectionBlock(o, i)),
@@ -269,29 +277,10 @@ export default class Main extends Page {
     ];
   }
   renderRight() {
-    const sections =
-      this.state.layout && this.state.layout.right
-        ? [].merge(this.state.layout.right)
-        : [];
-    return this.renderSide(
-      sections.reduce((rs, k) => {
-        if (sections.hasOwnProperty(k)) rs[k] = sections[k];
-        return rs;
-      }, {})
-    );
+    return this.renderSide(this.getSections("right"));
   }
   renderLeft() {
-    const sections =
-      this.state.layout && this.state.layout.left
-        ? [].merge(this.state.layout.left)
-        : [];
-    const state = this.state;
-    return this.renderSide(
-      sections.reduce((rs, k) => {
-        if (state.hasOwnProperty(k)) rs[k] = state[k];
-        return rs;
-      }, {})
-    );
+    return this.renderSide(this.getSections("left"));
   }
   renderSide(sections) {
     return (
@@ -301,7 +290,7 @@ export default class Main extends Page {
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
             this.renderSection(
-              k.ucfirst(),
+              k,
               []
                 .merge(sections[k])
                 .map((o, i) => this.renderSectionBlock(o, i)),
