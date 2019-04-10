@@ -78,7 +78,8 @@ h4 {
   font-size: 17px;
 }
 .page.page-home-main {
-  background: $cl-bg url(/apps/oftien/assets/bg1.png) no-repeat center bottom;
+  background: $cl-bg url(/static/apps/oftien/assets/bg1.png) no-repeat center
+    bottom;
   background-size: cover;
   padding: 4px 0;
   .heading {

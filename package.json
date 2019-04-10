@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "bin": {
-    "apa": "./bin/index.js"
+    "oftien": "./bin/index.js"
   },
   "devDependencies": {
     "babel-plugin-wildcard": "^5.0.0",

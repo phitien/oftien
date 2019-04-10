@@ -7,7 +7,7 @@ const { constants } = global;
 
 /** Uploader **/
 const multer = require("multer");
-const uploadsDir = "./public/uploads/";
+const uploadsDir = "./public/static/.tmp/";
 !fs.existsSync(uploadsDir) && fs.mkdirSync(uploadsDir);
 const uploader = multer({
   storage: multer.diskStorage({
@@ -22,6 +22,7 @@ const uploader = multer({
 
 const socketSetup = app => {
   const io = (app.io = require("socket.io")());
+  io.origins("*:*");
   io.on("connection", function(client) {
     app.io = this;
     client.emit({ type: "socket.connected" });

@@ -12,7 +12,7 @@ export const actions = [].merge(
 );
 export const apis = {
   config: {
-    url: global.constants.config || `/apps/${app}/data/application.json`,
+    url: global.constants.config || `/static/apps/${app}/data/info.json`,
     success: "ApplicationLoadConfig",
     failure: "ApplicationAddError"
   }

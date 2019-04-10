@@ -10,7 +10,7 @@ export const loadProfile = async username => {
   username = !username || username === ":username" ? "oftien" : username;
   const { api } = global;
   return api({
-    url: `/apps/oftien/profiles/${username}.json`
+    url: `/static/apps/oftien/cv/${username}.json`
   });
 };
 

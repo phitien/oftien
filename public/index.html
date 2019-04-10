@@ -7,12 +7,12 @@
     <meta name="keywords" content="%REACT_APP_webKeywords%" />
     <meta name="author" content="%REACT_APP_webAuthor%" />
     <meta name="description" content="%REACT_APP_webDescription%" />
-    <link rel="manifest" href="/apps/%REACT_APP_app%/manifest.json" />
+    <link rel="manifest" href="/static/apps/%REACT_APP_app%/manifest.json" />
     <link
       rel="sitemap"
       type="application/xml"
       title="Sitemap"
-      href="/apps/%REACT_APP_app%/sitemap.xml"
+      href="/static/apps/%REACT_APP_app%/sitemap.xml"
     />
     <!--link
       rel="icon"
@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- fontawesome -->
-    <link rel="stylesheet" href="/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css" />
     <!-- Roboto fonts -->
     <link
       rel="stylesheet"
@@ -38,23 +38,16 @@
       href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,500,600"
     />
     <!-- JSONEditor -->
-    <link rel="stylesheet" href="jsoneditor/dist/jsoneditor.min.css" />
-    <script src="jsoneditor/dist/jsoneditor.min.js"></script>
+    <link rel="stylesheet" href="/static/jsoneditor/dist/jsoneditor.min.css" />
+    <script src="/static/jsoneditor/dist/jsoneditor.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_googleAnalyticsTrackingId%"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_googleAnalyticsTrackingId%"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "%REACT_APP_googleAnalyticsTrackingId%");
-    </script>
+    window.dataLayer = window.dataLayer || []; function gtag() {
+dataLayer.push(arguments); } gtag("js", new Date()); gtag("config",
+"%REACT_APP_googleAnalyticsTrackingId%");
+</script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
