@@ -26,7 +26,7 @@ export default class Main extends Page {
   };
 
   get layoutDom() {
-    return global.$(`.page.page-home-${this.constructor.name.lower()} .layout`);
+    return global.$(`.page.page-home-${this.constructor.name.lower()}`);
   }
   get username() {
     return this.state.username;
