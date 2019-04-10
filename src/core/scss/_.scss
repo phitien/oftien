@@ -1,6 +1,6 @@
 $font-family: roboto-condensed, sans-serif;
 $font-size: 14px;
-$line-height: 17px;
+$line-height: 20px;
 
 $left-col-width: 280px;
 $right-col-width: 280px;
@@ -14,3 +14,45 @@ $scrollbar-thumb-border: none;
 $scrollbar-track-bg: transparent;
 $scrollbar-track-border: none;
 $scrollbar-btn-bg: transparent;
+
+$cl-red: #ff6464;
+$cl-green: #51aa66;
+$cl-blue: #06a4df;
+$cl-yellow: #f8d800;
+$cl-black: #000;
+$cl-grey: #505050;
+$cl-lightgrey: #ebebeb;
+$cl-white: #fff;
+$cl-highlight: $cl-blue;
+
+$bg-body: #565656;
+
+$form-el-height: 32px;
+
+$input-font-size: 14px;
+$input-line-height: $form-el-height;
+$input-padding: 0 4px;
+$input-text-color: #cecece;
+$input-bg-color: #fff;
+$input-border: 1px solid;
+
+$textarea-font-size: $input-font-size;
+$textarea-line-height: $input-line-height;
+$textarea-padding: $input-padding;
+$textarea-text-color: $input-text-color;
+$textarea-bg-color: $input-bg-color;
+$textarea-border: $input-border;
+
+$select-font-size: $input-font-size;
+$select-line-height: $input-line-height;
+$select-padding: $input-padding;
+$select-text-color: $input-text-color;
+$select-bg-color: $input-bg-color;
+$select-border: $input-border;
+
+$btn-font-size: 20px;
+$btn-line-height: $input-line-height;
+$btn-padding: 0 12px;
+$btn-text-color: #fff;
+$btn-bg-color: #333333;
+$btn-border: $input-border;

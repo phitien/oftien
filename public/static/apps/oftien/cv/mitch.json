@@ -1,21 +1,26 @@
 {
-  "layout": {
-    "main": ["experiences", "projects"],
-    "left": ["skills", "education"],
-    "right": ["skills", "education"]
-  },
   "info": {
-    "name": "Tien Doan (Mitch)",
+    "name": "Mitch Doan",
     "occupation": "Senior UI Developer (Web & Mobile)",
     "quote": "Love what we do, do what we love. Life is now & happiness is you.",
     "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT",
     "funny": "of course if have a chance",
-    "author": "Doan Mitch<doan.mitch@gmail.com",
+    "author": "Phi Tien<im.phitien@gmail.com",
     "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
-    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript"
+    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript",
+    "avatar": "https://media.licdn.com/dms/image/C5103AQGB7r_dU-P2hQ/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=Zqr9mkxageXgo_0u9pscyFxIQMyBxcnph3vmzh1wROE",
+    "birthday": "1984-10-28",
+    "gender": "Male",
+    "maried status": "Single"
   },
-  "avatarMargin": "0px 0px",
-  "avatar": "https://media.licdn.com/dms/image/C5103AQGB7r_dU-P2hQ/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=Zqr9mkxageXgo_0u9pscyFxIQMyBxcnph3vmzh1wROE",
+  "settings": {
+    "main": ["experiences", "projects"],
+    "left": ["skills", "education"],
+    "right": ["skills", "education"],
+    "info": ["occupation", "quote", "intro", "birthday"],
+    "contact": ["website", "github", "email", "skype", "mobile", "address"],
+    "avatarMargin": "0px 0px"
+  },
   "education": [
     "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
   ],
@@ -25,26 +30,26 @@
       "protocol": "http://",
       "external": true,
       "query": "",
-      "value": "info.oftien.com/mitch"
+      "value": "info.oftien.com"
     },
     {
       "type": "github",
       "protocol": "https://github.com/",
       "external": true,
       "query": "",
-      "value": "mitch"
+      "value": "phitien"
     },
     {
       "type": "email",
       "protocol": "mailto:",
       "query": "subject=[OfTien] Contact for an opportunity&body=Hello Tien,",
-      "value": "doan.mitch@gmail.com"
+      "value": "im.phitien@gmail.com"
     },
     {
       "type": "skype",
       "protocol": "skype:",
       "query": "?userinfo",
-      "value": "doan.mitch"
+      "value": "im.phitien"
     },
     {
       "type": "mobile",
@@ -121,98 +126,98 @@
       "name": "AI Process Automation (APA)",
       "role": "Frontend Lead, Architect",
       "company": "Amaris.AI",
-      "used": "",
+      "used": "ReactJS, SailJS, Python, MongoDB, TagUI, Ludwig, CDAP, GoJS, EchartsJS, HTML, CSS, SASS, Docker",
       "description": ""
     },
     {
       "name": "SOZO Platform for vegetable commodity trading",
       "role": "Frontend Lead, Architect",
       "company": "PureCode",
-      "used": "",
+      "used": "PHP, jQuery, MySQL, Firebase, Html, CSS",
       "description": ""
     },
     {
       "name": "ICO Landing Page template",
       "role": "Frontend Lead, Architect",
       "company": "PureCode",
-      "used": "",
+      "used": "Gulp, NodeJS, HTML, CSS, SASS, JavaScript",
       "description": ""
     },
     {
       "name": "No-Frontend Framework",
       "role": "Frontend Lead, Architect",
       "company": "SCB",
-      "used": "",
+      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "description": ""
     },
     {
       "name": "Web app generator",
       "role": "Frontend Lead, Architect",
       "company": "PureCode",
-      "used": "",
+      "used": "ReactJS, Gulp, MongoDB, D3, jQuery, Bootstrap, Material Design",
       "description": ""
     },
     {
       "name": "Hybrid Mobile app generator",
       "role": "Frontend Lead, Architect",
       "company": "PureCode",
-      "used": "",
+      "used": "React Native, Material Design Icons, NativeBase",
       "description": ""
     },
     {
       "name": "Crowdfunding solution",
       "role": "Frontend Lead, Architect",
       "company": "Golden Equator Consulting",
-      "used": "",
+      "used": "ReactJS, Django, Wordpress, Python, PostreSQL",
       "description": ""
     },
     {
       "name": "Smarthome, IOT mobile app",
       "role": "Native IOS Dev",
       "company": "Bosch Software Innovations",
-      "used": "",
+      "used": "Objective C, C++, cocoapods, SQLLite, Xcode",
       "description": ""
     },
     {
       "name": "Acvitve Parking Lots Manager",
       "role": "Native Android Dev",
       "company": "Bosch Software Innovations",
-      "used": "",
+      "used": "Java, SQLLite, Android Studio, Gradle",
       "description": ""
     },
     {
       "name": "BOSCH secured truck parking",
       "role": "Native Android Dev",
       "company": "Bosch Software Innovations",
-      "used": "",
+      "used": "Java, SQLLite, Android Studio, Gradle",
       "description": ""
     },
     {
       "name": "Visual Rules WebModeller",
       "role": "Frontend Dev",
       "company": "Bosch Software Innovations",
-      "used": "",
+      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, Eclipse Plugin, Java, Spring boot framework, Maven",
       "description": ""
     },
     {
       "name": "Business Data Repository.",
       "role": "Frontend Dev",
       "company": "Bosch Software Innovations",
-      "used": "",
+      "used": "ExtJS, Bootstrap, Html, CSS, SASS, Gulp, jQuery, D3, Eclipse Plugin, Java, Spring boot framework, Maven",
       "description": ""
     },
     {
       "name": "Online Shipping Services(OSS)",
       "role": "Tech Lead",
       "company": "FPT Software",
-      "used": "",
+      "used": "Zend framework, MySQL, jQuery, Html, CSS, SASS",
       "description": ""
     },
     {
       "name": "Mailroom",
       "role": "Tech Lead",
       "company": "FPT Software",
-      "used": "",
+      "used": "Zend framework, MySQL, jQuery, Html, CSS, SASS",
       "description": ""
     },
     {
@@ -238,7 +243,7 @@
     },
     {
       "name": "Build tools",
-      "items": "webpack, gulp, grunt..."
+      "items": "webpack, Gulp, grunt..."
     },
     {
       "name": "Servers",
@@ -258,7 +263,7 @@
     },
     {
       "name": "Databases",
-      "items": "MySQL, MongoDB, SQL Server, H2, SQLLite..."
+      "items": "MySQL, MongoDB, PostreSQL, SQL Server, H2, SQLLite..."
     },
     {
       "name": "Open sources",

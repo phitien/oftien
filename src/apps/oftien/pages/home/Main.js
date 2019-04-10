@@ -4,7 +4,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import uuidv4 from "uuid/v4";
 
-import { Button, Icon, Page } from "../../../../core";
+import { Button, Icon, Space, Page } from "../../../../core";
 
 export const loadProfile = async username => {
   username = !username || username === ":username" ? "oftien" : username;
@@ -68,15 +68,33 @@ export default class Main extends Page {
   }
   createEditor() {
     const { JSONEditor } = global;
-    if (JSONEditor)
+    if (JSONEditor) {
       this.editor = new JSONEditor(this.editorDom, {
-        // maxVisibleChilds: 4,
         onChange: () => this.setState(this.editor.get())
       });
+      this.editorSettings = new JSONEditor(this.editorSettingsDom, {
+        onChange: () => this.setState({ settings: this.editorSettings.get() })
+      });
+    }
   }
   onShowHideEditor = () => {
-    const data = Object.omit(this.state, "editing", "username", "className");
+    const data = Object.omit(
+      this.state,
+      "settings",
+      "editing",
+      "username",
+      "className"
+    );
     this.editor.set(data);
+    this.editorSettings.set({
+      main: ["experiences", "projects"],
+      left: ["skills", "education"],
+      right: ["skills", "education"],
+      info: ["occupation", "quote", "intro", "birthday"],
+      contact: ["website", "github", "email", "skype", "mobile", "address"],
+      avatarMargin: "0px 0px",
+      ...this.state.settings
+    });
   };
   onSave = e => {
     const onChangeUsername = e => {
@@ -92,8 +110,8 @@ export default class Main extends Page {
           )
         }
       >
-        <div className="field">
-          <div className="field-label">Username</div>
+        <div className="inputfield">
+          <div className="label">Username</div>
           <input
             type="text"
             placeholder="Username"
@@ -180,10 +198,28 @@ export default class Main extends Page {
     }
     return null;
   }
+  renderInfo() {
+    const { state, settings } = this;
+    const info = state.info || {};
+    const infoFields = [].merge(settings.info);
+    const { name, avatar } = info || {};
+    return (
+      <div className="info">
+        <h2 className="name">{name}</h2>
+        {infoFields.map(f =>
+          info[f] ? (
+            <div key={f} className={f}>
+              {info[f]}
+            </div>
+          ) : null
+        )}
+      </div>
+    );
+  }
   renderMain() {
     const { state, settings } = this;
     const { info } = state;
-    const { name, avatar, occupation, quote, intro, funny } = info || {};
+    const { name, avatar } = info || {};
     const { keywords, author, description } = info || {};
     const sections = this.getSections("main");
     return (
@@ -202,15 +238,7 @@ export default class Main extends Page {
               backgroundPosition: settings.avatarMargin
             }}
           />
-          <div className="info">
-            <h2 className="name">{name}</h2>
-            <div className="occupation">{occupation}</div>
-            <div className="quote">{quote}</div>
-            <div className="intro">
-              {intro}
-              <span className="funny">{funny}</span>
-            </div>
-          </div>
+          {this.renderInfo()}
         </div>
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
@@ -227,13 +255,17 @@ export default class Main extends Page {
     );
   }
   renderContact() {
-    const { contact } = this.state;
-    if (!contact) return null;
+    const { state, settings } = this;
+    const contact = [].merge(state.contact);
+    const search = [].merge(settings.contact);
+    const fields = [];
+    contact.map(o => (search.includes(o.type) ? fields.push(o) : false));
+    if (!fields.length) return null;
     const getHref = o =>
       `${o.protocol}${o.value}${o.query ? `?${o.query}` : ""}`;
     const renderMobile = (o, i) => {
       return [
-        <span key={i} className="mobile">
+        <span key={i} className={o.type} data-name={o.type}>
           <a className="tel" href={`tel:${o.value.replace(/[\W]/g, "")}`}>
             {o.value}
           </a>
@@ -255,22 +287,25 @@ export default class Main extends Page {
               <Icon icon="fab fa-whatsapp" />
             </a>
           ) : null}
+          {o.viber ? <Icon icon="fab fa-viber" /> : null}
+          {o.wechat ? <Icon icon="fab fa-weixin" /> : null}
         </span>
       ];
     };
     return (
       <div className="contact">
-        {contact.map((o, i) =>
-          o.type === "mobile" ? (
+        {fields.map((o, i) =>
+          o.type === "mobile" || o.type === "phone" ? (
             renderMobile(o, i)
           ) : !o.protocol && !o.query ? (
-            <span key={i} className={o.type}>
+            <span key={i} className={o.type} data-name={o.type}>
               {o.value}
             </span>
           ) : (
             <a
               key={i}
               className={o.type}
+              data-name={o.type}
               target={o.external ? "_blank" : ""}
               rel="noopener noreferrer"
               href={getHref(o)}
@@ -286,7 +321,7 @@ export default class Main extends Page {
   renderButtons() {
     const { editing } = this.state;
     return [
-      <div key="top" className="fixed top">
+      <div key="top" className="fixed top no-printing">
         <Button icon="fas fa-print" onClick={e => global.print()} />
         {editing ? <Button icon="fas fa-save" onClick={this.onSave} /> : null}
         <Button
@@ -300,7 +335,10 @@ export default class Main extends Page {
           }}
         />
       </div>,
-      <div key="bottom" className="fixed bottom">
+      <div key="layout-options" className="fixed layout-options no-printing">
+        {this.renderLayoutOptions()}
+      </div>,
+      <div key="bottom" className="fixed bottom no-printing">
         <Button
           icon="fas fa-chevron-up"
           className="scroll-up"
@@ -334,31 +372,40 @@ export default class Main extends Page {
       </div>
     );
   }
+  renderLayoutOption(name) {
+    const hash = global.location.hash;
+    const parts = hash.split("&").filter(o => !/layout=.*/g.test(o));
+    const active = name === this.layout;
+    return (
+      <div
+        key={name}
+        title={name}
+        className={`layout-option ${name} ${active ? "active" : ""}`}
+        onClick={e => {
+          global.location.hash = [...parts, `layout=${name}`].join("&");
+        }}
+      />
+    );
+  }
+  renderLayoutOptions() {
+    return [
+      this.renderLayoutOption("Left_Main"),
+      this.renderLayoutOption("Left_Main_Right"),
+      this.renderLayoutOption("Main_Right")
+    ];
+  }
   renderExtra() {
     const { editing } = this.state;
     return (
       <div
         key="editor"
-        className="editor"
+        className="editor no-printing"
         style={{ display: editing ? "flex" : "none" }}
       >
-        <div className="layout-select">
-          <select
-            value={this.layout}
-            onChange={e => {
-              const hash = global.location.hash
-                .split("&")
-                .filter(o => !/layout=.*/g.test(o));
-              global.location.hash = [...hash, `layout=${e.target.value}`].join(
-                "&"
-              );
-            }}
-          >
-            <option value="Left_Main">Left_Main</option>
-            <option value="Main_Right">Main_Right</option>
-            <option value="Left_Main_Right">Left_Main_Right</option>
-          </select>
-        </div>
+        <div
+          className="jsoneditor-container jsoneditor-container-settings"
+          ref={e => (this.editorSettingsDom = e)}
+        />
         <div className="jsoneditor-container" ref={e => (this.editorDom = e)} />
       </div>
     );

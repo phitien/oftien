@@ -2,18 +2,31 @@
   "info": {
     "name": "Phi Tien",
     "occupation": "Senior UI Developer (Web & Mobile)",
-    "quote": "Love what we do, do what we love. Life is now & happiness is you.",
-    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT",
+    "quote": "Love what we do, do what we love. Life is now & happiness is you",
+    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT.",
     "funny": "of course if have a chance",
     "author": "Phi Tien<im.phitien@gmail.com",
     "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
     "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript",
-    "avatar": "/static/apps/oftien/cv/oftien.png"
+    "avatar": "/static/apps/oftien/cv/oftien.png",
+    "birthday": "1984-10-28",
+    "gender": "Male",
+    "maried status": "Single"
   },
   "settings": {
     "main": ["experiences", "projects"],
     "left": ["skills", "education"],
     "right": ["skills", "education"],
+    "info": ["occupation", "quote", "intro", "funny"],
+    "contact": [
+      "website",
+      "github",
+      "email",
+      "skype",
+      "mobile",
+      "phone",
+      "address"
+    ],
     "avatarMargin": "0px -18px"
   },
   "education": [
@@ -49,12 +62,16 @@
     {
       "type": "mobile",
       "whatsapp": true,
+      "viber": true,
+      "wechat": false,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
       "value": "(+65)85986657"
     },
     {
-      "type": "mobile",
+      "type": "phone",
       "whatsapp": true,
+      "viber": true,
+      "wechat": true,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
       "value": "(+84)946847882"
     },

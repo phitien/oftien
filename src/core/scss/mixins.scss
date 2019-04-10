@@ -1,3 +1,13 @@
+@mixin default_style() {
+  font-feature-settings: "liga";
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $line-height;
+  color: $cl-white;
+  background-color: $bg-body;
+  word-break: break-word;
+  text-overflow: ellipsis;
+}
 @mixin placeholder($color) {
   &::placeholder {
     color: $color;

@@ -1,15 +1,12 @@
-@import "../../../../core/scss/mixins";
+@import "../../../../core/scss/index";
 
 $space: 56px;
 $s-space: 24px;
 $overview-h: 125px;
-$cl-bg: #525659;
-$cl-highlight: #06a4df;
-$cl-dark: #000;
-$cl-grey: #505050;
-$cl-lightgrey: #ebebeb;
 $font-size-section-heading: 26px;
 $section-border: 2px solid $cl-lightgrey;
+
+$size-a4: 842px;
 
 @mixin standard_layout {
   @include flex-width(100%);
@@ -24,10 +21,6 @@ $section-border: 2px solid $cl-lightgrey;
       flex-direction: column-reverse;
       height: fit-content;
       .contact {
-        min-height: 100%;
-        height: fit-content;
-        border-bottom: none;
-        padding-bottom: 0;
         &:before {
           content: "Contact";
           color: $cl-highlight;
@@ -38,6 +31,7 @@ $section-border: 2px solid $cl-lightgrey;
           margin: 0 0 16px;
           padding-top: $space;
           display: block;
+          line-height: 24px;
           border-top: $section-border;
         }
         &:after {
@@ -58,32 +52,98 @@ $section-border: 2px solid $cl-lightgrey;
     }
   }
 }
-a {
-  color: $cl-highlight;
-}
-h2 {
-  color: $cl-dark;
-  text-transform: uppercase;
-  margin: 0 0 8px;
-}
-h3 {
-  color: $cl-highlight;
-  text-transform: uppercase;
-  margin: 0 0 8px;
-}
-h4 {
-  color: $cl-dark;
-  margin: 0 0 8px;
-  font-weight: 500;
-  font-size: 17px;
-}
 .page.page-home-main {
-  background: $cl-bg url(/static/apps/oftien/assets/bg1.png) no-repeat center
-    bottom;
+  background-image: url(/static/apps/oftien/assets/bg1.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
   background-size: cover;
   padding: 4px 0;
-  .heading {
-    .name {
+  h2 {
+    color: $cl-black;
+    text-transform: uppercase;
+  }
+  h3 {
+    text-transform: uppercase;
+  }
+  .layout-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .layout-option {
+    @extend .btn;
+    width: 36px;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    margin: $s-space 0 0 0 !important;
+    padding: 0 !important;
+    border: 1px solid $cl-black !important;
+    box-shadow: 0 0 8px $cl-white !important;
+    background-color: $cl-grey;
+    overflow: hidden !important;
+    &:before {
+      content: "";
+      @include flex-width(24px);
+      height: 100%;
+    }
+    &:after {
+      content: "";
+      @include flex-width(12px);
+      height: 100%;
+      background-color: $cl-black;
+    }
+    &.Left_Main_Right {
+      &:before {
+        @include flex-width(9px);
+        background-color: $cl-black;
+      }
+      &:after {
+        @include flex-width(9px);
+        background-color: $cl-black;
+      }
+    }
+    &.Left_Main {
+      flex-direction: row-reverse;
+    }
+    &:hover,
+    &.active {
+      border: 1px solid $cl-red !important;
+      box-shadow: 0 0 8px $cl-red !important;
+      .big {
+        border-color: $cl-red;
+      }
+    }
+  }
+  .birthday {
+    &:before {
+      content: "Birthday: ";
+      opacity: 0.5;
+    }
+  }
+  .funny {
+    font-size: 12px;
+    opacity: 0.5;
+    &:before {
+      content: "(";
+    }
+    &:after {
+      content: ")";
+    }
+  }
+  .contact {
+    min-height: 100%;
+    height: fit-content;
+    border-bottom: none;
+    padding-bottom: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    > * {
+      display: flex;
+      align-items: center;
+      i {
+        margin-left: 2px;
+      }
     }
   }
   .location {
@@ -100,7 +160,9 @@ h4 {
   }
   .period {
     opacity: 0.6;
-    font-size: 13px;
+    * {
+      font-size: 12px;
+    }
     .start:after {
       content: "-";
       margin: 0 4px;
@@ -152,14 +214,19 @@ h4 {
       display: none;
     }
     .name {
-      @extend h4;
+      @extend .h4;
+      color: $cl-red;
     }
     .role {
-      @extend h4;
+      @extend .h4;
+      color: $cl-green;
       margin: 0 0 0 12px;
       display: inline-block;
       padding-left: 12px;
       border-left: 1px solid;
+    }
+    .location {
+      color: $cl-blue;
     }
   }
   .projects {
@@ -167,23 +234,30 @@ h4 {
       display: inline-block;
       width: 50%;
       padding: 0 6px;
-    }
-    .name {
-      display: none;
-    }
-    .company {
-      &:before {
-        content: " at ";
-        color: $cl-dark;
+      .heading {
+        color: $cl-black;
       }
-    }
-    .used {
-      font-size: 90%;
-      opacity: 0.7;
-      display: block;
-      &:before {
-        content: "Used: ";
-        color: $cl-highlight;
+      .name {
+        display: none;
+      }
+      .role {
+        color: $cl-green;
+      }
+      .company {
+        color: $cl-red;
+        &:before {
+          content: " at ";
+          color: $cl-black;
+        }
+      }
+      .used {
+        font-size: 12px;
+        display: block;
+        // color: $cl-yellow;
+        &:before {
+          content: "Used: ";
+          opacity: 0.5;
+        }
       }
     }
   }
@@ -198,7 +272,6 @@ h4 {
         height: $overview-h + $space;
         padding: 0 0 $space;
         display: flex;
-        font-weight: 600;
         position: relative;
         .avatar {
           @include flex-width(120px);
@@ -211,16 +284,7 @@ h4 {
           margin-right: $s-space;
         }
         .intro {
-          font-weight: 400;
-          .funny {
-            margin-left: 3px;
-            &:before {
-              content: "(";
-            }
-            &:after {
-              content: ")";
-            }
-          }
+          font-weight: 500;
         }
         .quote {
           font-weight: 400;
@@ -251,47 +315,27 @@ h4 {
         .contact {
           height: $overview-h + $space;
           padding: 0 0 $space;
-          font-size: 13px;
-          line-height: 18px;
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          > * {
-            display: block;
-            margin-bottom: 1px;
-            font-size: inherit;
-            line-height: inherit;
-          }
-          a {
-            text-decoration: none;
-          }
           .website,
           .github,
           .email,
           .skype,
           .mobile,
-          .address {
+          .phone,
+          .country,
+          .state,
+          .city,
+          .postcode,
+          .address,
+          .address1,
+          .address3 {
             &:before {
-              content: "Website:";
+              content: attr(data-name) ": ";
+              text-transform: capitalize;
               color: $cl-grey;
-              width: 56px;
+              width: 60px;
               display: inline-block;
+              opacity: 0.5;
             }
-          }
-          .github:before {
-            content: "GitHub:";
-          }
-          .email:before {
-            content: "Email:";
-          }
-          .skype:before {
-            content: "Skype:";
-          }
-          .mobile:before {
-            content: "Mobile:";
-          }
-          .address:before {
-            content: "Address:";
           }
           .mobile {
             .sms {
@@ -363,27 +407,21 @@ h4 {
       position: fixed;
       top: 0;
       right: 0;
-      .layout-select {
-        @include flex-height(44px);
-        width: 100%;
-        background-color: $cl-dark;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
       .jsoneditor-container {
         display: flex;
-        flex: 1;
+        flex: 3;
         width: 100%;
+        &.jsoneditor-container-settings {
+          @include flex-height(230px);
+        }
       }
     }
     .fixed.top {
       top: 4px;
     }
   }
-}
-@media screen and (max-width: 960px) {
-  .page.page-home-main {
+  /*** screen 842px ~ ICO A4 ***/
+  @media screen and (max-width: $size-a4) {
     padding: 0;
     .skills {
       .block {
@@ -407,9 +445,8 @@ h4 {
       }
     }
   }
-}
-@media screen and (max-width: 768px) {
-  .page.page-home-main {
+  /*** screen 768px ***/
+  @media screen and (max-width: 768px) {
     .section {
       padding-bottom: $s-space;
       h3 {
@@ -474,24 +511,19 @@ h4 {
       }
     }
   }
-}
-
-@media print {
-  #root,
-  .viewport,
-  .fullscreen,
-  .main-content {
-    position: initial;
-  }
-  .page.page-home-main {
+  /*** print ***/
+  @media print {
     background-color: #fff;
     display: block;
     padding: 0 0;
-    .fixed,
-    .funny,
-    .editor {
+    margin: 0 0;
+    .no-printing,
+    .funny {
       display: none !important;
     }
+  }
+  @media print and (max-width: $size-a4) {
+    padding: $s-space $s-space;
     .section {
       padding-bottom: $s-space;
       h3 {
@@ -511,7 +543,7 @@ h4 {
     .layout.Left_Main_Right {
       @include standard_layout;
       @include flex-width(100%);
-      padding: $s-space $s-space;
+      padding: 0;
       .left,
       .right {
         .wrraper {
@@ -531,5 +563,13 @@ h4 {
     .layout.Left_Main {
       flex-direction: column-reverse;
     }
+  }
+}
+@media print {
+  #root,
+  .viewport,
+  .fullscreen,
+  .main-content {
+    position: initial;
   }
 }
