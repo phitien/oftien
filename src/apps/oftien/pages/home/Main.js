@@ -25,9 +25,6 @@ export default class Main extends Page {
     username: this.props.match.params.username || "oftien"
   };
 
-  get layoutDom() {
-    return global.$(`.page.page-home-${this.constructor.name.lower()}`);
-  }
   get username() {
     return this.state.username;
   }
@@ -43,7 +40,7 @@ export default class Main extends Page {
 
   async componentDidMount() {
     await super.componentDidMount();
-    this.layoutDom.on("scroll", function(e) {
+    this.jPageDom.on("scroll", function(e) {
       const me = global.$(this);
       if (this.scrollTop > 0) me.addClass("scrolling");
       else me.removeClass("scrolling");
@@ -342,7 +339,7 @@ export default class Main extends Page {
         <Button
           icon="fas fa-chevron-up"
           className="scroll-up"
-          onClick={e => this.layoutDom.animate({ scrollTop: 0 }, 500)}
+          onClick={e => this.jPageDom.animate({ scrollTop: 0 }, 500)}
         />
       </div>
     ];

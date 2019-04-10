@@ -12,15 +12,14 @@ $size-a4: 842px;
   @include flex-width(100%);
   display: flex;
   flex-direction: column;
-  height: fit-content;
   .left,
   .right {
     @include flex-width(100%);
     .wrraper {
       display: flex;
       flex-direction: column-reverse;
-      height: fit-content;
       .contact {
+        height: fit-content;
         &:before {
           content: "Contact";
           color: $cl-highlight;
@@ -58,6 +57,8 @@ $size-a4: 842px;
   background-position: center bottom;
   background-size: cover;
   padding: 4px 0;
+  height: 100%;
+  overflow: auto;
   h2 {
     color: $cl-black;
     text-transform: uppercase;
@@ -267,6 +268,7 @@ $size-a4: 842px;
     padding: $space $space;
     box-shadow: 0 0 8px white;
     color: $cl-grey;
+    height: fit-content;
     > .content .main .wrraper {
       .overview {
         height: $overview-h + $space;
@@ -312,6 +314,7 @@ $size-a4: 842px;
     .right {
       @include flex-width(25%);
       .wrraper {
+        height: fit-content;
         .contact {
           height: $overview-h + $space;
           padding: 0 0 $space;
@@ -355,9 +358,6 @@ $size-a4: 842px;
         }
       }
     }
-    &.scrolling .fixed .scroll-up {
-      display: inline-block;
-    }
     &.Main_Right {
       > .content .main .wrraper {
         margin-right: $space;
@@ -384,15 +384,16 @@ $size-a4: 842px;
       }
     }
   }
+  &.scrolling .fixed .scroll-up {
+    display: inline-block;
+  }
   &.editing {
-    min-height: 100%;
     justify-content: flex-start;
     padding: 0;
     .layout {
       @include standard_layout;
       @include flex-width(60%);
       flex-direction: column;
-      height: fit-content;
       margin: 0;
       &.Left_Main {
         flex-direction: column-reverse;

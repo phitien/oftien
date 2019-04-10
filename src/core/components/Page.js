@@ -28,6 +28,9 @@ export class Page extends Component {
   get className() {
     return classnames("page", this.props.className, this.state.className);
   }
+  get jPageDom() {
+    return global.$(this.pageDom);
+  }
   componentDidMount() {
     global.jQuery("body").addClass(this.constructor.className || "");
   }
@@ -325,7 +328,7 @@ export class Page extends Component {
   renderComponent() {
     const fnName = `render${this.layout}`;
     return (
-      <div key="page" className={this.className}>
+      <div key="page" className={this.className} ref={e => (this.pageDom = e)}>
         {this[fnName] ? this[fnName]() : this.renderMain()}
         {this.renderExtra()}
       </div>
