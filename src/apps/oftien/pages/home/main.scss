@@ -336,7 +336,6 @@ $size-a4: 842px;
               text-transform: capitalize;
               color: $cl-grey;
               width: 60px;
-              display: inline-block;
               opacity: 0.5;
             }
           }
@@ -421,8 +420,8 @@ $size-a4: 842px;
       top: 34px;
     }
   }
-  /*** screen 842px ~ ICO A4 ***/
-  @media screen and (max-width: $size-a4) {
+  /*** screen 960px ***/
+  @media screen and (max-width: 960px) {
     padding: 0;
     .skills {
       .block {
@@ -549,9 +548,9 @@ $size-a4: 842px;
       .right {
         .wrraper {
           .contact {
-            margin-top: $s-space;
+            margin-top: $s-space/2;
             &:before {
-              margin: 0 0 $s-space/2;
+              margin: 0 0 2 * $s-space/3;
               padding-top: $s-space;
             }
           }
