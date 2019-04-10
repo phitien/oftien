@@ -42,12 +42,20 @@
     <script src="/static/jsoneditor/dist/jsoneditor.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_googleAnalyticsTrackingId%"></script>
-    <script>
-    window.dataLayer = window.dataLayer || []; function gtag() {
-dataLayer.push(arguments); } gtag("js", new Date()); gtag("config",
-"%REACT_APP_googleAnalyticsTrackingId%");
-</script>
+    <script type="text/javascript">
+      const gg_analytics_url = `/static/gg-analytics/${location.hostname}.js`;
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      setTimeout(function() {
+        jQuery
+          .getScript(gg_analytics_url)
+          .fail(function(jqxhr, settings, exception) {
+            console.lg("Cannot load google analytics");
+          });
+      }, 2000);
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
