@@ -449,6 +449,9 @@ $size-a4: 842px;
     .fixed.top {
       top: 34px;
     }
+    .fixed.layout-options {
+      display: none;
+    }
   }
   /*** screen 960px ***/
   @media screen and (max-width: 960px) {
@@ -469,6 +472,9 @@ $size-a4: 842px;
         flex-direction: column-reverse;
       }
     }
+    .fixed.layout-options {
+      display: none;
+    }
     &.editing {
       .layout {
         @include flex-width(0%);
@@ -480,6 +486,9 @@ $size-a4: 842px;
   }
   /*** screen 768px ***/
   @media screen and (max-width: 768px) {
+    .fixed.layout-options {
+      display: none;
+    }
     .left-banner {
       display: none;
     }
