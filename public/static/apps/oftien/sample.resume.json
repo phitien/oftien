@@ -1,14 +1,14 @@
 {
   "info": {
-    "name": "Mitch Doan",
-    "occupation": "Senior UI Developer (Web & Mobile)",
-    "quote": "Love what we do, do what we love. Life is now & happiness is you.",
-    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT",
-    "funny": "of course if have a chance",
+    "name": "Name",
+    "occupation": "Occupation",
+    "quote": "Quote",
+    "intro": "Intro",
+    "funny": "funny",
     "author": "Phi Tien<im.phitien@gmail.com",
-    "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
-    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript",
-    "avatar": "https://media.licdn.com/dms/image/C5103AQGB7r_dU-P2hQ/profile-displayphoto-shrink_800_800/0?e=1560384000&v=beta&t=Zqr9mkxageXgo_0u9pscyFxIQMyBxcnph3vmzh1wROE",
+    "keywords": "Meta keywords",
+    "description": "Meta description",
+    "avatar": "/url/to/avatar",
     "birthday": "1984-10-28",
     "gender": "Male",
     "maried status": "Single"
@@ -17,12 +17,21 @@
     "main": ["experiences", "projects"],
     "left": ["skills", "education"],
     "right": ["skills", "education"],
-    "info": ["occupation", "quote", "intro", "birthday"],
-    "contact": ["website", "github", "email", "skype", "mobile", "address"],
-    "avatarMargin": "0px 0px"
+    "info": ["occupation", "quote", "intro", "funny"],
+    "contact": [
+      "website",
+      "github",
+      "email",
+      "skype",
+      "mobile",
+      "phone",
+      "address"
+    ],
+    "avatarMargin": "0px 0px",
+    "style": ".layout {}\n.editor {}"
   },
   "education": [
-    "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
+    "Stanford University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology."
   ],
   "contact": [
     {
@@ -37,37 +46,41 @@
       "protocol": "https://github.com/",
       "external": true,
       "query": "",
-      "value": "phitien"
+      "value": "github_account"
     },
     {
       "type": "email",
       "protocol": "mailto:",
       "query": "subject=[OfTien] Contact for an opportunity&body=Hello Tien,",
-      "value": "im.phitien@gmail.com"
+      "value": "your@email.com"
     },
     {
       "type": "skype",
       "protocol": "skype:",
       "query": "?userinfo",
-      "value": "im.phitien"
+      "value": "your.skype"
     },
     {
       "type": "mobile",
       "whatsapp": true,
+      "viber": true,
+      "wechat": false,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
-      "value": "(+65)85986657"
+      "value": "(+65)xxxxx"
     },
     {
-      "type": "mobile",
+      "type": "phone",
       "whatsapp": true,
+      "viber": true,
+      "wechat": true,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
-      "value": "(+84)946847882"
+      "value": "(+84)xxxxx"
     },
     {
       "type": "address",
       "protocol": "",
       "query": "",
-      "value": "Singapore, Vietnam"
+      "value": "Your address"
     }
   ],
   "experiences": [
@@ -241,10 +254,7 @@
       "name": "Programming Langagues",
       "items": "Node, JS, Html, CSS, SCSS, Python, Java, C#, C++, Objective C, Bash, PowerShell"
     },
-    {
-      "name": "Build tools",
-      "items": "webpack, Gulp, grunt..."
-    },
+    { "name": "Build tools", "items": "webpack, Gulp, grunt..." },
     {
       "name": "Servers",
       "items": "webpack-dev-server, express, apache, apache-tomcat, pm2, forever, nohub, flask, spring-boot, openfaas"
@@ -265,25 +275,13 @@
       "name": "Databases",
       "items": "MySQL, MongoDB, PostreSQL, SQL Server, H2, SQLLite..."
     },
-    {
-      "name": "Open sources",
-      "items": "Laravel, Magento, Joomla"
-    },
-    {
-      "name": "AI & Big Data",
-      "items": "Hadoop, Spark, Cdap, Lugwig, KNIME"
-    },
-    {
-      "name": "Visualisation",
-      "items": "Tableau, D3, GoJS, Echarts"
-    },
+    { "name": "Open sources", "items": "Laravel, Magento, Joomla" },
+    { "name": "AI & Big Data", "items": "Hadoop, Spark, Cdap, Lugwig, KNIME" },
+    { "name": "Visualisation", "items": "Tableau, D3, GoJS, Echarts" },
     {
       "name": "RPA (Automation)",
       "items": "TagUI, UIPath, Automagica, Selenium"
     },
-    {
-      "name": "Langagues",
-      "items": "English, Vietnamese"
-    }
+    { "name": "Langagues", "items": "English, Vietnamese" }
   ]
 }

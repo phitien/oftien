@@ -42,22 +42,6 @@ body {
     display: flex;
     justify-content: space-between;
   }
-  .searchbar {
-    border-radius: 30px;
-    height: 36px;
-    background-position: 12px center;
-    background-repeat: no-repeat;
-    background-size: 16px;
-    background-image: url(/brenntag/assets/search.png);
-    padding: 0 12px 0 36px;
-    display: flex;
-    align-items: center;
-    input {
-      width: 180px;
-      background-color: transparent;
-      color: white;
-    }
-  }
   * {
     box-sizing: border-box;
   }
@@ -76,20 +60,6 @@ body {
     textarea {
       display: block;
       width: 100%;
-      padding: 12px;
-      border: 1px solid #565659;
-      background-color: #1c1f23;
-      border-radius: 3px;
-      overflow: hidden;
-      height: 44px;
-      &:hover,
-      &:focus {
-        background-color: #ffffff;
-        color: #000000;
-      }
-    }
-    textarea {
-      height: 7080pxpx;
     }
   }
   .fixed {
@@ -162,7 +132,7 @@ body {
     background-color: $btn-bg-color;
     border: $btn-border;
     border-radius: 3px;
-    box-shadow: 1px 2px 3px $btn-text-color;
+    box-shadow: $btn-box-shadow;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -278,6 +248,8 @@ body {
           background-color: #676767;
           padding: 8px 16px;
           flex: 1;
+          min-width: 300px;
+          min-height: 90px;
         }
         &:hover {
           box-shadow: 0 0 3px white;
@@ -373,6 +345,11 @@ input[type="number"] {
   outline: none;
   border: none;
   border-radius: 0;
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: $input-box-shadow;
+  }
 }
 textarea,
 .textarea {
@@ -385,6 +362,11 @@ textarea,
   outline: none;
   border: none;
   border-radius: 0;
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: $textarea-box-shadow;
+  }
 }
 select,
 .select {
@@ -398,4 +380,9 @@ select,
   outline: none;
   border: none;
   border-radius: 0;
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: $select-box-shadow;
+  }
 }

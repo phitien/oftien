@@ -254,10 +254,7 @@
       "name": "Programming Langagues",
       "items": "Node, JS, Html, CSS, SCSS, Python, Java, C#, C++, Objective C, Bash, PowerShell"
     },
-    {
-      "name": "Build tools",
-      "items": "webpack, Gulp, grunt..."
-    },
+    { "name": "Build tools", "items": "webpack, Gulp, grunt..." },
     {
       "name": "Servers",
       "items": "webpack-dev-server, express, apache, apache-tomcat, pm2, forever, nohub, flask, spring-boot, openfaas"
@@ -278,25 +275,13 @@
       "name": "Databases",
       "items": "MySQL, MongoDB, PostreSQL, SQL Server, H2, SQLLite..."
     },
-    {
-      "name": "Open sources",
-      "items": "Laravel, Magento, Joomla"
-    },
-    {
-      "name": "AI & Big Data",
-      "items": "Hadoop, Spark, Cdap, Lugwig, KNIME"
-    },
-    {
-      "name": "Visualisation",
-      "items": "Tableau, D3, GoJS, Echarts"
-    },
+    { "name": "Open sources", "items": "Laravel, Magento, Joomla" },
+    { "name": "AI & Big Data", "items": "Hadoop, Spark, Cdap, Lugwig, KNIME" },
+    { "name": "Visualisation", "items": "Tableau, D3, GoJS, Echarts" },
     {
       "name": "RPA (Automation)",
       "items": "TagUI, UIPath, Automagica, Selenium"
     },
-    {
-      "name": "Langagues",
-      "items": "English, Vietnamese"
-    }
+    { "name": "Langagues", "items": "English, Vietnamese" }
   ]
 }

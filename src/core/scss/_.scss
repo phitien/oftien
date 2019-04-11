@@ -32,9 +32,10 @@ $form-el-height: 32px;
 $input-font-size: 14px;
 $input-line-height: $form-el-height;
 $input-padding: 0 4px;
-$input-text-color: #cecece;
+$input-text-color: #000;
 $input-bg-color: #fff;
 $input-border: 1px solid;
+$input-box-shadow: 1px 1px 4px;
 
 $textarea-font-size: $input-font-size;
 $textarea-line-height: $input-line-height;
@@ -42,6 +43,7 @@ $textarea-padding: $input-padding;
 $textarea-text-color: $input-text-color;
 $textarea-bg-color: $input-bg-color;
 $textarea-border: $input-border;
+$textarea-box-shadow: $input-box-shadow;
 
 $select-font-size: $input-font-size;
 $select-line-height: $input-line-height;
@@ -49,6 +51,7 @@ $select-padding: $input-padding;
 $select-text-color: $input-text-color;
 $select-bg-color: $input-bg-color;
 $select-border: $input-border;
+$select-box-shadow: $input-box-shadow;
 
 $btn-font-size: 20px;
 $btn-line-height: $input-line-height;
@@ -56,3 +59,4 @@ $btn-padding: 0 12px;
 $btn-text-color: #fff;
 $btn-bg-color: #333333;
 $btn-border: $input-border;
+$btn-box-shadow: 1px 2px 3px $btn-text-color;

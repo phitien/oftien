@@ -6,13 +6,7 @@ import uuidv4 from "uuid/v4";
 
 import { Button, Icon, Space, Page } from "../../../../core";
 
-export const loadProfile = async username => {
-  username = !username || username === ":username" ? "oftien" : username;
-  const { api } = global;
-  return api({
-    url: `/static/apps/oftien/cv/${username}.json`
-  });
-};
+import { loadProfile } from "./utils";
 
 export default class Main extends Page {
   static isDefault = true;
@@ -22,11 +16,11 @@ export default class Main extends Page {
 
   state = {
     editing: false,
-    username: this.props.match.params.username || "oftien"
+    username: this.username
   };
 
   get username() {
-    return this.state.username;
+    return this.props.match.params.username || "oftien";
   }
   get settings() {
     return {
@@ -48,11 +42,13 @@ export default class Main extends Page {
     this.loadProfile();
     this.createEditor();
   }
-  loadProfile() {
+  async loadProfile() {
     const { username } = this;
-    loadProfile(username).then(res =>
-      res.error ? false : this.setState({ ...res, username })
-    );
+    await loadProfile(username);
+    this.setState({
+      ...JSON.parse(JSON.stringify(this.props.Resume.detail)),
+      username
+    });
   }
   getSections(p) {
     const { settings } = this;
@@ -101,11 +97,22 @@ export default class Main extends Page {
     this.props.ApplicationAddPopup(
       <div
         className="fieldgroup"
-        confirm={e =>
-          this.props.ApplicationAddError(
-            "To be available when my laptop is back"
-          )
-        }
+        confirm={e => {
+          const { api, apis } = global;
+          const data = Object.omit(
+            this.state,
+            "editing",
+            "username",
+            "className"
+          );
+          const { username } = this.state;
+          return api(apis.Resume.save, { ...data, username: this.username }, [
+            username
+          ]).then(res => {
+            if (!res.error && this.username !== username)
+              this.props.history.replace(`/${username}`);
+          });
+        }}
       >
         <div className="inputfield">
           <div className="label">Username</div>
@@ -213,6 +220,24 @@ export default class Main extends Page {
       </div>
     );
   }
+  renderLeftBanner() {
+    return (
+      <div className="fixed left-banner no-printing">
+        {`OfTien in Progress`
+          .split(" ")
+          .filter(o => o)
+          .map((w, i) => (
+            <div key={i} className="word">
+              {w.split("").map((o, j) => (
+                <div key={j} className="letter">
+                  {o}
+                </div>
+              ))}
+            </div>
+          ))}
+      </div>
+    );
+  }
   renderMain() {
     const { state, settings } = this;
     const { info } = state;
@@ -249,6 +274,8 @@ export default class Main extends Page {
             )
           )}
         </div>
+        {this.renderButtons()}
+        {this.renderLeftBanner()}
       </div>
     );
   }
@@ -354,7 +381,6 @@ export default class Main extends Page {
   renderSide(sections) {
     return (
       <div className="wrraper">
-        {this.renderButtons()}
         {this.renderContact()}
         <div className="sections">
           {Object.keys(sections).map((k, j) =>

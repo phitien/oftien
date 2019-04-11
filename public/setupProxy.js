@@ -19,7 +19,10 @@ const uploader = multer({
     }
   })
 });
-
+const setupRoutes = async app => {
+  const routes = require("./routes");
+  routes.map(route => route(app, uploader, bodyParser));
+};
 const socketSetup = app => {
   const io = (app.io = require("socket.io")());
   io.origins("*:*");
@@ -40,6 +43,8 @@ const proxySetup = app => {
 module.exports = function(app) {
   /** Socket **/
   socketSetup(app);
+  /** routes **/
+  setupRoutes(app);
   /** proxy **/
   proxySetup(app);
 };

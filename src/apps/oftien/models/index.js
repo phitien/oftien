@@ -1,2 +1,2 @@
-import * as Product from "./Product";
-export { Product };
+import * as Resume from "./Resume";
+export { Resume };
