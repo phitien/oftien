@@ -27,7 +27,8 @@
       "phone",
       "address"
     ],
-    "avatarMargin": "0px -18px"
+    "avatarMargin": "0px -18px",
+    "style": ".layout {}\n.editor {}"
   },
   "education": [
     "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"

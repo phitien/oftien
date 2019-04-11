@@ -9,5 +9,5 @@ export default class Derivatives extends Main {
   static isDefault = false;
   static path = "/:username";
   static layout = "Main_Right";
-  static className = "route-home-derivatives";
+  static className = `${super.className} route-home-derivatives`;
 }

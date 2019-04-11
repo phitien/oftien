@@ -32,7 +32,7 @@ export class Page extends Component {
     return global.$(this.pageDom);
   }
   componentDidMount() {
-    global.jQuery("body").addClass(this.constructor.className || "");
+    global.$("body").addClass(`route ${this.constructor.className || ""}`);
   }
   renderLeft_TopMainBottom_Right() {
     return (

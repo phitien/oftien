@@ -226,6 +226,7 @@ export default class Main extends Page {
           <meta name="keywords" content={keywords} />
           <meta name="author" content={author} />
           <meta name="description" content={description} />
+          {settings.style ? <style>{settings.style}</style> : null}
         </Helmet>
         <div className="overview">
           <div
