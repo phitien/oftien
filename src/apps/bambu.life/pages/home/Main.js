@@ -42,8 +42,10 @@ export default class Main extends Page {
     const data = this.props.Stock.detail[value];
     if (!data) return {};
     return {
-      categoryData: Object.keys(data),
-      values: Object.values(data).map((o, i) => [i, ...Object.values(o)])
+      categoryData: Object.keys(data).reverse(),
+      values: Object.values(data)
+        .map((o, i) => [i, ...Object.values(o)])
+        .reverse()
     };
     return splitData(data);
   }
@@ -85,7 +87,7 @@ export default class Main extends Page {
         {
           left: "10%",
           right: "8%",
-          bottom: 150
+          bottom: 90
         }
       ],
       xAxis: [
@@ -115,17 +117,17 @@ export default class Main extends Page {
       dataZoom: [
         {
           type: "inside",
-          start: 98,
+          start: 0,
           end: 100,
-          minValueSpan: 10
+          minValueSpan: 1
         },
         {
           show: true,
           type: "slider",
-          bottom: 60,
-          start: 98,
+          bottom: 35,
+          start: 0,
           end: 100,
-          minValueSpan: 10
+          minValueSpan: 1
         }
       ],
       series: [
@@ -175,12 +177,8 @@ export default class Main extends Page {
             onClick={e =>
               this.props.ApplicationAddPopup(
                 <AddStock
-                  ref={e => {
-                    this.addStockPopup = e;
-                    console.log(this.addStockPopup);
-                  }}
+                  ref={e => (this.addStockPopup = e)}
                   confirm={e => {
-                    console.log(this);
                     const newStocks = Array.from(
                       new Set([
                         ...stocks,
