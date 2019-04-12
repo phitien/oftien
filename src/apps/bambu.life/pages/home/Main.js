@@ -175,15 +175,21 @@ export default class Main extends Page {
             onClick={e =>
               this.props.ApplicationAddPopup(
                 <AddStock
-                  ref={e => (this.addStockPopup = e)}
+                  ref={e => {
+                    this.addStockPopup = e;
+                    console.log(this.addStockPopup);
+                  }}
                   confirm={e => {
+                    console.log(this);
                     const newStocks = Array.from(
                       new Set([
                         ...stocks,
-                        ...this.addStockPopup.state.value
-                          .split(",")
-                          .map(o => o.trim())
-                          .filter(o => o)
+                        ...(!this.addStockPopup
+                          ? []
+                          : this.addStockPopup.state.value
+                              .split(",")
+                              .map(o => o.trim())
+                              .filter(o => o))
                       ])
                     );
                     return this.setState({ stocks: newStocks }, e =>

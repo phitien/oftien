@@ -20,7 +20,14 @@ export class Popup extends Component {
     return p;
   };
 
-  onClose = async (e, ...args) => await this.props.ApplicationRemoveLastPopup();
+  canClose = async () =>
+    this.props.canClose ? await this.props.canClose() : true;
+  onClose = async (e, ...args) => {
+    if (await this.canClose()) {
+      if (this.props.beforeClose) this.props.beforeClose(this);
+      await this.props.ApplicationRemoveLastPopup();
+    }
+  };
 
   renderHeader(confirm) {
     const { maximize } = this.state;
@@ -36,8 +43,8 @@ export class Popup extends Component {
               title="Confirm"
               className="confirm"
               onClick={async (...args) => {
-                await this.onClose(...args);
-                await confirm(...args);
+                if ((await confirm(...args, this)) !== false)
+                  await this.onClose(...args);
               }}
             />
           ) : null}
@@ -45,7 +52,7 @@ export class Popup extends Component {
             icon={maximize ? "fas fa-compress" : "fas fa-arrows-alt"}
             onClick={e => this.setState({ maximize: !maximize })}
           />
-          {!confirm && noclose ? null : (
+          {noclose ? null : (
             <Button
               icon="far fa-times-circle"
               title="Close"
