@@ -3,13 +3,6 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { Route, Redirect } from "react-router-dom";
 
 import { connect, createStore } from "./redux";
-const jQuery = require("jquery");
-const datepickerFactory = require("jquery-datepicker");
-const datepickerJAFactory = require("jquery-datepicker/i18n/jquery.ui.datepicker-ja");
-
-datepickerFactory(jQuery);
-datepickerJAFactory(jQuery);
-global.$ = global.jQuery = jQuery;
 
 global.themes = require("./themes");
 

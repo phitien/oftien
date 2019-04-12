@@ -21,7 +21,8 @@ const uploader = multer({
 });
 const setupRoutes = async app => {
   const routes = require("./routes");
-  routes.map(route => route(app, uploader, bodyParser));
+  if (routes instanceof Array)
+    routes.map(route => route(app, uploader, bodyParser));
 };
 const socketSetup = app => {
   const io = (app.io = require("socket.io")());

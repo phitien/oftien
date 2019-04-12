@@ -1,0 +1,21 @@
+@import "../../../core/scss/index";
+
+$bg-left: $cl-brownl;
+$logo-height: 100%;
+$top-row-height: 88px;
+$cl-highlight: #4a4a4a;
+
+// $input-text-color: $input-text-color;
+$input-bg-color: rgba(255, 255, 255, 0.6);
+$input-border: $input-border;
+$input-box-shadow: 2px 5px 12px white;
+
+body {
+  @include layouts();
+  @include colors();
+  @include logo();
+  @include input-text();
+  .logo {
+    margin-left: 24px;
+  }
+}

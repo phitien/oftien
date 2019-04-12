@@ -5,12 +5,15 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Helmet } from "react-helmet";
 import Viewport from "./Viewport";
 
-const trackingId = require(`../../gg-analytics/${global.location.hostname}.js`)
-  .default;
+const trackingId = null;
+try {
+  trackingId = require(`../../gg-analytics/${global.location.hostname}.js`)
+    .default;
+} catch (e) {}
 
 export default class Application extends Component {
   renderHead() {
-    return (
+    return !trackingId ? null : (
       <Helmet>
         <script
           async

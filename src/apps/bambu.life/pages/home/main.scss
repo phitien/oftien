@@ -1,0 +1,98 @@
+@import "../../scss/index";
+
+$space: 56px;
+$s-space: 24px;
+
+.page.page-home-main {
+  background-image: url(/static/apps/bambu-d3/assets/bg1.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  overflow: auto;
+  .layout {
+    // @include flex-width(100%);
+    .top .wrapper {
+      height: 100%;
+      box-shadow: 0px 0px 12px $cl-green;
+    }
+    .left .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      h4 {
+        @include color($cl-purple, $cl-brownd);
+        @include flex-height(40px);
+        padding: 8px 12px;
+        margin: 0;
+        text-shadow: 0px 0px 12px $cl-white;
+        box-shadow: 0px 0px 12px $cl-white;
+        display: flex;
+        align-items: center;
+        i {
+          cursor: pointer;
+          &:hover {
+            box-shadow: 0px 0px 12px $cl-white;
+          }
+        }
+      }
+      .stocks {
+        flex: 1;
+        overflow: auto;
+        .stock {
+          padding: 8px;
+          box-shadow: 0 0 2px;
+          color: $cl-white;
+          cursor: pointer;
+          &:hover,
+          &.active {
+            @include color($cl-green, $cl-white);
+          }
+        }
+      }
+    }
+    .main .wrapper {
+      position: relative;
+      h3 {
+        @include color($cl-purple, $cl-brownd);
+        display: block;
+        margin: 0;
+        padding: 4px;
+        text-align: center;
+      }
+      input {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 140px;
+      }
+      select {
+        position: absolute;
+        top: 4px;
+        left: 150px;
+        width: 140px;
+      }
+    }
+    .bottom .wrapper {
+      text-align: center;
+      padding: 8px 0;
+      box-shadow: 0px 0px 12px $cl-white;
+    }
+  }
+  /*** screen 960px ***/
+  @media screen and (max-width: 960px) {
+  }
+  /*** screen 768px ***/
+  @media screen and (max-width: 768px) {
+  }
+  /*** print ***/
+  @media print {
+  }
+}
+@media print {
+  #root,
+  .viewport,
+  .fullscreen,
+  .main-content {
+    position: initial;
+  }
+}

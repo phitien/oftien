@@ -32,7 +32,7 @@ export class Popup extends Component {
         <div className="actions">
           {confirm ? (
             <Button
-              icon="fas fa-check-double"
+              icon="fas fa-save"
               title="Confirm"
               className="confirm"
               onClick={async (...args) => {

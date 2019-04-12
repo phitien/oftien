@@ -29,7 +29,7 @@ const theme = {
           padding: "3px 10px"
         },
         "&$outlinedSecondary": {
-          color: "#fff",
+          color: "#FFFFFF",
           backgroundColor: "#1B7EC7",
           borderColor: "transparent",
           "&:hover": {

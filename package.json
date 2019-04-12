@@ -26,8 +26,6 @@
     "echarts": "^4.2.0-rc.2",
     "echarts-for-react": "^2.0.15-beta.0",
     "gojs": "^2.0.0-beta9",
-    "jquery": "^3.3.1",
-    "jquery-datepicker": "^1.12.3",
     "json-stringify-safe": "^5.0.1",
     "jsoneditor": "^5.32.3",
     "lodash": "^4.17.11",
@@ -52,7 +50,8 @@
     "ui-bg-stop": "forever stop pm2/app.js",
     "be": "echo \"ENV=${ENV:-local}\" > .env && node public/services/api/app.js",
     "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start public/services/api/app.js",
-    "be-bg-stop": "forever stop public/services/api/app.js"
+    "be-bg-stop": "forever stop public/services/api/app.js",
+    "bambu.life": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && node --max_old_space_size=4096 pm2/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"

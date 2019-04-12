@@ -82,6 +82,9 @@ const api = (global.api = async (opts, data, path) => {
       throw err;
     })
     .then(async json => {
+      const { valid } = opts;
+      if (valid && !valid(json))
+        throw { ...json, message: json.message || json["Error Message"] };
       await dispatchAll(json, success);
       return json;
     })
