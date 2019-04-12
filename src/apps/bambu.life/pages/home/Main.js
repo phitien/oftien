@@ -12,7 +12,7 @@ import { loadStock, cfunctions } from "./utils";
 import { splitData, renderItem } from "./utils";
 
 export default class Main extends Page {
-  static isDefault = true;
+  static isDefault = false;
   static path = "/bambu.life";
   static layout = "Top_LeftMain_Bottom";
   static className = "route-home-main";
