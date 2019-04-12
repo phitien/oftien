@@ -21,6 +21,13 @@ export default class AddStock extends Component {
                 : this.props.onChange({ target }, this.state.value)
             );
           }}
+          onKeyPress={e => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              this.props.confirm();
+              global.dispatch({ type: "ApplicationRemoveLastPopup" });
+            }
+          }}
         />
       </div>
     );

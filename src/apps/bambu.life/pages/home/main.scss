@@ -43,6 +43,8 @@ $s-space: 24px;
           box-shadow: 0 0 2px;
           color: $cl-white;
           cursor: pointer;
+          display: flex;
+          align-items: center;
           &:hover,
           &.active {
             @include color($cl-green, $cl-white);

@@ -13,6 +13,12 @@ export class Viewport extends Component {
   async componentDidMount() {
     const { api, apis } = global;
     await api(apis.Application.config);
+    global.jQuery(global.document).keyup(e => {
+      if (e.keyCode == 27) {
+        e.preventDefault();
+        this.props.ApplicationRemoveLastPopup();
+      }
+    });
   }
   renderRoutes() {
     return global.routes;

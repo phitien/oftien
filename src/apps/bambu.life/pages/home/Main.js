@@ -210,6 +210,22 @@ export default class Main extends Page {
               onClick={this.onStockClick.bind(this, o)}
             >
               {o}
+              <Space />
+              <Icon
+                icon="fas fa-trash-alt"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  stocks.splice(stocks.indexOf(o), 1);
+                  this.setState(
+                    { stocks },
+                    global.localStorage.setItem(
+                      "stocks",
+                      JSON.stringify(stocks)
+                    )
+                  );
+                }}
+              />
             </div>
           ))}
         </div>
