@@ -151,7 +151,8 @@ export default class Main extends Page {
     const { stock, cfunction, apikey } = this.state;
     await loadStock({ stock, apikey, cfunction });
   }
-  onStockClick(stock) {
+  onStockClick(stock, e) {
+    global.jQuery(e.target.closest(".left,.right")).addClass("hide-symbols");
     this.setState({ stock }, e => {
       global.localStorage.setItem("stock", stock);
       this.loadStock();
@@ -171,6 +172,16 @@ export default class Main extends Page {
         <h4>
           Watch list
           <Space />
+          <Icon
+            icon={`far fa-eye-slash`}
+            title="Toggle symbols"
+            onClick={e => {
+              global.jQuery(e.target).toggleClass("fa-eye");
+              global
+                .jQuery(e.target.closest(".left,.right"))
+                .toggleClass("hide-symbols");
+            }}
+          />
           <Icon
             icon="fas fa-plus"
             title="Add symbol"
@@ -216,6 +227,9 @@ export default class Main extends Page {
                 onClick={e => {
                   e.preventDefault();
                   e.stopPropagation();
+                  global
+                    .jQuery(e.target.closest(".left,.right"))
+                    .removeClass("hide-symbols");
                   stocks.splice(stocks.indexOf(o), 1);
                   this.setState(
                     { stocks },

@@ -15,7 +15,8 @@ $s-space: 24px;
       height: 100%;
       box-shadow: 0px 0px 12px $cl-green;
     }
-    .left .wrapper {
+    .left .wrapper,
+    .right .wrapper {
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -30,9 +31,13 @@ $s-space: 24px;
         align-items: center;
         i {
           cursor: pointer;
+          margin: 0 0 0 12px;
           &:hover {
             box-shadow: 0px 0px 12px $cl-white;
           }
+        }
+        .fa-eye-slash {
+          display: none;
         }
       }
       .stocks {
@@ -82,6 +87,57 @@ $s-space: 24px;
   }
   /*** screen 960px ***/
   @media screen and (max-width: 960px) {
+    .layout.rows > .content {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      .left,
+      .right {
+        @include flex-width(100%);
+        position: absolute;
+        top: $top-row-height;
+        left: 0;
+        z-index: 1;
+        height: calc(100% - var(--top-row-height));
+        .wrapper h4 .fa-eye-slash {
+          display: initial;
+        }
+        &.hide-symbols {
+          @include flex-height(auto);
+          .wrapper {
+            height: fit-content;
+            .stocks {
+              display: none;
+            }
+          }
+        }
+      }
+      .main {
+        @include flex-width(100%);
+        .wrapper {
+          position: inherit;
+          h3 {
+            position: absolute;
+            right: 12px;
+            top: 50px;
+            font-size: 14px;
+            background-color: transparent;
+          }
+          input,
+          select {
+            @include color($cl-white, $cl-black);
+            position: relative;
+            left: initial;
+            margin: 48px 12px 24px 12px;
+            width: calc(50% - 24px);
+          }
+          .echarts {
+            display: block;
+            margin: 24px 0 0;
+          }
+        }
+      }
+    }
   }
   /*** screen 768px ***/
   @media screen and (max-width: 768px) {
