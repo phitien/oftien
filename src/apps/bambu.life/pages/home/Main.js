@@ -169,7 +169,7 @@ export default class Main extends Page {
             icon={`far fa-eye-slash`}
             title="Toggle symbols"
             onClick={e => {
-              global.jQuery(e.target).toggleClass("fa-eye");
+              global.jQuery(e.target).toggleClass("fa-eye-slash fa-eye");
               global
                 .jQuery(e.target.closest(".left,.right"))
                 .toggleClass("hide-symbols");

@@ -45,6 +45,13 @@
   --cl-main: var(--cl-text);
   --cl-error: var(--cl-red);
 
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+  --cl-overlay: var(--cl-white);
+  --bg-popup: var(--cl-white);
+  --cl-popup: var(--cl-black);
+  --bg-popup-header: var(--cl-purple);
+  --cl-popup-header: var(--cl-white);
+
   --font-text: var(--font-family);
   --font-size-body: 14px;
   --font-main: var(--font-text);

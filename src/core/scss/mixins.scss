@@ -583,7 +583,14 @@
     }
   }
 }
-@mixin overlay() {
+@mixin overlay(
+  $cl-overlay: var(--cl-overlay),
+  $bg-overlay: var(--bg-overlay),
+  $cl-popup: var(--cl-popup),
+  $bg-popup: var(--bg-popup),
+  $cl-popup-header: var(--cl-popup-header),
+  $bg-popup-header: var(--bg-popup-header)
+) {
   .overlay {
     position: fixed;
     top: 0;
@@ -594,7 +601,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.2);
+    @include color($cl-overlay, $bg-overlay);
     &.no-overlay {
       position: initial;
       top: initial;
@@ -604,8 +611,8 @@
       z-index: initial;
     }
     &.popup {
-      background-color: rgba(0, 0, 0, 0.7);
       .wrapper {
+        @include color($cl-popup, $bg-popup);
         padding: 0;
         border-radius: 4px;
         overflow: hidden;
@@ -614,7 +621,7 @@
         flex-direction: column;
         .header {
           @include flex-height(36px);
-          background-color: #333333;
+          @include color($cl-popup-header, $bg-popup-header);
           display: flex;
           position: relative;
           padding: 0 4px;
@@ -632,7 +639,6 @@
           }
         }
         .content {
-          background-color: #676767;
           padding: 8px 16px;
           flex: 1;
           min-width: 300px;
