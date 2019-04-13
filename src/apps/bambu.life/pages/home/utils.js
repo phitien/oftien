@@ -51,7 +51,7 @@ export function renderItem(params, api) {
   const c = api.coord([xValue, api.value(2)]);
   const l = api.coord([xValue, api.value(3)]);
   const h = api.coord([xValue, api.value(4)]);
-  const hW = api.size([1, 0])[0] * 0.35;
+  const sW = api.size([1, 0])[0] * 0.15;
   // global.api = api;
   // global.params = params;
   const style = api.style({
@@ -67,12 +67,12 @@ export function renderItem(params, api) {
       },
       {
         type: "line",
-        shape: { x1: o[0], y1: o[1], x2: o[0] - hW, y2: o[1] },
+        shape: { x1: o[0], y1: o[1], x2: o[0] - sW, y2: o[1] },
         style: style
       },
       {
         type: "line",
-        shape: { x1: c[0], y1: c[1], x2: c[0] + hW, y2: c[1] },
+        shape: { x1: c[0], y1: c[1], x2: c[0] + sW, y2: c[1] },
         style: style
       }
     ]
