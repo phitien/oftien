@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import classnames from "classnames";
 
 import { connect } from "../redux";
@@ -14,7 +14,7 @@ export class Viewport extends Component {
     const { api, apis } = global;
     await api(apis.Application.config);
     global.jQuery(global.document).keyup(e => {
-      if (e.keyCode == 27) {
+      if (e.keyCode === 27) {
         e.preventDefault();
         this.props.ApplicationRemoveLastPopup();
       }
@@ -22,7 +22,7 @@ export class Viewport extends Component {
   }
   renderRoutes() {
     return global.routes;
-    return <Switch>{global.routes}</Switch>;
+    // return <Switch>{global.routes}</Switch>;
   }
   renderMainContent() {
     return (

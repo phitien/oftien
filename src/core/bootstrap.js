@@ -62,12 +62,12 @@ Object.keys(models).map(name => {
           }
         });
       };
-      return;
+      return true;
     });
     global.apis[name] = apis;
     return global.models[name];
   }
-  return;
+  return true;
 });
 
 //store

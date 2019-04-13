@@ -4,7 +4,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import uuidv4 from "uuid/v4";
 
-import { Button, Icon, Space, Page } from "../../../../core";
+import { Button, Icon, Page } from "../../../../core";
 
 import { loadProfile, colors } from "./utils";
 
@@ -206,7 +206,7 @@ export default class Main extends Page {
     const { state, settings } = this;
     const info = state.info || {};
     const infoFields = [].merge(settings.info);
-    const { name, avatar } = info || {};
+    const { name } = info || {};
     return (
       <div className="info">
         <h2 className="name">{name}</h2>

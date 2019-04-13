@@ -4,7 +4,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import ReactEcharts from "echarts-for-react";
 
-import { Button, Icon, Logo, Space, Page } from "../../../../core";
+import { Icon, Logo, Space, Page } from "../../../../core";
 
 import AddStock from "./AddStock";
 

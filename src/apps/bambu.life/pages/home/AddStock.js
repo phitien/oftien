@@ -2,7 +2,7 @@ import "./add-stock.scss";
 
 import React from "react";
 
-import { Button, Component, Icon, Logo, Space } from "../../../../core";
+import { Component } from "../../../../core";
 
 export default class AddStock extends Component {
   state = { value: "" };

@@ -5,7 +5,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Helmet } from "react-helmet";
 import Viewport from "./Viewport";
 
-const trackingId = null;
+let trackingId = null;
 try {
   trackingId = require(`../../gg-analytics/${global.location.hostname}.js`)
     .default;
