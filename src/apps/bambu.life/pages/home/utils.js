@@ -46,47 +46,33 @@ export const cfunctions = [
 ];
 
 export function renderItem(params, api) {
-  var xValue = api.value(0);
-  var openPoint = api.coord([xValue, api.value(1)]);
-  var closePoint = api.coord([xValue, api.value(2)]);
-  var lowPoint = api.coord([xValue, api.value(3)]);
-  var highPoint = api.coord([xValue, api.value(4)]);
-  var halfWidth = api.size([1, 0])[0] * 0.35;
-  var style = api.style({
-    stroke: api.visual("color")
+  const xValue = api.value(0);
+  const o = api.coord([xValue, api.value(1)]);
+  const c = api.coord([xValue, api.value(2)]);
+  const l = api.coord([xValue, api.value(3)]);
+  const h = api.coord([xValue, api.value(4)]);
+  const hW = api.size([1, 0])[0] * 0.35;
+  // global.api = api;
+  // global.params = params;
+  const style = api.style({
+    stroke: o[1] > c[1] ? api.visual("color") : "#118c1b"
   });
-
   return {
     type: "group",
     children: [
       {
         type: "line",
-        shape: {
-          x1: lowPoint[0],
-          y1: lowPoint[1],
-          x2: highPoint[0],
-          y2: highPoint[1]
-        },
+        shape: { x1: l[0], y1: l[1], x2: h[0], y2: h[1] },
         style: style
       },
       {
         type: "line",
-        shape: {
-          x1: openPoint[0],
-          y1: openPoint[1],
-          x2: openPoint[0] - halfWidth,
-          y2: openPoint[1]
-        },
+        shape: { x1: o[0], y1: o[1], x2: o[0] - hW, y2: o[1] },
         style: style
       },
       {
         type: "line",
-        shape: {
-          x1: closePoint[0],
-          y1: closePoint[1],
-          x2: closePoint[0] + halfWidth,
-          y2: closePoint[1]
-        },
+        shape: { x1: c[0], y1: c[1], x2: c[0] + hW, y2: c[1] },
         style: style
       }
     ]

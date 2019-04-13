@@ -33,7 +33,7 @@ export default class Main extends Page {
   }
   get stockZoom() {
     const { zoom, stock } = this.state;
-    return zoom[stock] || { start: 70, end: 100, minValueSpan: 30 };
+    return zoom[stock] || { start: 70, end: 100, minValueSpan: 20 };
   }
   constructor(props) {
     super(props);
@@ -61,8 +61,16 @@ export default class Main extends Page {
     const values = [];
     let i = 0;
     for (let d in data) {
+      const r = data[d];
       categoryData.unshift(d);
-      const value = [i, ...Object.values(data[d])];
+      const value = [
+        i,
+        parseFloat(r["1. open"]),
+        parseFloat(r["4. close"]),
+        parseFloat(r["3. low"]),
+        parseFloat(r["2. high"]),
+        parseFloat(r["5. volume"])
+      ];
       values.unshift(value);
       i++;
     }
@@ -72,7 +80,8 @@ export default class Main extends Page {
   chartOptions = (data, title, subtext) => {
     const { start, end, minValueSpan } = this.stockZoom;
     return {
-      backgroundColor: "#eee",
+      backgroundColor: "#fff",
+      color: "#c23632",
       animation: false,
       legend: { top: 10, left: "center", data: [title] },
       tooltip: {
