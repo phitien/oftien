@@ -319,6 +319,45 @@ $size-a4: 842px;
       }
     }
   }
+  .overview {
+    height: $overview-h + $space;
+    padding: 0 0 $space;
+    display: flex;
+    position: relative;
+    .avatar {
+      @include flex-width(120px);
+      height: 120px;
+      border-radius: 50%;
+      background-color: var(--cl-lightgrey);
+      background-repeat: no-repeat;
+      background-position: 0px -18px;
+      background-size: 120px auto;
+      margin-right: $s-space;
+    }
+    .intro {
+      font-weight: 500;
+    }
+    .quote {
+      font-weight: 400;
+      opacity: 0.6;
+      &:before {
+        content: "*** + ";
+      }
+      &:after {
+        content: " ... ***";
+      }
+    }
+    &:after {
+      position: absolute;
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 5px;
+      width: 100%;
+      background-color: var(--cl-grey);
+      border-radius: 5px;
+    }
+  }
   .layout {
     @include flex-width(1024px);
     background-color: white;
@@ -327,45 +366,6 @@ $size-a4: 842px;
     color: var(--cl-grey);
     height: fit-content;
     > .content .main .wrraper {
-      .overview {
-        height: $overview-h + $space;
-        padding: 0 0 $space;
-        display: flex;
-        position: relative;
-        .avatar {
-          @include flex-width(120px);
-          height: 120px;
-          border-radius: 50%;
-          background-color: var(--cl-lightgrey);
-          background-repeat: no-repeat;
-          background-position: 0px -18px;
-          background-size: 120px auto;
-          margin-right: $s-space;
-        }
-        .intro {
-          font-weight: 500;
-        }
-        .quote {
-          font-weight: 400;
-          opacity: 0.6;
-          &:before {
-            content: "*** + ";
-          }
-          &:after {
-            content: " ... ***";
-          }
-        }
-        &:after {
-          position: absolute;
-          bottom: 0;
-          content: "";
-          display: block;
-          height: 5px;
-          width: 100%;
-          background-color: var(--cl-grey);
-          border-radius: 5px;
-        }
-      }
     }
     .left,
     .right {
