@@ -370,6 +370,20 @@ $size-a4: 842px;
     .left,
     .right {
       @include flex-width(25%);
+      .overview {
+        height: fit-content;
+        display: block;
+        .avatar {
+          margin: 0 auto 12px;
+        }
+        .info {
+          margin-right: $space/3;
+          text-align: center;
+        }
+        &:after {
+          display: none;
+        }
+      }
       .wrraper {
         height: fit-content;
         .contact {
