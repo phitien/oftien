@@ -14,6 +14,7 @@ export default class Main extends Page {
   static layout = "Main_Right";
   static className = "route-home-main";
 
+  exclusionsKeys = ["editing", "username", "settings", "className"];
   state = {
     editing: false,
     username: this.username,
@@ -42,17 +43,17 @@ export default class Main extends Page {
   }
   get layoutSettings() {
     const { layout, settings } = this;
-    const alllayouts = { ...layouts, ...settings.layouts };
-    return alllayouts[layout] || layouts.Main_Right;
+    console.log("qq", settings, layouts);
+    return settings[layout] || layouts[layout] || layouts.Main_Right;
   }
   get username() {
     return this.props.match.params.username || "oftien";
   }
   get settings() {
+    const settings = { ...layouts, ...this.state.settings };
     return {
       avatarMargin: "0px 0px",
-      ...layouts,
-      ...this.state.settings
+      ...settings
     };
   }
 
@@ -84,9 +85,17 @@ export default class Main extends Page {
   }
   createEditor() {
     const { JSONEditor } = global;
+    const { exclusionsKeys } = this;
     if (JSONEditor) {
       this.editor = new JSONEditor(this.editorDom, {
-        onChange: () => this.setState(this.editor.get())
+        onChange: () => {
+          const state = this.editor.get();
+          const keys = Object.keys(this.state)
+            .filter(k => !exclusionsKeys.includes(k))
+            .diff(Object.keys(state));
+          keys.map(k => delete this.state[k]);
+          this.setState(state);
+        }
       });
       this.editorSettings = new JSONEditor(this.editorSettingsDom, {
         onChange: () => this.setState({ settings: this.editorSettings.get() })
