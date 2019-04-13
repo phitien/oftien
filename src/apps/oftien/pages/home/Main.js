@@ -211,7 +211,7 @@ export default class Main extends Page {
     return null;
   }
   renderInfo() {
-    const { state, layoutSettings } = this;
+    const { state, layoutSettings, settings } = this;
     const info = state.info || {};
     const infoFields = [].merge(layoutSettings.info);
     const { name, avatar } = info || {};
@@ -221,7 +221,7 @@ export default class Main extends Page {
           className="avatar"
           style={{
             backgroundImage: `url(${avatar})`,
-            backgroundPosition: layoutSettings.avatarMargin
+            backgroundPosition: settings.avatarMargin
           }}
         />
         <div className="info">
