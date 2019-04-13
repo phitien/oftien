@@ -33,20 +33,6 @@ export const cfunctions = [
   ["TIME_SERIES_MONTHLY_ADJUSTED", "Monthly Adjusted Time Series"]
 ];
 
-export function splitData(rawData) {
-  var categoryData = [];
-  var values = [];
-  for (var i = 0; i < rawData.length; i++) {
-    categoryData.push(rawData[i][0]);
-    rawData[i][0] = i;
-    values.push(rawData[i]);
-  }
-  return {
-    categoryData: categoryData,
-    values: values
-  };
-}
-
 export function renderItem(params, api) {
   var xValue = api.value(0);
   var openPoint = api.coord([xValue, api.value(1)]);

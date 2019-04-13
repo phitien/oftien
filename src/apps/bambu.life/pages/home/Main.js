@@ -52,17 +52,21 @@ export default class Main extends Page {
     const [key, value] = cfunctions.find(([k, v]) => k === cfunction);
     const data = this.props.Stock.detail[value];
     if (!data) return {};
-    return {
-      categoryData: Object.keys(data).reverse(),
-      values: Object.values(data)
-        .map((o, i) => [i, ...Object.values(o)])
-        .reverse()
-    };
+    const categoryData = [];
+    const values = [];
+    let i = 0;
+    for (let d in data) {
+      categoryData.unshift(d);
+      const value = [i, ...Object.values(data[d])];
+      values.unshift(value);
+      i++;
+    }
+    return { categoryData, values };
   };
   chartOptions = (data, title, subtext) => {
     return {
       backgroundColor: "#eee",
-      animation: true,
+      animation: false,
       legend: { top: 10, left: "center", data: [title] },
       tooltip: {
         trigger: "axis",
