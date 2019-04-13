@@ -169,11 +169,20 @@ export default class Main extends Page {
             icon={`fas fa-list`}
             title="Toggle symbols"
             onClick={e => {
-              global
-                .jQuery(e.target.closest(".left,.right"))
-                .toggleClass("hide-symbols")
-                .find(".wrapper .stocks")
-                .slideToggle();
+              const el = e.target.closest(".left,.right");
+              el.closed = !el.closed;
+              if (el.closed)
+                global
+                  .jQuery(el)
+                  .addClass("hide-symbols")
+                  .find(".wrapper .stocks")
+                  .slideUp();
+              else
+                global
+                  .jQuery(el)
+                  .removeClass("hide-symbols")
+                  .find(".wrapper .stocks")
+                  .slideDown();
             }}
           />
           <Icon
