@@ -1,4 +1,4 @@
-@import "../../../../core/scss/index";
+@import "../../scss/index";
 
 $space: 56px;
 $s-space: 24px;
@@ -72,7 +72,7 @@ $size-a4: 842px;
     top: $s-space;
     width: $left-banner-size;
     .word {
-      color: var(--cl-red);
+      color: var(--cl-highlight);
       margin-bottom: $left-banner-size;
       &:hover {
         color: var(--cl-green);
@@ -92,6 +92,7 @@ $size-a4: 842px;
       background-color: var(--cl-grey);
       &:hover {
         color: var(--cl-yellow);
+        background-color: var(--cl-highlight);
       }
     }
   }
@@ -143,6 +144,9 @@ $size-a4: 842px;
       .big {
         border-color: var(--cl-red);
       }
+    }
+    &.active {
+      background-color: var(--cl-highlight);
     }
   }
   .birthday {
@@ -205,6 +209,7 @@ $size-a4: 842px;
   .fixed {
     right: $s-space;
     z-index: 1;
+    background-color: transparent;
     .btn:nth-child(n + 2) {
       margin-left: 4px;
     }

@@ -1,22 +1,39 @@
 @import "../../../core/scss/index";
 
 :root {
+  --bg-body: #f0f0f0;
+  --cl-text: var(--cl-black);
   --bg-top: #232323;
   --cl-top: var(--cl-white);
   --bg-bottom: #232323;
   --cl-bottom: var(--cl-white);
+  --bg-left: var(--bg-body);
+  --cl-left: var(--cl-text);
+  --bg-right: var(--bg-body);
+  --cl-right: var(--cl-text);
+  --bg-main: var(--bg-body);
+  --cl-main: var(--cl-text);
+  --cl-error: var(--cl-red);
+
   --logo-height: 100%;
-  --top-row-height: 88px;
   --cl-highlight: var(--cl-purple);
   --font-size-bottom: 12px;
 }
 
 body {
-  @include layouts();
+  @include vertical-scrollbar();
+  @include default_style();
   @include colors();
-  @include fonts();
-  @include logo();
+  @include common();
   @include input-text();
+  @include textarea();
+  @include select();
+  @include inputfield();
+  @include layouts();
+  @include logo();
+  @include notifications();
+  @include button();
+  @include overlay();
   .logo {
     margin-left: 24px;
   }
