@@ -21,6 +21,14 @@ $s-space: 24px;
       height: 100%;
       border-left: 1px solid;
       border-right: 1px solid;
+      i {
+        cursor: pointer;
+        margin: 0 0 0 12px;
+        padding: 4px;
+        &:hover {
+          box-shadow: 0px 0px 12px var(--cl-white);
+        }
+      }
       h4 {
         @include color(var(--cl-purple), var(--cl-brownd));
         @include flex-height(40px);
@@ -30,14 +38,7 @@ $s-space: 24px;
         box-shadow: 0px 0px 12px var(--cl-white);
         display: flex;
         align-items: center;
-        i {
-          cursor: pointer;
-          margin: 0 0 0 12px;
-          &:hover {
-            box-shadow: 0px 0px 12px var(--cl-white);
-          }
-        }
-        .fa-eye-slash {
+        .fa-list {
           display: none;
         }
       }
@@ -112,7 +113,7 @@ $s-space: 24px;
         display: block;
         height: 100%;
         .wrapper {
-          h4 .fa-eye-slash {
+          h4 .fa-list {
             display: initial;
           }
         }

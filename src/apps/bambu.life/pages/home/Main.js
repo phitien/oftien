@@ -166,10 +166,9 @@ export default class Main extends Page {
           Watch list
           <Space />
           <Icon
-            icon={`far fa-eye-slash`}
+            icon={`fas fa-list`}
             title="Toggle symbols"
             onClick={e => {
-              global.jQuery(e.target).toggleClass("fa-eye-slash fa-eye");
               global
                 .jQuery(e.target.closest(".left,.right"))
                 .toggleClass("hide-symbols")
