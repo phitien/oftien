@@ -8,6 +8,24 @@ $section-border: 2px solid var(--cl-lightgrey);
 
 $size-a4: 842px;
 
+@mixin contact-style() {
+  height: fit-content !important;
+  &:before {
+    content: "Contact";
+    color: var(--cl-highlight);
+    line-height: 32px;
+    font-size: $font-size-section-heading;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    padding-top: $space;
+    display: block;
+    line-height: 24px;
+  }
+  &:after {
+    display: none;
+  }
+}
 @mixin standard_layout {
   @include flex-width(100%);
   display: flex;
@@ -19,23 +37,7 @@ $size-a4: 842px;
       display: flex;
       flex-direction: column-reverse;
       .contact {
-        height: fit-content;
-        &:before {
-          content: "Contact";
-          color: var(--cl-highlight);
-          line-height: 32px;
-          font-size: $font-size-section-heading;
-          font-weight: 500;
-          text-transform: uppercase;
-          margin: 0 0 16px;
-          padding-top: $space;
-          display: block;
-          line-height: 24px;
-          border-top: $section-border;
-        }
-        &:after {
-          display: none;
-        }
+        @include contact-style();
       }
       .sections {
         border-top: $section-border;
@@ -135,9 +137,6 @@ $size-a4: 842px;
         background-color: var(--cl-black);
       }
     }
-    &.Left_Main {
-      flex-direction: row-reverse;
-    }
     &:hover,
     &.active {
       border: 1px solid var(--cl-red) !important;
@@ -169,7 +168,6 @@ $size-a4: 842px;
   .contact {
     min-height: 100%;
     height: fit-content;
-    border-bottom: none;
     padding-bottom: 0;
     position: relative;
     display: flex;
@@ -231,8 +229,22 @@ $size-a4: 842px;
     h3 {
       margin: $space 0 16px;
     }
+    &:first-child {
+      > h3 {
+        margin-top: 0;
+      }
+    }
     &:last-child {
       border-bottom: none;
+    }
+  }
+  .section + .section {
+    border-bottom: 1px solid var(--cl-lightgrey);
+    &.contact {
+      @include contact-style();
+    }
+    &:after {
+      display: none !important;
     }
   }
   .block {

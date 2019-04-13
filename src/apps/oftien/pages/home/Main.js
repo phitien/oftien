@@ -6,7 +6,7 @@ import uuidv4 from "uuid/v4";
 
 import { Button, Icon, Page } from "../../../../core";
 
-import { loadProfile, colors } from "./utils";
+import { loadProfile, colors, layouts } from "./utils";
 
 export default class Main extends Page {
   static isDefault = true;
@@ -16,18 +16,42 @@ export default class Main extends Page {
 
   state = {
     editing: false,
-    username: this.username
+    username: this.username,
+    settings: {}
   };
-
+  get layout() {
+    return super.layout || this.settings.layout;
+  }
+  get fontFamily() {
+    return this.settings.fontFamily || super.fontFamily;
+  }
+  get fontWeight() {
+    return this.settings.fontWeight || super.fontWeight;
+  }
+  get fontSize() {
+    return this.settings.fontSize || super.fontSize;
+  }
+  get highlight() {
+    return this.settings.highlight || super.highlight;
+  }
+  get color() {
+    return this.settings.color || super.color;
+  }
+  get bgcolor() {
+    return this.settings.bgcolor || super.bgcolor;
+  }
+  get layoutSettings() {
+    const { layout, settings } = this;
+    const alllayouts = { ...layouts, ...settings.layouts };
+    return alllayouts[layout] || layouts.Main_Right;
+  }
   get username() {
     return this.props.match.params.username || "oftien";
   }
   get settings() {
     return {
-      main: ["experiences", "projects"],
-      left: ["skills", "education"],
-      right: ["skills", "education"],
-      avatarMargin: "0 0",
+      avatarMargin: "0px 0px",
+      ...layouts,
       ...this.state.settings
     };
   }
@@ -51,9 +75,8 @@ export default class Main extends Page {
     });
   }
   getSections(p) {
-    const { settings } = this;
-    const sections = settings && settings[p] ? [].merge(settings[p]) : [];
-    const state = this.state;
+    const { state, layoutSettings } = this;
+    const sections = layoutSettings[p] ? [].merge(layoutSettings[p]) : [];
     return sections.reduce((rs, k) => {
       if (state.hasOwnProperty(k)) rs[k] = state[k];
       return rs;
@@ -70,7 +93,7 @@ export default class Main extends Page {
       });
     }
   }
-  onShowHideEditor = () => {
+  onDataChange = () => {
     const data = Object.omit(
       this.state,
       "settings",
@@ -79,41 +102,15 @@ export default class Main extends Page {
       "className"
     );
     this.editor.set(data);
-    this.editorSettings.set({
-      main: ["experiences", "projects"],
-      left: ["skills", "education"],
-      right: ["skills", "education"],
-      info: ["occupation", "quote", "intro", "birthday"],
-      contact: ["website", "github", "email", "skype", "mobile", "address"],
-      avatarMargin: "0px 0px",
-      ...this.state.settings
-    });
+    this.editorSettings.set(this.settings);
   };
-  onSave = e => {
+  onClone = e => {
     const onChangeUsername = e => {
       e.target.value = e.target.value.replace(/[\W_]/g, "-");
       this.setState({ username: e.target.value });
     };
     this.props.ApplicationAddPopup(
-      <div
-        className="fieldgroup"
-        confirm={e => {
-          const { api, apis } = global;
-          const data = Object.omit(
-            this.state,
-            "editing",
-            "username",
-            "className"
-          );
-          const { username } = this.state;
-          return api(apis.Resume.save, { ...data, username: this.username }, [
-            username
-          ]).then(res => {
-            if (!res.error && this.username !== username)
-              this.props.history.replace(`/${username}`);
-          });
-        }}
-      >
+      <div className="fieldgroup" confirm={this.onSave}>
         <div className="inputfield">
           <div className="label">Username</div>
           <input
@@ -125,6 +122,17 @@ export default class Main extends Page {
         </div>
       </div>
     );
+  };
+  onSave = e => {
+    const { api, apis } = global;
+    const data = Object.omit(this.state, "editing", "username", "className");
+    const { username } = this.state;
+    return api(apis.Resume.save, { ...data, username: this.username }, [
+      username
+    ]).then(res => {
+      if (!res.error && this.username !== username)
+        this.props.history.replace(`/${username}`);
+    });
   };
 
   renderSection(heading, children) {
@@ -203,24 +211,34 @@ export default class Main extends Page {
     return null;
   }
   renderInfo() {
-    const { state, settings } = this;
+    const { state, layoutSettings } = this;
     const info = state.info || {};
-    const infoFields = [].merge(settings.info);
-    const { name } = info || {};
+    const infoFields = [].merge(layoutSettings.info);
+    const { name, avatar } = info || {};
     return (
-      <div className="info">
-        <h2 className="name">{name}</h2>
-        {infoFields.map(f =>
-          info[f] ? (
-            <div key={f} className={f}>
-              {info[f]}
-            </div>
-          ) : null
-        )}
+      <div key="info" className="section overview">
+        <div
+          className="avatar"
+          style={{
+            backgroundImage: `url(${avatar})`,
+            backgroundPosition: layoutSettings.avatarMargin
+          }}
+        />
+        <div className="info">
+          <h2 className="name">{name}</h2>
+          {infoFields.map(f =>
+            info[f] ? (
+              <div key={f} className={f}>
+                {info[f]}
+              </div>
+            ) : null
+          )}
+        </div>
       </div>
     );
   }
   renderLeftBanner() {
+    const { settings } = this;
     let idx = 0;
     return (
       <div className="fixed left-banner no-printing">
@@ -237,11 +255,16 @@ export default class Main extends Page {
                     key={j}
                     className="letter"
                     style={{ "--cl-highlight": color, color }}
-                    onClick={e =>
-                      global
-                        .jQuery("body")
-                        .attr("style", `--cl-highlight: ${color}`)
-                    }
+                    onClick={async e => {
+                      await global.localStorage.setItem("highlight", color);
+                      settings.highlight = color;
+                      this.setState({ settings }, async () => {
+                        await this.onDataChange();
+                        global
+                          .jQuery("body")
+                          .attr("style", `--cl-highlight: ${color}`);
+                      });
+                    }}
                   >
                     {o}
                   </div>
@@ -267,25 +290,17 @@ export default class Main extends Page {
           <meta name="description" content={description} />
           {settings.style ? <style>{settings.style}</style> : null}
         </Helmet>
-        <div className="overview">
-          <div
-            className="avatar"
-            style={{
-              backgroundImage: `url(${avatar})`,
-              backgroundPosition: settings.avatarMargin
-            }}
-          />
-          {this.renderInfo()}
-        </div>
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
-            this.renderSection(
-              k,
-              []
-                .merge(sections[k])
-                .map((o, i) => this.renderSectionBlock(o, i)),
-              j
-            )
+            this[`render${k.ucfirst()}`]
+              ? this[`render${k.ucfirst()}`]()
+              : this.renderSection(
+                  k,
+                  []
+                    .merge(sections[k])
+                    .map((o, i) => this.renderSectionBlock(o, i)),
+                  j
+                )
           )}
         </div>
         {this.renderButtons()}
@@ -294,9 +309,9 @@ export default class Main extends Page {
     );
   }
   renderContact() {
-    const { state, settings } = this;
+    const { state, layoutSettings } = this;
     const contact = [].merge(state.contact);
-    const search = [].merge(settings.contact);
+    const search = [].merge(layoutSettings.contact);
     const fields = [];
     contact.map(o => (search.includes(o.type) ? fields.push(o) : false));
     if (!fields.length) return null;
@@ -332,7 +347,7 @@ export default class Main extends Page {
       ];
     };
     return (
-      <div className="contact">
+      <div key="contact" className="section contact">
         {fields.map((o, i) =>
           o.type === "mobile" || o.type === "phone" ? (
             renderMobile(o, i)
@@ -362,14 +377,15 @@ export default class Main extends Page {
     return [
       <div key="top" className="fixed top no-printing">
         <Button icon="fas fa-print" onClick={e => global.print()} />
-        {editing ? <Button icon="fas fa-save" onClick={this.onSave} /> : null}
+        <Button icon="far fa-clone" onClick={this.onClone} />
+        <Button icon="fas fa-save" onClick={this.onSave} />
         <Button
           icon={editing ? "far fa-times-circle" : "far fa-edit"}
           onClick={e => {
             const { editing } = this.state;
             this.setState(
               { editing: !editing, className: editing ? "" : "editing" },
-              this.onShowHideEditor
+              this.onDataChange
             );
           }}
         />
@@ -395,22 +411,24 @@ export default class Main extends Page {
   renderSide(sections) {
     return (
       <div className="wrraper">
-        {this.renderContact()}
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
-            this.renderSection(
-              k,
-              []
-                .merge(sections[k])
-                .map((o, i) => this.renderSectionBlock(o, i)),
-              j
-            )
+            this[`render${k.ucfirst()}`]
+              ? this[`render${k.ucfirst()}`]()
+              : this.renderSection(
+                  k,
+                  []
+                    .merge(sections[k])
+                    .map((o, i) => this.renderSectionBlock(o, i)),
+                  j
+                )
           )}
         </div>
       </div>
     );
   }
   renderLayoutOption(name) {
+    const { settings } = this;
     const hash = global.location.hash;
     const parts = hash.split("&").filter(o => !/layout=.*/g.test(o));
     const active = name === this.layout;
@@ -419,8 +437,13 @@ export default class Main extends Page {
         key={name}
         title={name}
         className={`layout-option ${name} ${active ? "active" : ""}`}
-        onClick={e => {
-          global.location.hash = [...parts, `layout=${name}`].join("&");
+        onClick={async e => {
+          await global.localStorage.setItem("layout", name);
+          settings.layout = name;
+          this.setState({ settings }, async () => {
+            await this.onDataChange();
+            global.location.hash = [...parts, `layout=${name}`].join("&");
+          });
         }}
       />
     );

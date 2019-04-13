@@ -19,9 +19,29 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
+  get fontFamily() {
+    return global.localStorage.getItem("fontFamily");
+  }
+  get fontWeight() {
+    return global.localStorage.getItem("fontWeight");
+  }
+  get fontSize() {
+    return global.localStorage.getItem("fontSize");
+  }
+  get highlight() {
+    return global.localStorage.getItem("highlight");
+  }
+  get color() {
+    return global.localStorage.getItem("color");
+  }
+  get bgcolor() {
+    return global.localStorage.getItem("bgcolor");
+  }
   get layout() {
     const match = global.location.hash.match(/layout=([a-zA-Z_]+)/);
-    const layout = match ? match[1] : this.constructor.layout;
+    const layout = match
+      ? match[1]
+      : global.localStorage.getItem("layout") || this.constructor.layout;
     const layouts = this.constructor.layouts;
     return layouts.includes(layout) ? layout : "Main";
   }
@@ -326,9 +346,23 @@ export class Page extends Component {
     return null;
   }
   renderComponent() {
-    const fnName = `render${this.layout}`;
+    const { fontFamily, fontWeight, fontSize, layout } = this;
+    const { color, bgcolor, highlight } = this;
+    const style = {};
+    if (fontFamily) style["--font-family"] = fontFamily;
+    if (fontWeight) style["--font-weight"] = fontWeight;
+    if (fontSize) style["--font-size"] = fontSize;
+    if (highlight) style["--cl-highlight"] = highlight;
+    if (color) style["--cl-text"] = color;
+    if (bgcolor) style["--bg-body"] = bgcolor;
+    const fnName = `render${layout}`;
     return (
-      <div key="page" className={this.className} ref={e => (this.pageDom = e)}>
+      <div
+        key="page"
+        className={this.className}
+        style={style}
+        ref={e => (this.pageDom = e)}
+      >
         {this[fnName] ? this[fnName]() : this.renderMain()}
         {this.renderExtra()}
       </div>
