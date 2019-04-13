@@ -10,7 +10,6 @@ $s-space: 24px;
   background-size: cover;
   overflow: auto;
   .layout {
-    // @include flex-width(100%);
     .top .wrapper {
       height: 100%;
       box-shadow: 0px 0px 12px var(--cl-green);
@@ -45,6 +44,7 @@ $s-space: 24px;
       .stocks {
         flex: 1;
         overflow: auto;
+        border-bottom: 3px solid var(--cl-purple);
         .stock {
           padding: 8px;
           box-shadow: 0 0 2px;
@@ -109,9 +109,13 @@ $s-space: 24px;
         top: var(--row-height);
         left: 0;
         z-index: 1;
-        height: calc(100% - var(--row-height));
-        .wrapper h4 .fa-eye-slash {
-          display: initial;
+        display: block;
+        height: 100%;
+        .wrapper {
+          height: 100%;
+          h4 .fa-eye-slash {
+            display: initial;
+          }
         }
         &.hide-symbols {
           @include flex-height(auto);
