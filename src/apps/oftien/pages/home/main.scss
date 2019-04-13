@@ -137,6 +137,14 @@ $size-a4: 842px;
         background-color: var(--cl-black);
       }
     }
+    &.Main {
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: none;
+      }
+    }
     &:hover,
     &.active {
       border: 1px solid var(--cl-red) !important;

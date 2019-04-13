@@ -452,7 +452,8 @@ export default class Main extends Page {
     return [
       this.renderLayoutOption("Left_Main"),
       this.renderLayoutOption("Left_Main_Right"),
-      this.renderLayoutOption("Main_Right")
+      this.renderLayoutOption("Main_Right"),
+      this.renderLayoutOption("Main")
     ];
   }
   renderExtra() {

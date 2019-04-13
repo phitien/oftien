@@ -43,7 +43,7 @@ export class Page extends Component {
       ? match[1]
       : global.localStorage.getItem("layout") || this.constructor.layout;
     const layouts = this.constructor.layouts;
-    return layouts.includes(layout) ? layout : "Main";
+    return layouts.includes(layout) ? layout : "__";
   }
   get className() {
     return classnames("page", this.props.className, this.state.className);
@@ -363,7 +363,13 @@ export class Page extends Component {
         style={style}
         ref={e => (this.pageDom = e)}
       >
-        {this[fnName] ? this[fnName]() : this.renderMain()}
+        {layout === "Main" ? (
+          <div className="layout cols Main">{this.renderMain()}</div>
+        ) : this[fnName] ? (
+          this[fnName]()
+        ) : (
+          this.renderMain()
+        )}
         {this.renderExtra()}
       </div>
     );
