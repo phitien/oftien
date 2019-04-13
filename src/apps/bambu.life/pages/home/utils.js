@@ -3,7 +3,6 @@ export const loadStocks = async () => {
   return api(apis.Stock.fetch);
 };
 export const loadStock = async ({ stock, apikey, cfunction }) => {
-  console.log(stock, apikey, cfunction);
   const { api, apis } = global;
   return api(apis.Stock.detail, {
     function: cfunction || "TIME_SERIES_DAILY",
@@ -11,6 +10,19 @@ export const loadStock = async ({ stock, apikey, cfunction }) => {
     apikey: apikey || global.constants.alphavantageApiKey
   });
 };
+export const sampleStocks = [
+  "MSFT",
+  "AAPL",
+  "INTC",
+  "NFLX",
+  "ORCL",
+  "CMCSA",
+  "GOOG",
+  "LUV",
+  "HOG",
+  "GOOGL",
+  "AMZN"
+];
 export const cfunctions = [
   ["", "Type"],
   ["TIME_SERIES_DAILY", "Time Series (Daily)"],

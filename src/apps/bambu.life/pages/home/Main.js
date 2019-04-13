@@ -8,15 +8,14 @@ import { Button, Icon, Logo, Space, Page } from "../../../../core";
 
 import AddStock from "./AddStock";
 
-import { loadStock, cfunctions } from "./utils";
-import { splitData, renderItem } from "./utils";
+import { loadStock, sampleStocks, cfunctions } from "./utils";
+import { renderItem } from "./utils";
 
 export default class Main extends Page {
   static isDefault = true;
   static path = "/";
   static layout = "Top_LeftMain_Bottom";
   static className = "route-home-main";
-
   state = {
     apikey:
       global.localStorage.getItem("apikey") ||
@@ -31,12 +30,24 @@ export default class Main extends Page {
     const { stock, cfunction, apikey } = this.state;
     return stock && cfunction && apikey;
   }
-
+  constructor(props) {
+    super(props);
+    if (!this.state.stocks.length) this.state.stocks = sampleStocks;
+  }
   async componentDidMount() {
     await super.componentDidMount();
     await this.loadStock();
   }
-  chartData() {
+  cache = async (name, value, cb) => {
+    this.setState({ name: value }, async () => {
+      await global.localStorage.setItem(
+        name,
+        typeof value === "object" ? JSON.stringify(value) : value
+      );
+      if (cb) await cb(name, value);
+    });
+  };
+  chartData = () => {
     const { cfunction } = this.state;
     const [key, value] = cfunctions.find(([k, v]) => k === cfunction);
     const data = this.props.Stock.detail[value];
@@ -47,29 +58,20 @@ export default class Main extends Page {
         .map((o, i) => [i, ...Object.values(o)])
         .reverse()
     };
-    return splitData(data);
-  }
-  chartOptions(data, title, subtext) {
+  };
+  chartOptions = (data, title, subtext) => {
     return {
       backgroundColor: "#eee",
-      animation: false,
-      legend: {
-        bottom: 10,
-        left: "center",
-        data: [title]
-      },
+      animation: true,
+      legend: { top: 10, left: "center", data: [title] },
       tooltip: {
         trigger: "axis",
-        axisPointer: {
-          type: "cross"
-        },
+        axisPointer: { type: "cross" },
         backgroundColor: "rgba(245, 245, 245, 0.8)",
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 10,
-        textStyle: {
-          color: "#000"
-        },
+        textStyle: { color: "#000" },
         position: function(pos, params, el, elRect, size) {
           var obj = { top: 10 };
           obj[["left", "right"][+(pos[0] < size.viewSize[0] / 2)]] = 30;
@@ -79,17 +81,9 @@ export default class Main extends Page {
       },
       axisPointer: {
         link: { xAxisIndex: "all" },
-        label: {
-          backgroundColor: "#777"
-        }
+        label: { backgroundColor: "#777" }
       },
-      grid: [
-        {
-          left: "10%",
-          right: "8%",
-          bottom: 90
-        }
-      ],
+      grid: [{ left: "5%", right: "5%", bottom: 40 }],
       xAxis: [
         {
           type: "category",
@@ -98,37 +92,23 @@ export default class Main extends Page {
           boundaryGap: false,
           axisLine: { onZero: false },
           splitLine: { show: false },
-          splitNumber: 20,
+          splitNumber: 10,
           min: "dataMin",
           max: "dataMax",
-          axisPointer: {
-            z: 100
-          }
+          axisPointer: { z: 100 }
         }
       ],
-      yAxis: [
-        {
-          scale: true,
-          splitArea: {
-            show: true
-          }
-        }
-      ],
+      yAxis: [{ scale: true, splitArea: { show: true } }],
       dataZoom: [
-        {
-          type: "inside",
-          start: 0,
-          end: 100,
-          minValueSpan: 1
-        },
-        {
-          show: true,
-          type: "slider",
-          bottom: 35,
-          start: 0,
-          end: 100,
-          minValueSpan: 1
-        }
+        { type: "inside", start: 0, end: 100, minValueSpan: 1 }
+        // {
+        //   show: true,
+        //   type: "slider",
+        //   bottom: 35,
+        //   start: 0,
+        //   end: 100,
+        //   minValueSpan: 1
+        // }
       ],
       series: [
         {
@@ -145,19 +125,19 @@ export default class Main extends Page {
         }
       ]
     };
-  }
-  async loadStock() {
+  };
+  loadStock = async () => {
     if (!this.isValid) return;
     const { stock, cfunction, apikey } = this.state;
     await loadStock({ stock, apikey, cfunction });
-  }
-  onStockClick(stock, e) {
+  };
+  onStockClick = (stock, e) => {
     global.jQuery(e.target.closest(".left,.right")).addClass("hide-symbols");
     this.setState({ stock }, e => {
       global.localStorage.setItem("stock", stock);
       this.loadStock();
     });
-  }
+  };
   renderTop() {
     return (
       <div className="wrapper">
@@ -258,6 +238,7 @@ export default class Main extends Page {
         <h3>OHLC chart for {stock}</h3>
         <input
           type="text"
+          title="Alphavantage API key"
           placeholder="Alphavantage API key"
           value={apikey}
           onChange={e =>
@@ -267,6 +248,7 @@ export default class Main extends Page {
           }
         />
         <select
+          title="Alphavantage query function"
           value={cfunction}
           onChange={e =>
             this.setState({ cfunction: e.target.value }, () => {
@@ -284,7 +266,7 @@ export default class Main extends Page {
         <div className="echarts container" ref={e => (this.echarts = e)}>
           {!this.isValid ? null : (
             <ReactEcharts
-              option={this.chartOptions(this.chartData(), "Overview")}
+              option={this.chartOptions(this.chartData(), stock)}
               notMerge={true}
               lazyUpdate={true}
             />

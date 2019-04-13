@@ -223,8 +223,9 @@
   $input-text-color: $input-text-color,
   $input-bg-color: $input-bg-color,
   $input-border: $input-border,
+  $input-border-radius: $input-border-radius,
   $input-box-shadow: $input-box-shadow,
-  $input-border-radius: $input-border-radius
+  $input-box-shadow-hover: $input-box-shadow-hover
 ) {
   .input,
   input[type="text"],
@@ -239,13 +240,13 @@
     color: $input-text-color;
     background-color: $input-bg-color;
     border: $input-border;
-    outline: none;
-    border: none;
     border-radius: $input-border-radius;
+    box-shadow: $input-box-shadow;
+    outline: none;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $input-box-shadow;
+      box-shadow: $input-box-shadow-hover;
     }
   }
 }
@@ -256,8 +257,9 @@
   $textarea-text-color: $textarea-text-color,
   $textarea-bg-color: $textarea-bg-color,
   $textarea-border: $textarea-border,
+  $textarea-border-radius: $textarea-border-radius,
   $textarea-box-shadow: $textarea-box-shadow,
-  $textarea-border-radius: $textarea-border-radius
+  $textarea-box-shadow-hover: $textarea-box-shadow-hover
 ) {
   textarea,
   .textarea {
@@ -267,13 +269,13 @@
     color: $textarea-text-color;
     background-color: $textarea-bg-color;
     border: $textarea-border;
-    outline: none;
-    border: none;
     border-radius: $textarea-border-radius;
+    box-shadow: $textarea-box-shadow;
+    outline: none;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $textarea-box-shadow;
+      box-shadow: $textarea-box-shadow-hover;
     }
   }
 }
@@ -284,8 +286,9 @@
   $select-text-color: $select-text-color,
   $select-bg-color: $select-bg-color,
   $select-border: $select-border,
+  $select-border-radius: $input-border-radius,
   $select-box-shadow: $select-box-shadow,
-  $select-border-radius: $input-border-radius
+  $select-box-shadow-hover: $select-box-shadow-hover
 ) {
   select,
   .select {
@@ -296,13 +299,14 @@
     color: $select-text-color;
     background-color: $select-bg-color;
     border: $select-border;
-    outline: none;
-    border: none;
     border-radius: $select-border-radius;
+    box-shadow: $select-box-shadow;
+    outline: none;
+    cursor: pointer;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $select-box-shadow;
+      box-shadow: $select-box-shadow-hover;
     }
   }
 }

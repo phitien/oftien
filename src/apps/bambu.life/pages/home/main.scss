@@ -20,6 +20,8 @@ $s-space: 24px;
       display: flex;
       flex-direction: column;
       height: 100%;
+      border-left: 1px solid;
+      border-right: 1px solid;
       h4 {
         @include color($cl-purple, $cl-brownd);
         @include flex-height(40px);
@@ -46,25 +48,30 @@ $s-space: 24px;
         .stock {
           padding: 8px;
           box-shadow: 0 0 2px;
-          color: $cl-white;
           cursor: pointer;
           display: flex;
           align-items: center;
+          i {
+            margin-right: 6px;
+          }
           &:hover,
           &.active {
-            @include color($cl-green, $cl-white);
+            @include color($cl-white, $cl-purple);
           }
         }
       }
     }
     .main .wrapper {
       position: relative;
+      height: 100%;
+      padding-top: 40px;
       h3 {
         @include color($cl-purple, $cl-brownd);
         display: block;
         margin: 0;
         padding: 4px;
         text-align: center;
+        display: none;
       }
       input {
         position: absolute;
@@ -77,6 +84,10 @@ $s-space: 24px;
         top: 4px;
         left: 150px;
         width: 140px;
+      }
+      .echarts.container {
+        height: 100%;
+        overflow: auto;
       }
     }
     .bottom .wrapper {
