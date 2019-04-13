@@ -24,13 +24,25 @@ export const sampleStocks = [
   "AMZN"
 ];
 export const cfunctions = [
-  ["", "Type"],
+  ["", "Select function"],
   ["TIME_SERIES_DAILY", "Time Series (Daily)"],
-  ["TIME_SERIES_DAILY_ADJUSTED", "Time Series (Daily)"],
-  ["TIME_SERIES_WEEKLY", "Weekly Time Series"],
-  ["TIME_SERIES_WEEKLY_ADJUSTED", "Weekly Adjusted Time Series"],
-  ["TIME_SERIES_MONTHLY", "Monthly Time Series"],
-  ["TIME_SERIES_MONTHLY_ADJUSTED", "Monthly Adjusted Time Series"]
+  [
+    "TIME_SERIES_DAILY_ADJUSTED",
+    "Time Series (Daily)",
+    "Time Series (Daily Adjusted)"
+  ],
+  ["TIME_SERIES_WEEKLY", "Weekly Time Series", "Time Series (Weekly)"],
+  [
+    "TIME_SERIES_WEEKLY_ADJUSTED",
+    "Weekly Adjusted Time Series",
+    "Time Series (Weekly Adjusted)"
+  ],
+  ["TIME_SERIES_MONTHLY", "Monthly Time Series", "Time Series (Monthly)"],
+  [
+    "TIME_SERIES_MONTHLY_ADJUSTED",
+    "Monthly Adjusted Time Series",
+    "Time Series (Monthly Adjusted)"
+  ]
 ];
 
 export function renderItem(params, api) {

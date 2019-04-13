@@ -49,7 +49,7 @@ export default class Main extends Page {
   };
   chartData = () => {
     const { cfunction } = this.state;
-    const [key, value] = cfunctions.find(([k, v]) => k === cfunction);
+    const [key, value, text] = cfunctions.find(([k, v]) => k === cfunction);
     const data = this.props.Stock.detail[value];
     if (!data) return {};
     const categoryData = [];
@@ -261,9 +261,9 @@ export default class Main extends Page {
             })
           }
         >
-          {cfunctions.map(([k, v], i) => (
+          {cfunctions.map(([k, v, t], i) => (
             <option key={i} value={k}>
-              {v}
+              {t || v}
             </option>
           ))}
         </select>
