@@ -6,7 +6,7 @@ import uuidv4 from "uuid/v4";
 
 import { Button, Icon, Space, Page } from "../../../../core";
 
-import { loadProfile } from "./utils";
+import { loadProfile, colors } from "./utils";
 
 export default class Main extends Page {
   static isDefault = true;
@@ -221,6 +221,7 @@ export default class Main extends Page {
     );
   }
   renderLeftBanner() {
+    let idx = 0;
     return (
       <div className="fixed left-banner no-printing">
         {`OfTien in Progress`
@@ -228,11 +229,24 @@ export default class Main extends Page {
           .filter(o => o)
           .map((w, i) => (
             <div key={i} className="word">
-              {w.split("").map((o, j) => (
-                <div key={j} className="letter">
-                  {o}
-                </div>
-              ))}
+              {w.split("").map((o, j) => {
+                const color = colors[idx];
+                idx++;
+                return (
+                  <div
+                    key={j}
+                    className="letter"
+                    style={{ "--cl-highlight": color, color }}
+                    onClick={e =>
+                      global
+                        .jQuery("body")
+                        .attr("style", `--cl-highlight: ${color}`)
+                    }
+                  >
+                    {o}
+                  </div>
+                );
+              })}
             </div>
           ))}
       </div>

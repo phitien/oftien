@@ -90,6 +90,7 @@ $size-a4: 842px;
       box-shadow: 0 0 4px;
       text-transform: uppercase;
       background-color: var(--cl-grey);
+      cursor: pointer;
       &:hover {
         color: var(--cl-yellow);
         background-color: var(--cl-highlight);
@@ -252,6 +253,7 @@ $size-a4: 842px;
     .name {
       @extend .h4;
       color: var(--cl-red);
+      padding-right: 12px;
     }
     .role {
       @extend .h4;
