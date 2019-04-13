@@ -112,19 +112,12 @@ $s-space: 24px;
         display: block;
         height: 100%;
         .wrapper {
-          height: 100%;
           h4 .fa-eye-slash {
             display: initial;
           }
         }
         &.hide-symbols {
           @include flex-height(auto);
-          .wrapper {
-            height: fit-content;
-            .stocks {
-              display: none;
-            }
-          }
         }
       }
       .main {
@@ -140,10 +133,9 @@ $s-space: 24px;
           }
           input,
           select {
-            @include color(var(--cl-white), var(--cl-black));
             position: relative;
             left: initial;
-            margin: 48px 12px 24px 12px;
+            margin: 24px 12px 12px;
             width: calc(50% - 24px);
           }
           .echarts {

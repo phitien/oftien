@@ -172,7 +172,9 @@ export default class Main extends Page {
               global.jQuery(e.target).toggleClass("fa-eye-slash fa-eye");
               global
                 .jQuery(e.target.closest(".left,.right"))
-                .toggleClass("hide-symbols");
+                .toggleClass("hide-symbols")
+                .find(".wrapper .stocks")
+                .slideToggle();
             }}
           />
           <Icon
