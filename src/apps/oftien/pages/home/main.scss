@@ -4,7 +4,7 @@ $space: 56px;
 $s-space: 24px;
 $overview-h: 125px;
 $font-size-section-heading: 26px;
-$section-border: 2px solid $cl-lightgrey;
+$section-border: 2px solid var(--cl-lightgrey);
 
 $size-a4: 842px;
 
@@ -22,7 +22,7 @@ $size-a4: 842px;
         height: fit-content;
         &:before {
           content: "Contact";
-          color: $cl-highlight;
+          color: var(--cl-highlight);
           line-height: 32px;
           font-size: $font-size-section-heading;
           font-weight: 500;
@@ -60,7 +60,7 @@ $size-a4: 842px;
   height: 100%;
   overflow: auto;
   h2 {
-    color: $cl-black;
+    color: var(--cl-black);
     text-transform: uppercase;
   }
   h3 {
@@ -72,10 +72,10 @@ $size-a4: 842px;
     top: $s-space;
     width: $left-banner-size;
     .word {
-      color: $cl-red;
+      color: var(--cl-red);
       margin-bottom: $left-banner-size;
       &:hover {
-        color: $cl-green;
+        color: var(--cl-green);
       }
     }
     .letter {
@@ -89,9 +89,9 @@ $size-a4: 842px;
       font-size: 20px;
       box-shadow: 0 0 4px;
       text-transform: uppercase;
-      background-color: $cl-grey;
+      background-color: var(--cl-grey);
       &:hover {
-        color: $cl-yellow;
+        color: var(--cl-yellow);
       }
     }
   }
@@ -108,9 +108,9 @@ $size-a4: 842px;
     justify-content: space-between !important;
     margin: $s-space 0 0 0 !important;
     padding: 0 !important;
-    border: 1px solid $cl-black !important;
-    box-shadow: 0 0 8px $cl-white !important;
-    background-color: $cl-grey;
+    border: 1px solid var(--cl-black) !important;
+    box-shadow: 0 0 8px var(--cl-white) !important;
+    background-color: var(--cl-grey);
     overflow: hidden !important;
     &:before {
       content: "";
@@ -121,16 +121,16 @@ $size-a4: 842px;
       content: "";
       @include flex-width(12px);
       height: 100%;
-      background-color: $cl-black;
+      background-color: var(--cl-black);
     }
     &.Left_Main_Right {
       &:before {
         @include flex-width(9px);
-        background-color: $cl-black;
+        background-color: var(--cl-black);
       }
       &:after {
         @include flex-width(9px);
-        background-color: $cl-black;
+        background-color: var(--cl-black);
       }
     }
     &.Left_Main {
@@ -138,10 +138,10 @@ $size-a4: 842px;
     }
     &:hover,
     &.active {
-      border: 1px solid $cl-red !important;
-      box-shadow: 0 0 8px $cl-red !important;
+      border: 1px solid var(--cl-red) !important;
+      box-shadow: 0 0 8px var(--cl-red) !important;
       .big {
-        border-color: $cl-red;
+        border-color: var(--cl-red);
       }
     }
   }
@@ -237,7 +237,7 @@ $size-a4: 842px;
     display: none;
   }
   .company {
-    color: $cl-highlight;
+    color: var(--cl-highlight);
     opacity: 1;
   }
   .experiences {
@@ -246,18 +246,18 @@ $size-a4: 842px;
     }
     .name {
       @extend .h4;
-      color: $cl-red;
+      color: var(--cl-red);
     }
     .role {
       @extend .h4;
-      color: $cl-green;
+      color: var(--cl-green);
       margin: 0 0 0 12px;
       display: inline-block;
       padding-left: 12px;
       border-left: 1px solid;
     }
     .location {
-      color: $cl-blue;
+      color: var(--cl-blue);
     }
   }
   .projects {
@@ -266,25 +266,25 @@ $size-a4: 842px;
       width: 50%;
       padding: 0 6px;
       .heading {
-        color: $cl-black;
+        color: var(--cl-black);
       }
       .name {
         display: none;
       }
       .role {
-        color: $cl-green;
+        color: var(--cl-green);
       }
       .company {
-        color: $cl-red;
+        color: var(--cl-red);
         &:before {
           content: " at ";
-          color: $cl-black;
+          color: var(--cl-black);
         }
       }
       .used {
         font-size: 12px;
         display: block;
-        // color: $cl-yellow;
+        // color: var(--cl-yellow);
         &:before {
           content: "Used: ";
           opacity: 0.5;
@@ -297,7 +297,7 @@ $size-a4: 842px;
     background-color: white;
     padding: $space $space;
     box-shadow: 0 0 8px white;
-    color: $cl-grey;
+    color: var(--cl-grey);
     height: fit-content;
     > .content .main .wrraper {
       .overview {
@@ -309,7 +309,7 @@ $size-a4: 842px;
           @include flex-width(120px);
           height: 120px;
           border-radius: 50%;
-          background-color: $cl-lightgrey;
+          background-color: var(--cl-lightgrey);
           background-repeat: no-repeat;
           background-position: 0px -18px;
           background-size: 120px auto;
@@ -335,7 +335,7 @@ $size-a4: 842px;
           display: block;
           height: 5px;
           width: 100%;
-          background-color: $cl-grey;
+          background-color: var(--cl-grey);
           border-radius: 5px;
         }
       }
@@ -364,7 +364,7 @@ $size-a4: 842px;
             &:before {
               content: attr(data-name) ": ";
               text-transform: capitalize;
-              color: $cl-grey;
+              color: var(--cl-grey);
               width: 60px;
               opacity: 0.5;
             }
@@ -381,7 +381,7 @@ $size-a4: 842px;
             display: block;
             height: 5px;
             width: 100%;
-            background-color: $cl-lightgrey;
+            background-color: var(--cl-lightgrey);
             border-radius: 5px;
           }
         }
@@ -504,7 +504,7 @@ $size-a4: 842px;
         padding-left: 0;
         margin-left: 4px;
         border-left: none;
-        color: $cl-highlight;
+        color: var(--cl-highlight);
       }
       .location {
         display: block;

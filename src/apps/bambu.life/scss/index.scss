@@ -1,20 +1,20 @@
 @import "../../../core/scss/index";
 
-$bg-top: #232323;
-$bg-bottom: #232323;
-$logo-height: 100%;
-$top-row-height: 88px;
-$cl-highlight: #4a4a4a;
 :root {
+  --bg-top: #232323;
+  --cl-top: var(--cl-white);
+  --bg-bottom: #232323;
+  --cl-bottom: var(--cl-white);
+  --logo-height: 100%;
+  --top-row-height: 88px;
+  --cl-highlight: #4a4a4a;
   --top-row-height: 88px;
 }
-// $input-text-color: $input-text-color;
-// $input-box-shadow: 2px 5px 12px white;
-// $input-box-shadow: 1px 2px 12px black;
 
 body {
   @include layouts();
   @include colors();
+  @include fonts();
   @include logo();
   @include input-text();
   .logo {

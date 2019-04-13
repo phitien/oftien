@@ -1,28 +1,67 @@
-@mixin color($cl-text: $cl-text, $bg-body: $bg-body) {
+@mixin color($cl-text: var(--cl-text), $bg-body: var(--bg-body)) {
   color: $cl-text;
   background-color: $bg-body;
 }
-@mixin color-reversed($cl-text: $cl-text, $bg-body: $bg-body) {
+@mixin color-reversed($cl-text: var(--cl-text), $bg-body: var(--bg-body)) {
   color: $bg-body;
   background-color: $cl-text;
 }
-@mixin colors(
-  $cl-text: $cl-text,
-  $bg-body: $bg-body,
-  $cl-main-text: $cl-main-text,
-  $bg-main: $bg-main,
-  $cl-top-text: $cl-top-text,
-  $bg-top: $bg-top,
-  $cl-bottom-text: $cl-bottom-text,
-  $bg-bottom: $bg-bottom,
-  $cl-left-text: $cl-left-text,
-  $bg-left: $bg-left,
-  $cl-right-text: $cl-right-text,
-  $bg-right: $bg-right,
-  $cl-highlight: $cl-highlight
+@mixin font($font-family: var(--font-text), $font-size: var(--font-size-body)) {
+  font-family: $font-family;
+  font-size: $font-size;
+}
+@mixin fonts(
+  $font-text: var(--font-text),
+  $font-size-body: var(--font-size-body),
+  $font-main: var(--font-main),
+  $font-size-main: var(--font-size-main),
+  $font-top: var(--font-top),
+  $font-size-top: var(--font-size-top),
+  $font-bottom: var(--font-bottom),
+  $font-size-bottom: var(--font-size-bottom),
+  $font-left: var(--font-left),
+  $font-size-left: var(--font-size-left),
+  $font-right: var(--font-right),
+  $font-size-right: var(--font-size-right)
 ) {
   body {
-    @include color();
+    @include font($font-text, $font-size-body);
+  }
+  .layout {
+    .main {
+      @include font($font-main, $font-size-main);
+    }
+    .top {
+      @include font($font-top, $font-size-top);
+    }
+    .bottom {
+      @include font($font-bottom, $font-size-bottom);
+    }
+    .left {
+      @include font($font-left, $font-size-left);
+    }
+    .right {
+      @include font($font-right, $font-size-right);
+    }
+  }
+}
+@mixin colors(
+  $cl-text: var(--cl-text),
+  $bg-body: var(--bg-body),
+  $cl-main: var(--cl-main),
+  $bg-main: var(--bg-main),
+  $cl-top: var(--cl-top),
+  $bg-top: var(--bg-top),
+  $cl-bottom: var(--cl-bottom),
+  $bg-bottom: var(--bg-bottom),
+  $cl-left: var(--cl-left),
+  $bg-left: var(--bg-left),
+  $cl-right: var(--cl-right),
+  $bg-right: var(--bg-right),
+  $cl-highlight: var(--cl-highlight)
+) {
+  body {
+    @include color($cl-text, $bg-body);
   }
   a,
   .a {
@@ -59,24 +98,19 @@
   }
   .layout {
     .main {
-      background-color: $bg-main;
-      color: $cl-main-text;
+      @include color($cl-main, $bg-main);
     }
     .top {
-      background-color: $bg-top;
-      color: $cl-top-text;
+      @include color($cl-top, $bg-top);
     }
     .bottom {
-      background-color: $bg-bottom;
-      color: $cl-bottom-text;
+      @include color($cl-bottom, $bg-bottom);
     }
     .left {
-      background-color: $bg-left;
-      color: $cl-left-text;
+      @include color($cl-left, $bg-left);
     }
     .right {
-      background-color: $bg-right;
-      color: $cl-right-text;
+      @include color($cl-right, $bg-right);
     }
   }
 }
@@ -217,15 +251,15 @@
   }
 }
 @mixin input-text(
-  $input-font-size: $input-font-size,
-  $input-line-height: $input-line-height,
-  $input-padding: $input-padding,
-  $input-text-color: $input-text-color,
-  $input-bg-color: $input-bg-color,
-  $input-border: $input-border,
-  $input-border-radius: $input-border-radius,
-  $input-box-shadow: $input-box-shadow,
-  $input-box-shadow-hover: $input-box-shadow-hover
+  $input-font-size: var(--input-font-size),
+  $input-line-height: var(--input-line-height),
+  $input-padding: var(--input-padding),
+  $input-text-color: var(--input-text-color),
+  $input-bg-color: var(--input-bg-color),
+  $input-border: var(--input-border),
+  $input-border-radius: var(--input-border-radius),
+  $input-box-shadow: var(--input-box-shadow),
+  $input-box-shadow-hover: var(--input-box-shadow-hover)
 ) {
   .input,
   input[type="text"],
@@ -251,15 +285,15 @@
   }
 }
 @mixin textarea(
-  $textarea-font-size: $textarea-font-size,
-  $textarea-line-height: $textarea-line-height,
-  $textarea-padding: $textarea-padding,
-  $textarea-text-color: $textarea-text-color,
-  $textarea-bg-color: $textarea-bg-color,
-  $textarea-border: $textarea-border,
-  $textarea-border-radius: $textarea-border-radius,
-  $textarea-box-shadow: $textarea-box-shadow,
-  $textarea-box-shadow-hover: $textarea-box-shadow-hover
+  $textarea-font-size: var(--textarea-font-size),
+  $textarea-line-height: var(--textarea-line-height),
+  $textarea-padding: var(--textarea-padding),
+  $textarea-text-color: var(--textarea-text-color),
+  $textarea-bg-color: var(--textarea-bg-color),
+  $textarea-border: var(--textarea-border),
+  $textarea-border-radius: var(--textarea-border-radius),
+  $textarea-box-shadow: var(--textarea-box-shadow),
+  $textarea-box-shadow-hover: var(--textarea-box-shadow-hover)
 ) {
   textarea,
   .textarea {
@@ -280,15 +314,15 @@
   }
 }
 @mixin select(
-  $select-font-size: $select-font-size,
-  $select-line-height: $select-line-height,
-  $select-padding: $select-padding,
-  $select-text-color: $select-text-color,
-  $select-bg-color: $select-bg-color,
-  $select-border: $select-border,
-  $select-border-radius: $input-border-radius,
-  $select-box-shadow: $select-box-shadow,
-  $select-box-shadow-hover: $select-box-shadow-hover
+  $select-font-size: var(--select-font-size),
+  $select-line-height: var(--select-line-height),
+  $select-padding: var(--select-padding),
+  $select-text-color: var(--select-text-color),
+  $select-bg-color: var(--select-bg-color),
+  $select-border: var(--select-border),
+  $select-border-radius: var(--input-border-radius),
+  $select-box-shadow: var(--select-box-shadow),
+  $select-box-shadow-hover: var(--select-box-shadow-hover)
 ) {
   select,
   .select {
@@ -326,9 +360,9 @@
   }
 }
 @mixin layouts(
-  $top-row-height: $top-row-height,
-  $left-col-width: $left-col-width,
-  $right-col-width: $right-col-width
+  $--top-height: var(--top-height),
+  $left-width: var(--left-width),
+  $right-width: var(--right-width)
 ) {
   .fullscreen {
     position: fixed;
@@ -368,14 +402,14 @@
     margin: 0 auto;
   }
   .layout .top {
-    height: $top-row-height;
+    height: $--top-height;
   }
   .layout .left {
-    @include flex-width($left-col-width);
+    @include flex-width($left-width);
     overflow: auto;
   }
   .layout .right {
-    @include flex-width($right-col-width);
+    @include flex-width($right-width);
     overflow: auto;
   }
   .layout .main {
@@ -413,7 +447,7 @@
     }
   }
 }
-@mixin logo($logo-width: $logo-width, $logo-height: $logo-height) {
+@mixin logo($logo-width: var(--logo-width), $logo-height: var(--logo-height)) {
   .logo {
     background-position: center;
     background-size: contain;
@@ -424,13 +458,16 @@
   }
 }
 @mixin button(
-  $btn-font-size: $btn-font-size,
-  $btn-line-height: $input-line-height,
-  $btn-padding: $btn-padding,
-  $btn-text-color: $btn-text-color,
-  $btn-bg-color: $btn-bg-color,
-  $btn-border: $input-border,
-  $btn-box-shadow: $btn-box-shadow
+  $btn-font-size: var(--btn-font-size),
+  $btn-line-height: var(--input-line-height),
+  $btn-padding: var(--btn-padding),
+  $btn-text-color: var(--btn-text-color),
+  $btn-bg-color: var(--btn-bg-color),
+  $btn-text-color-hover: var(--btn-text-color-hover),
+  $btn-bg-color-hover: var(--btn-bg-color-hover),
+  $btn-border: var(--input-border),
+  $btn-box-shadow: var(--btn-box-shadow),
+  $btn-box-shadow-hover: var(--btn-box-shadow-hover)
 ) {
   .btn {
     height: $btn-line-height;
@@ -461,9 +498,9 @@
       margin-right: 4px;
     }
     &:hover {
-      box-shadow: 1px 3px 11px $btn-bg-color;
-      background-color: $cl-highlight;
-      color: black;
+      box-shadow: $btn-box-shadow-hover;
+      background-color: $btn-bg-color-hover;
+      color: $btn-text-color-hover;
     }
     &.no-name {
       padding: 0;
@@ -507,10 +544,13 @@
     }
   }
 }
-@mixin notifications($top-row-height: $top-row-height, $cl-error: $cl-error) {
+@mixin notifications(
+  $--top-height: var(--top-height),
+  $cl-error: var(--cl-error)
+) {
   .notifications {
     position: fixed;
-    top: $top-row-height;
+    top: $--top-height;
     right: 0;
     height: calc(100% - 170px);
     overflow: auto;
@@ -613,9 +653,9 @@
   }
 }
 @mixin default_style(
-  $font-family: $font-family,
-  $font-size: $font-size,
-  $line-height: $line-height
+  $font-family: var(--font-family),
+  $font-size: var(--font-size),
+  $line-height: var(--line-height)
 ) {
   font-family: $font-family;
   font-size: $font-size;
@@ -648,7 +688,13 @@
     display: none;
   }
 }
-@mixin vertical-scrollbar() {
+@mixin vertical-scrollbar(
+  $scrollbar-size: var(--scrollbar-size),
+  $scrollbar-track-bg: var(--scrollbar-track-bg),
+  $scrollbar-track-border: var(--scrollbar-track-border),
+  $scrollbar-thumb-bg: var(--scrollbar-thumb-bg),
+  $scrollbar-thumb-border: var(--scrollbar-thumb-border)
+) {
   ::-webkit-scrollbar {
     width: $scrollbar-size;
     height: $scrollbar-size;

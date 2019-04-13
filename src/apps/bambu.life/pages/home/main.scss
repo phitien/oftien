@@ -13,7 +13,7 @@ $s-space: 24px;
     // @include flex-width(100%);
     .top .wrapper {
       height: 100%;
-      box-shadow: 0px 0px 12px $cl-green;
+      box-shadow: 0px 0px 12px var(--cl-green);
     }
     .left .wrapper,
     .right .wrapper {
@@ -23,19 +23,19 @@ $s-space: 24px;
       border-left: 1px solid;
       border-right: 1px solid;
       h4 {
-        @include color($cl-purple, $cl-brownd);
+        @include color(var(--cl-purple), var(--cl-brownd));
         @include flex-height(40px);
         padding: 8px 12px;
         margin: 0;
-        text-shadow: 0px 0px 12px $cl-white;
-        box-shadow: 0px 0px 12px $cl-white;
+        text-shadow: 0px 0px 12px var(--cl-white);
+        box-shadow: 0px 0px 12px var(--cl-white);
         display: flex;
         align-items: center;
         i {
           cursor: pointer;
           margin: 0 0 0 12px;
           &:hover {
-            box-shadow: 0px 0px 12px $cl-white;
+            box-shadow: 0px 0px 12px var(--cl-white);
           }
         }
         .fa-eye-slash {
@@ -56,7 +56,7 @@ $s-space: 24px;
           }
           &:hover,
           &.active {
-            @include color($cl-white, $cl-purple);
+            @include color(var(--cl-white), var(--cl-purple));
           }
         }
       }
@@ -66,7 +66,7 @@ $s-space: 24px;
       height: 100%;
       padding-top: 40px;
       h3 {
-        @include color($cl-purple, $cl-brownd);
+        @include color(var(--cl-purple), var(--cl-brownd));
         display: block;
         margin: 0;
         padding: 4px;
@@ -93,7 +93,7 @@ $s-space: 24px;
     .bottom .wrapper {
       text-align: center;
       padding: 8px 0;
-      box-shadow: 0px 0px 12px $cl-white;
+      box-shadow: 0px 0px 12px var(--cl-white);
     }
   }
   /*** screen 960px ***/
@@ -106,10 +106,10 @@ $s-space: 24px;
       .right {
         @include flex-width(100%);
         position: absolute;
-        top: $top-row-height;
+        top: var(--row-height);
         left: 0;
         z-index: 1;
-        height: calc(100% - var(--top-row-height));
+        height: calc(100% - var(--row-height));
         .wrapper h4 .fa-eye-slash {
           display: initial;
         }
@@ -136,7 +136,7 @@ $s-space: 24px;
           }
           input,
           select {
-            @include color($cl-white, $cl-black);
+            @include color(var(--cl-white), var(--cl-black));
             position: relative;
             left: initial;
             margin: 48px 12px 24px 12px;
