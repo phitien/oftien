@@ -17,6 +17,7 @@ export default class Main extends Page {
   static layout = "Top_LeftMain_Bottom";
   static className = "route-home-main";
   state = {
+    zoom: JSON.parse(global.localStorage.getItem("zoom")) || {},
     apikey:
       global.localStorage.getItem("apikey") ||
       global.constants.alphavantageApiKey,
@@ -29,6 +30,10 @@ export default class Main extends Page {
   get isValid() {
     const { stock, cfunction, apikey } = this.state;
     return stock && cfunction && apikey;
+  }
+  get stockZoom() {
+    const { zoom, stock } = this.state;
+    return zoom[stock] || { start: 70, end: 100, minValueSpan: 30 };
   }
   constructor(props) {
     super(props);
@@ -63,7 +68,9 @@ export default class Main extends Page {
     }
     return { categoryData, values };
   };
+
   chartOptions = (data, title, subtext) => {
+    const { start, end, minValueSpan } = this.stockZoom;
     return {
       backgroundColor: "#eee",
       animation: false,
@@ -104,15 +111,8 @@ export default class Main extends Page {
       ],
       yAxis: [{ scale: true, splitArea: { show: true } }],
       dataZoom: [
-        { type: "inside", start: 0, end: 100, minValueSpan: 1 }
-        // {
-        //   show: true,
-        //   type: "slider",
-        //   bottom: 35,
-        //   start: 0,
-        //   end: 100,
-        //   minValueSpan: 1
-        // }
+        { type: "inside", start, end, minValueSpan },
+        { show: true, type: "slider", bottom: 35, start, end, minValueSpan }
       ],
       series: [
         {
@@ -273,6 +273,16 @@ export default class Main extends Page {
               option={this.chartOptions(this.chartData(), stock)}
               notMerge={true}
               lazyUpdate={true}
+              onEvents={{
+                datazoom: e => {
+                  const { stockZoom } = this;
+                  stockZoom.start = e.start;
+                  stockZoom.end = e.end;
+                  const { zoom, stock } = this.state;
+                  zoom[stock] = stockZoom;
+                  global.localStorage.setItem("zoom", JSON.stringify(zoom));
+                }
+              }}
             />
           )}
         </div>
