@@ -126,23 +126,6 @@
 }
 @mixin fonts() {
   @include font(var(--font-family), var(--font-size));
-  .layout {
-    .main {
-      @include font(var(--font-main), var(--font-size-main));
-    }
-    .top {
-      @include font(var(--font-top), var(--font-size-top));
-    }
-    .bottom {
-      @include font(var(--font-bottom), var(--font-size-bottom));
-    }
-    .left {
-      @include font(var(--font-left), var(--font-size-left));
-    }
-    .right {
-      @include font(var(--font-right), var(--font-size-right));
-    }
-  }
 }
 @mixin colors() {
   @include color(var(--cl-text), var(--bg-body));

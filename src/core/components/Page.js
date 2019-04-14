@@ -58,10 +58,26 @@ export class Page extends Component {
     return classnames("page", this.props.className, this.state.className);
   }
   get jPageDom() {
-    return global.$(this.pageDom);
+    return global.jQuery(this.pageDom);
   }
   componentDidMount() {
-    global.$("body").addClass(`route ${this.constructor.className || ""}`);
+    const { fontFamily, fontWeight, fontSize } = this;
+    const { color, bgcolor } = this;
+    const { primary, primary2, secondary, secondary2 } = this;
+    const styles = [];
+    if (fontFamily) styles.push(`--font-family: ${fontFamily}`);
+    if (fontWeight) styles.push(`--font-weight: ${fontWeight}`);
+    if (fontSize) styles.push(`--font-size: ${fontSize}`);
+    if (primary) styles.push(`--cl-primary: ${primary}`);
+    if (primary2) styles.push(`--cl-primary2: ${primary2}`);
+    if (secondary) styles.push(`--cl-secondary: ${secondary}`);
+    if (secondary2) styles.push(`--cl-secondary2: ${secondary2}`);
+    if (color) styles.push(`--cl-text: ${color}`);
+    if (bgcolor) styles.push(`--bg-body: ${bgcolor}`);
+    global
+      .jQuery("body")
+      .addClass(`route ${this.constructor.className || ""}`)
+      .attr("style", styles.join(";"));
   }
   renderLeft_TopMainBottom_Right() {
     return (
@@ -355,27 +371,10 @@ export class Page extends Component {
     return null;
   }
   renderComponent() {
-    const { fontFamily, fontWeight, fontSize, layout } = this;
-    const { color, bgcolor } = this;
-    const { primary, primary2, secondary, secondary2 } = this;
-    const style = {};
-    if (fontFamily) style["--font-family"] = fontFamily;
-    if (fontWeight) style["--font-weight"] = fontWeight;
-    if (fontSize) style["--font-size"] = fontSize;
-    if (primary) style["--cl-primary"] = primary;
-    if (primary2) style["--cl-primary2"] = primary2;
-    if (secondary) style["--cl-secondary"] = secondary;
-    if (secondary2) style["--cl-secondary2"] = secondary2;
-    if (color) style["--cl-text"] = color;
-    if (bgcolor) style["--bg-body"] = bgcolor;
+    const { layout } = this;
     const fnName = `render${layout}`;
     return (
-      <div
-        key="page"
-        className={this.className}
-        style={style}
-        ref={e => (this.pageDom = e)}
-      >
+      <div key="page" className={this.className} ref={e => (this.pageDom = e)}>
         {layout === "Main" ? (
           <div className="layout cols Main">{this.renderMain()}</div>
         ) : this[fnName] ? (

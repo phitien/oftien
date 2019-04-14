@@ -68,7 +68,7 @@ export default class Main extends Page {
   async componentDidMount() {
     await super.componentDidMount();
     this.jPageDom.on("scroll", function(e) {
-      const me = global.$(this);
+      const me = global.jQuery(this);
       if (this.scrollTop > 0) me.addClass("scrolling");
       else me.removeClass("scrolling");
     });
@@ -277,9 +277,7 @@ export default class Main extends Page {
                       settings.primary = color;
                       this.setState({ settings }, async () => {
                         await this.onDataChange();
-                        global
-                          .jQuery("body")
-                          .attr("style", `--cl-primary: ${color}`);
+                        global.addStyle("--cl-primary", color);
                       });
                     }}
                   >

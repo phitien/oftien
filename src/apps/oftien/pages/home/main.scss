@@ -79,6 +79,9 @@
       height: 100%;
       background-color: var(--cl-black);
     }
+    &.Left_Main {
+      flex-direction: row-reverse;
+    }
     &.Left_Main_Right {
       &:before {
         @include flex-width(9px);

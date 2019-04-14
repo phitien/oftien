@@ -22,6 +22,15 @@ try {
   require(`../apps/${app}/scss/${theme}.scss`);
 } catch (e) {}
 
+global.addStyle = (attr, value) => {
+  const body = global.jQuery("body");
+  const styles = (body.attr("style") || "")
+    .split(";")
+    .map(o => o.trim())
+    .filter(o => o.indexOf(attr) < 0);
+  styles.push(`${attr}: ${value}`);
+  body.attr("style", styles.join(";"));
+};
 //theme
 global.theme = createMuiTheme(global.themes[theme]);
 //models, reducers, actions, apis, store
