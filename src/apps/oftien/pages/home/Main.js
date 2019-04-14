@@ -32,8 +32,17 @@ export default class Main extends Page {
   get fontSize() {
     return this.settings.fontSize || super.fontSize;
   }
-  get highlight() {
-    return this.settings.highlight || super.highlight;
+  get primary() {
+    return this.settings.primary || super.primary;
+  }
+  get primary2() {
+    return this.settings.primary2 || super.primary2;
+  }
+  get secondary() {
+    return this.settings.secondary || super.secondary;
+  }
+  get secondary2() {
+    return this.settings.secondary2 || super.secondary2;
   }
   get color() {
     return this.settings.color || super.color;
@@ -262,15 +271,15 @@ export default class Main extends Page {
                   <div
                     key={j}
                     className="letter"
-                    style={{ "--cl-highlight": color, color }}
+                    style={{ "--cl-primary": color, color }}
                     onClick={async e => {
-                      await global.localStorage.setItem("highlight", color);
-                      settings.highlight = color;
+                      // await global.localStorage.setItem("primary", color);
+                      settings.primary = color;
                       this.setState({ settings }, async () => {
                         await this.onDataChange();
                         global
                           .jQuery("body")
-                          .attr("style", `--cl-highlight: ${color}`);
+                          .attr("style", `--cl-primary: ${color}`);
                       });
                     }}
                   >
