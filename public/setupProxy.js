@@ -7,12 +7,10 @@ const { constants } = global;
 
 /** Uploader **/
 const multer = require("multer");
-const uploadsDir = "./public/static/.tmp/";
-!fs.existsSync(uploadsDir) && fs.mkdirSync(uploadsDir);
 const uploader = multer({
   storage: multer.diskStorage({
     destination: function(req, file, cb) {
-      cb(null, uploadsDir);
+      cb(null);
     },
     filename: function(req, file, cb) {
       cb(null, file.originalname);

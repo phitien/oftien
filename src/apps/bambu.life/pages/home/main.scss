@@ -14,54 +14,57 @@ $s-space: 24px;
       height: 100%;
       box-shadow: 0px 0px 12px var(--cl-green);
     }
-    .left .wrapper,
-    .right .wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      border-left: 1px solid;
-      border-right: 1px solid;
-      i {
-        cursor: pointer;
-        margin: 0 0 0 12px;
-        padding: 4px;
-        &:hover {
-          box-shadow: 0px 0px 12px var(--cl-white);
-        }
-      }
-      h4 {
-        @include color(var(--cl-purple), var(--cl-brownd));
-        @include flex-height(40px);
-        padding: 8px 12px;
-        margin: 0;
-        text-shadow: 0px 0px 12px var(--cl-white);
-        box-shadow: 0px 0px 12px var(--cl-white);
+    .left,
+    .right {
+      .wrapper {
         display: flex;
-        align-items: center;
-        .fa-list {
-          display: none;
-        }
-      }
-      .stocks {
-        flex: 1;
-        overflow: auto;
-        border-bottom: 3px solid var(--cl-purple);
-        .stock {
-          padding: 8px;
-          box-shadow: 0 0 2px;
+        flex-direction: column;
+        height: 100%;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        i {
           cursor: pointer;
+          margin: 0 0 0 12px;
+          padding: 4px;
+          &:hover {
+            box-shadow: 0px 0px 12px var(--cl-white);
+          }
+        }
+        h4 {
+          @include color(var(--cl-purple), var(--cl-brownd));
+          @include flex-height(40px);
+          padding: 8px 12px;
+          margin: 0;
+          text-shadow: 0px 0px 12px var(--cl-white);
+          box-shadow: 0px 0px 12px var(--cl-white);
           display: flex;
           align-items: center;
-          i {
-            margin-right: 6px;
+          .fa-list {
+            display: none;
           }
-          &:hover,
-          &.active {
-            @include color(var(--cl-white), var(--cl-purple));
+        }
+        .stocks {
+          flex: 1;
+          overflow: auto;
+          border-bottom: 3px solid var(--cl-purple);
+          .stock {
+            padding: 8px;
+            box-shadow: 0 0 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            i {
+              margin-right: 6px;
+            }
+            &:hover,
+            &.active {
+              @include color(var(--cl-white), var(--cl-purple));
+            }
           }
         }
       }
     }
+
     .main .wrapper {
       position: relative;
       height: 100%;
@@ -111,7 +114,7 @@ $s-space: 24px;
         left: 0;
         z-index: 1;
         display: block;
-        height: 100%;
+        height: calc(100% - var(--top-height) - var(--bottom-height));
         .wrapper {
           h4 .fa-list {
             display: initial;

@@ -62,11 +62,11 @@
   --bg-printing: --cl-white;
 
   --bg-overlay: rgba(0, 0, 0, 0.4);
-  --cl-overlay: --cl-white;
-  --bg-popup: --cl-white;
-  --cl-popup: --cl-black;
-  --bg-popup-header: --cl-purple;
-  --cl-popup-header: --cl-white;
+  --cl-overlay: var(--cl-white);
+  --bg-popup: var(--cl-white);
+  --cl-popup: var(--cl-black);
+  --bg-popup-header: var(--cl-purple);
+  --cl-popup-header: var(--cl-white);
 
   --font-size-h1: 3.1em;
   --font-size-h2: 2.45em;

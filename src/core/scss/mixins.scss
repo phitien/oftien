@@ -615,7 +615,7 @@
         flex-direction: column;
         .header {
           @include flex-height(36px);
-          @include color(var(--cl-popup)-header, var(--bg-popup)-header);
+          @include color(var(--cl-popup-header), var(--bg-popup-header));
           display: flex;
           position: relative;
           padding: 0 4px;

@@ -42,18 +42,18 @@
   },
   "scripts": {
     "setup": "sh setup.sh",
-    "build": "react-scripts build",
+    "build": "echo \"ENV=${ENV:-local}\" > .env && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "echo \"ENV=${ENV:-local}\" > .env && concurrently \"node --max_old_space_size=4096 pm2/app.js\" \"node public/services/api/app.js\"",
-    "ui": "echo \"ENV=${ENV:-local}\" > .env && node --max_old_space_size=4096 pm2/app.js",
-    "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start --max_old_space_size=4096 pm2/app.js",
-    "ui-bg-stop": "forever stop pm2/app.js",
-    "be": "echo \"ENV=${ENV:-local}\" > .env && node public/services/api/app.js",
-    "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start public/services/api/app.js",
-    "be-bg-stop": "forever stop public/services/api/app.js",
-    "bambu.life": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && node --max_old_space_size=4096 pm2/app.js",
-    "bambu.life-bg": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && forever start --max_old_space_size=4096 pm2/app.js"
+    "start": "echo \"ENV=${ENV:-local}\" > .env && concurrently \"node --max_old_space_size=4096 scripts/app.js\" \"node services/api/app.js\"",
+    "ui": "echo \"ENV=${ENV:-local}\" > .env && node --max_old_space_size=4096 scripts/app.js",
+    "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start --max_old_space_size=4096 scripts/app.js",
+    "ui-bg-stop": "forever stop scripts/app.js",
+    "be": "echo \"ENV=${ENV:-local}\" > .env && node services/api/app.js",
+    "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start services/api/app.js",
+    "be-bg-stop": "forever stop services/api/app.js",
+    "bambu.life": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && node --max_old_space_size=4096 scripts/app.js",
+    "bambu.life-bg": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && forever start --max_old_space_size=4096 scripts/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"

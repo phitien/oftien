@@ -38,6 +38,8 @@ export default class Main extends Page {
   constructor(props) {
     super(props);
     if (!this.state.stocks.length) this.state.stocks = sampleStocks;
+    if (this.state.stock && !this.state.stocks.includes(this.state.stock))
+      this.state.stocks.push(this.state.stock);
   }
   async componentDidMount() {
     await super.componentDidMount();

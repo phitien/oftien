@@ -44,13 +44,11 @@ cp -rf "src/gg-analytics/$app.js" "$destination/src/gg-analytics"
 cp -rf .babelrc "$destination"
 cp -rf bootstrap.js "$destination"
 # copy public
-mv public/services .
 cp -rf public "$destination"
 rm -rf "$destination/public/routes"
 rm -rf "$destination/public/static/apps"
 mkdir -p "$destination/public/static/apps"
 cp -rf "public/static/apps/$app" "$destination/public/static/apps"
-mv services public
 #
 yes | cp -rf single/* "$destination"
 #

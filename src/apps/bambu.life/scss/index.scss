@@ -6,10 +6,13 @@
   --cl-top: var(--cl-white);
   --bg-bottom: #232323;
   --cl-bottom: var(--cl-white);
+  --bg-left: var(--cl-white);
 
   --logo-height: 100%;
   --cl-primary: var(--cl-purple);
-  --font-size-bottom: 12px;
+  --font-size-bottom: 11px;
+
+  --bottom-height: 56px;
 }
 
 @include do-style();
