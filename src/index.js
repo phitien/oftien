@@ -8,7 +8,7 @@ require("./core/bootstrap");
 
 const { App, store, theme } = global;
 
-ReactDOM.render(
+ReactDOM.hydrate(
   React.createElement(App, { store, theme }),
   document.getElementById("root")
 );

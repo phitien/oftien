@@ -1,37 +1,96 @@
 {
+  "settings": {
+    "avatarMargin": "0px -18px",
+    "Main": {
+      "main": [
+        "info",
+        "experiences",
+        "projects",
+        "skills",
+        "education",
+        "contact"
+      ],
+      "info": ["occupation", "quote", "intro", "funny"],
+      "contact": [
+        "website",
+        "github",
+        "email",
+        "skype",
+        "mobile",
+        "phone",
+        "address"
+      ]
+    },
+    "Left_Main": {
+      "main": ["info", "experiences", "projects"],
+      "left": ["contact", "skills", "education"],
+      "info": ["occupation", "quote", "intro", "funny"],
+      "contact": [
+        "website",
+        "github",
+        "email",
+        "skype",
+        "mobile",
+        "phone",
+        "address"
+      ]
+    },
+    "Left_Main_Right": {
+      "main": ["experiences", "projects"],
+      "left": ["info", "contact", "education"],
+      "right": ["skills"],
+      "info": ["occupation", "quote", "intro", "funny"],
+      "contact": [
+        "website",
+        "github",
+        "email",
+        "skype",
+        "mobile",
+        "phone",
+        "address"
+      ]
+    },
+    "Main_Right": {
+      "main": ["info", "experiences", "projects"],
+      "right": ["contact", "skills", "education"],
+      "info": ["occupation", "quote", "intro", "funny"],
+      "contact": [
+        "website",
+        "github",
+        "email",
+        "skype",
+        "mobile",
+        "phone",
+        "address"
+      ]
+    },
+    "layout": "Left_Main",
+    "fontFamily": "",
+    "fontWeight": "",
+    "fontSize": "",
+    "primary": "",
+    "primary2": "",
+    "secondary": "",
+    "secondary2": "",
+    "color": "",
+    "bgcolor": ""
+  },
   "info": {
-    "name": "Name",
-    "occupation": "Occupation",
-    "quote": "Quote",
-    "intro": "Intro",
-    "funny": "funny",
+    "name": "Phi Tien",
+    "occupation": "Senior UI Developer (Web & Mobile)",
+    "quote": "Love what we do, do what we love. Life is now & happiness is you",
+    "intro": "A passionate, responsible senior developer with an ability to learn and do anything related to IT.",
+    "funny": "of course if have a chance",
     "author": "Phi Tien<im.phitien@gmail.com",
-    "keywords": "Meta keywords",
-    "description": "Meta description",
-    "avatar": "/url/to/avatar",
+    "keywords": "HTML,CSS,XML,JavaScript,Senior UI Developer,Senior Frontend Developer,React,Vue,Node",
+    "description": "Phi Tien's profile, Senior UI Developer, Senior Frontend Developer, React, Vue, Node, HTML, CSS, XML, JavaScript",
+    "avatar": "/static/apps/oftien/cv/oftien.png",
     "birthday": "1984-10-28",
     "gender": "Male",
     "maried status": "Single"
   },
-  "settings": {
-    "main": ["experiences", "projects"],
-    "left": ["skills", "education"],
-    "right": ["skills", "education"],
-    "info": ["occupation", "quote", "intro", "funny"],
-    "contact": [
-      "website",
-      "github",
-      "email",
-      "skype",
-      "mobile",
-      "phone",
-      "address"
-    ],
-    "avatarMargin": "0px 0px",
-    "style": ".layout {}\n.editor {}"
-  },
   "education": [
-    "Stanford University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology."
+    "Hanoi Water Resources University (2002 - 2007).<br/>Bachelor of Computer Science.<br/>Information Technology"
   ],
   "contact": [
     {
@@ -46,19 +105,19 @@
       "protocol": "https://github.com/",
       "external": true,
       "query": "",
-      "value": "github_account"
+      "value": "phitien"
     },
     {
       "type": "email",
       "protocol": "mailto:",
       "query": "subject=[OfTien] Contact for an opportunity&body=Hello Tien,",
-      "value": "your@email.com"
+      "value": "im.phitien@gmail.com"
     },
     {
       "type": "skype",
       "protocol": "skype:",
       "query": "?userinfo",
-      "value": "your.skype"
+      "value": "im.phitien"
     },
     {
       "type": "mobile",
@@ -66,7 +125,7 @@
       "viber": true,
       "wechat": false,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
-      "value": "(+65)xxxxx"
+      "value": "(+65)85986657"
     },
     {
       "type": "phone",
@@ -74,13 +133,13 @@
       "viber": true,
       "wechat": true,
       "whatsapp_query": "text=Hello%20Tien.%20Are%20you%20able%20to%20chat%20for%20a%20moment%3F",
-      "value": "(+84)xxxxx"
+      "value": "(+84)946847882"
     },
     {
       "type": "address",
       "protocol": "",
       "query": "",
-      "value": "Your address"
+      "value": "Singapore, Vietnam"
     }
   ],
   "experiences": [
@@ -283,5 +342,6 @@
       "items": "TagUI, UIPath, Automagica, Selenium"
     },
     { "name": "Langagues", "items": "English, Vietnamese" }
-  ]
+  ],
+  "username": "oftien"
 }
