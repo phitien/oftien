@@ -39,7 +39,7 @@
   "scripts": {
     "setup": "sh setup.sh",
     "build": "react-scripts build",
-    "start": "echo \"ENV=${ENV:-local}\" > .env && node --max_old_space_size=4096 pm2/app.js"
+    "start": "echo \"ENV=${ENV:-local}\" > .env && node --max_old_space_size=4096 scripts/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"

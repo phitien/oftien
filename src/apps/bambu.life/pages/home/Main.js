@@ -147,7 +147,13 @@ export default class Main extends Page {
     await loadStock({ stock, apikey, cfunction });
   };
   onStockClick = (stock, e) => {
-    global.jQuery(e.target.closest(".left,.right")).addClass("hide-symbols");
+    const el = e.target.closest(".left,.right");
+    el.closed = true;
+    global
+      .jQuery(el)
+      .addClass("hide-symbols")
+      .find(".wrapper .stocks")
+      .slideUp();
     this.setState({ stock }, e => {
       global.localStorage.setItem("stock", stock);
       this.loadStock();

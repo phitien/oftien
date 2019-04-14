@@ -29,8 +29,8 @@ cp -rf "config/.env.$app" "$destination/config/.env.$app"
 cp -rf "config/.env.$app" "$destination/config/.env.local"
 cp -rf "config/.env.$app" "$destination/config/.env.development"
 cp -rf "config/.env.$app" "$destination/config/.env.test"
-# copy pm2
-cp -rf pm2 "$destination"
+# copy scripts
+cp -rf scripts "$destination"
 # copy src
 cp -rf src "$destination"
 rm -rf "$destination/src/apps"
