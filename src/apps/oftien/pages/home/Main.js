@@ -3,6 +3,7 @@ import "./main.scss";
 import React from "react";
 import { Helmet } from "react-helmet";
 import uuidv4 from "uuid/v4";
+import { ChromePicker } from "react-color";
 
 import { Button, Icon, Page } from "../../../../core";
 
@@ -116,7 +117,8 @@ export default class Main extends Page {
       "settings",
       "editing",
       "username",
-      "className"
+      "className",
+      "colorPickerFor"
     );
     this.editor.set(data);
     this.editorSettings.set(this.settings);
@@ -363,8 +365,8 @@ export default class Main extends Page {
     };
     return (
       <div key="contact" className="section contact">
-        <h3 class="heading">Contact</h3>
-        <div class="blocks">
+        <h3 className="heading">Contact</h3>
+        <div className="blocks">
           {fields.map((o, i) =>
             o.type === "mobile" || o.type === "phone" ? (
               renderMobile(o, i)
@@ -391,7 +393,9 @@ export default class Main extends Page {
     );
   }
   renderButtons() {
+    const { settings } = this;
     const { editing } = this.state;
+    const colorPickerFor = this.state.colorPickerFor || "primary";
     return [
       <div key="top" className="fixed attop no-printing">
         <Button icon="fas fa-print" onClick={e => global.print()} />
@@ -410,6 +414,43 @@ export default class Main extends Page {
       </div>,
       <div key="layout-options" className="fixed layout-options no-printing">
         {this.renderLayoutOptions()}
+      </div>,
+      <div key="palette" className="fixed atbottom palette no-printing">
+        <ChromePicker
+          disableAlpha={true}
+          color={this[colorPickerFor] || "#06a4df"}
+          onChange={function(e) {
+            const color = e.hex;
+            settings[colorPickerFor] = color;
+            const attr =
+              colorPickerFor === "color"
+                ? "--cl-text"
+                : colorPickerFor === "bgcolor"
+                ? "--bg-body"
+                : `--cl-${colorPickerFor}`;
+            global.addStyle(attr, color);
+          }}
+        />
+        <select
+          value={this.state.colorPickerFor || "primary"}
+          onChange={e => this.setState({ colorPickerFor: e.target.value })}
+        >
+          <option value="primary">primary</option>
+          <option value="primary2">primary2</option>
+          <option value="secondary">secondary</option>
+          <option value="secondary2">secondary2</option>
+          <option value="color">text</option>
+          <option value="bgcolor">background</option>
+        </select>
+        <Button
+          icon="fas fa-palette"
+          onClick={e =>
+            global
+              .jQuery(e.target.closest(".palette"))
+              .find(".chrome-picker,select")
+              .fadeToggle(e => this.setState({ settings }, this.onDataChange))
+          }
+        />
       </div>,
       <div key="bottom" className="fixed atbottom no-printing">
         <Button

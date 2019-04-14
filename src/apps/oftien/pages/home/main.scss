@@ -173,6 +173,20 @@
     &.atbottom {
       bottom: var(--sspace);
     }
+    &.palette {
+      .chrome-picker {
+        display: none;
+        position: fixed;
+        right: var(--sspace);
+        bottom: calc(44px + var(--sspace));
+      }
+      select {
+        display: none;
+        position: fixed;
+        right: calc(40px + var(--sspace));
+        bottom: var(--sspace);
+      }
+    }
   }
   .section + .section {
     &:after {
@@ -442,8 +456,6 @@
       .main {
         border-top: 1px solid var(--cl-border);
       }
-    }
-    .layout.cols {
       .wrraper,
       > .content .main .wrraper {
         padding: 0 var(--sspace);
@@ -465,6 +477,11 @@
           @include overview-small();
           padding-top: var(--sspace);
         }
+      }
+    }
+    &.editing {
+      .editor {
+        @include flex-width(100%);
       }
     }
   }

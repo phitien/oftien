@@ -36,37 +36,37 @@
   --cl-lightgrey: #ebebeb;
   --cl-white: #ffffff;
 
-  --cl-primary: var(--cl-red);
-  --cl-primary2: var(--cl-green);
-  --cl-secondary: var(--cl-blue);
-  --cl-secondary2: var(--cl-blue);
+  --cl-primary: --cl-red;
+  --cl-primary2: --cl-green;
+  --cl-secondary: --cl-blue;
+  --cl-secondary2: --cl-blue;
 
-  --cl-placeholder: var(--cl-lightgrey);
-  --cl-error: var(--cl-red);
-  --cl-warning: var(--cl-orange);
-  --cl-message: var(--cl-black);
+  --cl-placeholder: --cl-lightgrey;
+  --cl-error: --cl-red;
+  --cl-warning: --cl-orange;
+  --cl-message: --cl-black;
 
   --bg-body: #ffffff;
-  --cl-text: var(--cl-black);
-  --bg-top: var(--bg-body);
-  --cl-top: var(--cl-text);
-  --bg-bottom: var(--bg-body);
-  --cl-bottom: var(--cl-text);
-  --bg-left: var(--bg-body);
-  --cl-left: var(--cl-text);
-  --bg-right: var(--bg-body);
-  --cl-right: var(--cl-text);
-  --bg-main: var(--bg-body);
-  --cl-main: var(--cl-text);
+  --cl-text: --cl-black;
+  --bg-top: --bg-body;
+  --cl-top: --cl-black;
+  --bg-bottom: --bg-body;
+  --cl-bottom: --cl-black;
+  --bg-left: --bg-body;
+  --cl-left: --cl-black;
+  --bg-right: --bg-body;
+  --cl-right: --cl-black;
+  --bg-main: --bg-body;
+  --cl-main: --cl-black;
 
-  --bg-printing: var(--cl-white);
+  --bg-printing: --cl-white;
 
   --bg-overlay: rgba(0, 0, 0, 0.4);
-  --cl-overlay: var(--cl-white);
-  --bg-popup: var(--cl-white);
-  --cl-popup: var(--cl-black);
-  --bg-popup-header: var(--cl-purple);
-  --cl-popup-header: var(--cl-white);
+  --cl-overlay: --cl-white;
+  --bg-popup: --cl-white;
+  --cl-popup: --cl-black;
+  --bg-popup-header: --cl-purple;
+  --cl-popup-header: --cl-white;
 
   --font-size-h1: 3.1em;
   --font-size-h2: 2.45em;
@@ -91,8 +91,8 @@
   --input-bg-color: #ffffff;
   --input-border: 1px solid;
   --input-border-radius: 6px;
-  --input-box-shadow: 1px 1px 6px var(--cl-black);
-  --input-box-shadow-hover: 1px 1px 2px var(--cl-black);
+  --input-box-shadow: 1px 1px 6px --cl-black;
+  --input-box-shadow-hover: 1px 1px 2px --cl-black;
 
   --textarea-font-size: var(--input-font-size);
   --textarea-line-height: var(--form-el-height);
@@ -119,8 +119,8 @@
   --btn-padding: 0 12px;
   --btn-text-color: #ffffff;
   --btn-bg-color: #333333;
-  --btn-bg-color-hover: var(--cl-primary);
-  --btn-text-color-hover: var(--cl-black);
+  --btn-bg-color-hover: --cl-primary;
+  --btn-text-color-hover: --cl-black;
   --btn-border: var(--input-border);
   --btn-box-shadow: 1px 2px 6px var(--btn-text-color);
   --btn-box-shadow-hover: 1px 3px 11px var(--btn-text-color);
