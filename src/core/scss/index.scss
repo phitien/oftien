@@ -1,17 +1,4 @@
 @import "_";
 @import "mixins";
-body {
-  @include vertical-scrollbar();
-  @include default_style();
-  @include colors();
-  @include common();
-  @include input-text();
-  @include textarea();
-  @include select();
-  @include inputfield();
-  @include layouts();
-  @include logo();
-  @include notifications();
-  @include button();
-  @include overlay();
-}
+
+@include do-style();

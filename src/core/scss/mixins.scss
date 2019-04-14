@@ -6,111 +6,161 @@
   color: $bg-body;
   background-color: $cl-text;
 }
-@mixin font($font-family: var(--font-text), $font-size: var(--font-size-body)) {
+@mixin placeholder($color: var(--cl-placeholder)) {
+  color: $color;
+  font-size: 97%;
+  font-style: italic;
+}
+@mixin font($font-family: var(--font-family), $font-size: var(--font-size)) {
   font-family: $font-family;
   font-size: $font-size;
 }
-@mixin fonts(
-  $font-text: var(--font-text),
-  $font-size-body: var(--font-size-body),
-  $font-main: var(--font-main),
-  $font-size-main: var(--font-size-main),
-  $font-top: var(--font-top),
-  $font-size-top: var(--font-size-top),
-  $font-bottom: var(--font-bottom),
-  $font-size-bottom: var(--font-size-bottom),
-  $font-left: var(--font-left),
-  $font-size-left: var(--font-size-left),
-  $font-right: var(--font-right),
-  $font-size-right: var(--font-size-right)
-) {
-  body {
-    @include font($font-text, $font-size-body);
+@mixin flex-width($w) {
+  flex: 0 0 $w;
+  width: $w;
+  min-width: $w;
+  max-width: $w;
+}
+@mixin flex-height($h) {
+  flex: 0 0 $h;
+  height: $h;
+  min-height: $h;
+  max-height: $h;
+}
+@mixin flex($f) {
+  flex: $f;
+  width: initial;
+  max-width: initial;
+  min-width: initial;
+}
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+@mixin left-to-right-animation($w: 0px) {
+  0% {
+    left: 0;
   }
-  .layout {
-    .main {
-      @include font($font-main, $font-size-main);
-    }
-    .top {
-      @include font($font-top, $font-size-top);
-    }
-    .bottom {
-      @include font($font-bottom, $font-size-bottom);
-    }
-    .left {
-      @include font($font-left, $font-size-left);
-    }
-    .right {
-      @include font($font-right, $font-size-right);
-    }
+  100% {
+    left: calc(100% - #{$w});
   }
 }
-@mixin colors(
-  $cl-text: var(--cl-text),
-  $bg-body: var(--bg-body),
-  $cl-main: var(--cl-main),
-  $bg-main: var(--bg-main),
-  $cl-top: var(--cl-top),
-  $bg-top: var(--bg-top),
-  $cl-bottom: var(--cl-bottom),
-  $bg-bottom: var(--bg-bottom),
-  $cl-left: var(--cl-left),
-  $bg-left: var(--bg-left),
-  $cl-right: var(--cl-right),
-  $bg-right: var(--bg-right),
-  $cl-highlight: var(--cl-highlight)
-) {
-  body {
-    @include color($cl-text, $bg-body);
+@mixin pingpong-animation($w: 0px) {
+  0% {
+    left: 0;
   }
-  a,
-  .a {
-    color: $cl-highlight;
-    text-decoration: none;
+  50% {
+    left: calc(100% - #{$w});
   }
-  iframe,
-  .iframe {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    border-width: 0px;
-    border-style: inset;
-    border-color: initial;
-    border-image: initial;
+  100% {
+    left: 0;
+  }
+}
+/************/
+@mixin heading() {
+  h1,
+  .h1 {
+    color: var(--cl-primary);
+    font-weight: 600;
+    font-size: var(--font-size-h1);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   h2,
   .h2 {
-    color: $cl-highlight;
+    color: var(--cl-primary);
+    font-weight: 600;
+    font-size: var(--font-size-h2);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   h3,
   .h3 {
-    color: $cl-highlight;
+    color: var(--cl-primary);
+    font-weight: 600;
+    font-size: var(--font-size-h3);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   h4,
   .h4 {
-    color: $cl-highlight;
+    color: var(--cl-primary);
+    font-weight: 500;
+    font-size: var(--font-size-h4);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   h5,
   .h5 {
-    color: $cl-highlight;
+    color: var(--cl-primary);
+    font-weight: 500;
+    font-size: var(--font-size-h5);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
+  h6,
+  .h6 {
+    color: var(--cl-primary);
+    font-weight: 500;
+    font-size: var(--font-size-h6);
+    line-height: 1;
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  .regular {
+    font-size: var(--font-size-regular);
+  }
+  .bigger {
+    font-size: var(--font-size-bigger);
+  }
+  .smaller {
+    font-size: var(--font-size-smaller);
+  }
+}
+@mixin fonts() {
+  @include font(var(--font-family), var(--font-size));
   .layout {
     .main {
-      @include color($cl-main, $bg-main);
+      @include font(var(--font-main), var(--font-size-main));
     }
     .top {
-      @include color($cl-top, $bg-top);
+      @include font(var(--font-top), var(--font-size-top));
     }
     .bottom {
-      @include color($cl-bottom, $bg-bottom);
+      @include font(var(--font-bottom), var(--font-size-bottom));
     }
     .left {
-      @include color($cl-left, $bg-left);
+      @include font(var(--font-left), var(--font-size-left));
     }
     .right {
-      @include color($cl-right, $bg-right);
+      @include font(var(--font-right), var(--font-size-right));
+    }
+  }
+}
+@mixin colors() {
+  @include color(var(--cl-text), var(--bg-body));
+  .layout {
+    .main {
+      @include color(var(--cl-main), var(--bg-main));
+    }
+    .top {
+      @include color(var(--cl-top), var(--bg-top));
+    }
+    .bottom {
+      @include color(var(--cl-bottom), var(--bg-bottom));
+    }
+    .left {
+      @include color(var(--cl-left), var(--bg-left));
+    }
+    .right {
+      @include color(var(--cl-right), var(--bg-right));
     }
   }
 }
@@ -190,10 +240,23 @@
       justify-content: flex-end;
     }
   }
+}
+@mixin a() {
   a,
   .a {
+    color: var(--cl-primary);
     text-decoration: none;
   }
+}
+@mixin form() {
+  form,
+  .form {
+    outline: none;
+    border: none;
+    border-radius: 0;
+  }
+}
+@mixin iframe() {
   iframe,
   .iframe {
     border: none;
@@ -206,41 +269,8 @@
     border-color: initial;
     border-image: initial;
   }
-  h2,
-  .h2 {
-    font-weight: 600;
-    line-height: 38px;
-    font-size: 32px;
-    margin: 0 0 8px;
-  }
-  h3,
-  .h3 {
-    font-weight: 600;
-    line-height: 32px;
-    font-size: 26px;
-    font-weight: 500;
-    margin: 0 0 8px;
-  }
-  h4,
-  .h4 {
-    font-weight: 500;
-    line-height: 24px;
-    font-size: 17px;
-    margin: 0 0 8px;
-  }
-  h5,
-  .h5 {
-    font-weight: 500;
-    line-height: 24px;
-    font-size: 15px;
-    margin: 0 0 8px;
-  }
-  form,
-  .form {
-    outline: none;
-    border: none;
-    border-radius: 0;
-  }
+}
+@mixin input() {
   .radio,
   .checkbox,
   input[type="checkbox"],
@@ -249,121 +279,121 @@
     border: none;
     border-radius: 0;
   }
-}
-@mixin input-text(
-  $input-font-size: var(--input-font-size),
-  $input-line-height: var(--input-line-height),
-  $input-padding: var(--input-padding),
-  $input-text-color: var(--input-text-color),
-  $input-bg-color: var(--input-bg-color),
-  $input-border: var(--input-border),
-  $input-border-radius: var(--input-border-radius),
-  $input-box-shadow: var(--input-box-shadow),
-  $input-box-shadow-hover: var(--input-box-shadow-hover)
-) {
   .input,
   input[type="text"],
   input[type="email"],
   input[type="url"],
   input[type="password"],
   input[type="number"] {
-    height: $input-line-height;
-    line-height: $input-line-height;
-    padding: $input-padding;
-    font-size: $input-font-size;
-    color: $input-text-color;
-    background-color: $input-bg-color;
-    border: $input-border;
-    border-radius: $input-border-radius;
-    box-shadow: $input-box-shadow;
+    height: var(--input-line-height);
+    line-height: var(--input-line-height);
+    padding: var(--input-padding);
+    font-size: var(--input-font-size);
+    color: var(--input-color);
+    background-color: var(--input-bg-color);
+    border: var(--input-border);
+    border-radius: var(--input-border-radius);
+    box-shadow: var(--input-box-shadow);
     outline: none;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $input-box-shadow-hover;
+      box-shadow: var(--input-box-shadow-hover);
     }
   }
+  &::placeholder,
+  .placeholder {
+    @include placeholder();
+  }
 }
-@mixin textarea(
-  $textarea-font-size: var(--textarea-font-size),
-  $textarea-line-height: var(--textarea-line-height),
-  $textarea-padding: var(--textarea-padding),
-  $textarea-text-color: var(--textarea-text-color),
-  $textarea-bg-color: var(--textarea-bg-color),
-  $textarea-border: var(--textarea-border),
-  $textarea-border-radius: var(--textarea-border-radius),
-  $textarea-box-shadow: var(--textarea-box-shadow),
-  $textarea-box-shadow-hover: var(--textarea-box-shadow-hover)
-) {
+@mixin textarea() {
   textarea,
   .textarea {
-    line-height: $textarea-line-height;
-    padding: $textarea-padding;
-    font-size: $textarea-font-size;
-    color: $textarea-text-color;
-    background-color: $textarea-bg-color;
-    border: $textarea-border;
-    border-radius: $textarea-border-radius;
-    box-shadow: $textarea-box-shadow;
+    line-height: var(--textarea-line-height);
+    padding: var(--textarea-padding);
+    font-size: var(--textarea-font-size);
+    color: var(--textarea-text-color);
+    background-color: var(--textarea-bg-color);
+    border: var(--textarea-border);
+    border-radius: var(--textarea-border-radius);
+    box-shadow: var(--textarea-box-shadow);
     outline: none;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $textarea-box-shadow-hover;
+      box-shadow: var(--textarea-box-shadow-hover);
     }
   }
+  &::placeholder,
+  .placeholder {
+    @include placeholder();
+  }
 }
-@mixin select(
-  $select-font-size: var(--select-font-size),
-  $select-line-height: var(--select-line-height),
-  $select-padding: var(--select-padding),
-  $select-text-color: var(--select-text-color),
-  $select-bg-color: var(--select-bg-color),
-  $select-border: var(--select-border),
-  $select-border-radius: var(--input-border-radius),
-  $select-box-shadow: var(--select-box-shadow),
-  $select-box-shadow-hover: var(--select-box-shadow-hover)
-) {
+@mixin select() {
   select,
   .select {
-    height: $select-line-height;
-    line-height: $select-line-height;
-    padding: $select-padding;
-    font-size: $select-font-size;
-    color: $select-text-color;
-    background-color: $select-bg-color;
-    border: $select-border;
-    border-radius: $select-border-radius;
-    box-shadow: $select-box-shadow;
+    height: var(--select-line-height);
+    line-height: var(--select-line-height);
+    padding: var(--select-padding);
+    font-size: var(--select-font-size);
+    color: var(--select-text-color);
+    background-color: var(--select-bg-color);
+    border: var(--select-border);
+    border-radius: var(--select-border-radius);
+    box-shadow: var(--select-box-shadow);
     outline: none;
     cursor: pointer;
     &:hover,
     &:focus,
     &:active {
-      box-shadow: $select-box-shadow-hover;
+      box-shadow: var(--select-box-shadow-hover);
     }
+  }
+  &::placeholder,
+  .placeholder {
+    @include placeholder();
+  }
+}
+@mixin label() {
+  label,
+  .label {
+    display: block;
+    margin: 0 0 8px;
+    padding: 0;
+  }
+}
+@mixin p() {
+  p,
+  .p {
+    display: block;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 16px;
   }
 }
 @mixin inputfield() {
   .inputfield {
-    width: 100%;
+    @include flex-width(100%);
     label,
     .label {
-      display: block;
-      margin-bottom: 6px;
+      color: var(--cl-primary);
     }
-    input,
-    textarea {
+    .input,
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    input[type="password"],
+    input[type="number"],
+    .textarea,
+    textarea,
+    .select,
+    select {
       display: block;
       width: 100%;
     }
   }
 }
-@mixin layouts(
-  $--top-height: var(--top-height),
-  $left-width: var(--left-width),
-  $right-width: var(--right-width)
-) {
+@mixin layouts() {
   .fullscreen {
     position: fixed;
     top: 0;
@@ -402,14 +432,14 @@
     margin: 0 auto;
   }
   .layout .top {
-    height: $--top-height;
+    height: var(--top-height);
   }
   .layout .left {
-    @include flex-width($left-width);
+    @include flex-width(var(--left-width));
     overflow: auto;
   }
   .layout .right {
-    @include flex-width($right-width);
+    @include flex-width(var(--right-width));
     overflow: auto;
   }
   .layout .main {
@@ -447,43 +477,45 @@
     }
   }
 }
-@mixin logo($logo-width: var(--logo-width), $logo-height: var(--logo-height)) {
+@mixin logo() {
   .logo {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
-    height: $logo-height;
-    width: $logo-width;
+    height: var(--logo-height);
+    width: var(--logo-width);
   }
 }
-@mixin button(
-  $btn-font-size: var(--btn-font-size),
-  $btn-line-height: var(--input-line-height),
-  $btn-padding: var(--btn-padding),
-  $btn-text-color: var(--btn-text-color),
-  $btn-bg-color: var(--btn-bg-color),
-  $btn-text-color-hover: var(--btn-text-color-hover),
-  $btn-bg-color-hover: var(--btn-bg-color-hover),
-  $btn-border: var(--input-border),
-  $btn-box-shadow: var(--btn-box-shadow),
-  $btn-box-shadow-hover: var(--btn-box-shadow-hover)
-) {
+@mixin icon() {
+  i,
+  .icon {
+    font-size: var(--icon-font-size);
+  }
+  .image-icon {
+    width: var(--icon-image-size);
+    height: var(--icon-image-size);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+@mixin button() {
   .btn {
-    height: $btn-line-height;
-    line-height: $btn-line-height;
-    padding: $btn-padding;
-    font-size: $btn-font-size;
-    color: $btn-text-color;
-    background-color: $btn-bg-color;
-    border: $btn-border;
+    min-width: var(--input-line-height);
+    height: var(--input-line-height);
+    line-height: var(--input-line-height);
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    color: var(--btn-text-color);
+    background-color: var(--btn-bg-color);
+    border: var(--input-border);
     border-radius: 3px;
-    box-shadow: $btn-box-shadow;
+    box-shadow: var(--btn-box-shadow);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-transform: inherit;
-    min-width: auto;
     cursor: pointer;
     .span:first-child {
       display: inline-flex;
@@ -493,14 +525,10 @@
     svg {
       margin-right: 8px;
     }
-    .image-icon {
-      width: 14px;
-      margin-right: 4px;
-    }
     &:hover {
-      box-shadow: $btn-box-shadow-hover;
-      background-color: $btn-bg-color-hover;
-      color: $btn-text-color-hover;
+      box-shadow: var(--btn-box-shadow-hover);
+      background-color: var(--btn-bg-color-hover);
+      color: var(--btn-text-color-hover);
     }
     &.no-name {
       padding: 0;
@@ -514,13 +542,6 @@
     }
     &.bold {
       height: 32px;
-    }
-    &.small {
-      &.circle {
-        height: 24px;
-        width: 24px;
-        font-size: 10px;
-      }
     }
     &.circle {
       border-radius: 50%;
@@ -544,13 +565,10 @@
     }
   }
 }
-@mixin notifications(
-  $--top-height: var(--top-height),
-  $cl-error: var(--cl-error)
-) {
+@mixin notifications() {
   .notifications {
     position: fixed;
-    top: $--top-height;
+    top: var(--top-height);
     right: 0;
     height: calc(100% - 170px);
     overflow: auto;
@@ -570,7 +588,7 @@
       box-shadow: 1px 2px 3px white;
       position: relative;
       &.error {
-        background-color: $cl-error;
+        background-color: var(--cl-error);
       }
       &:hover:before {
         content: "";
@@ -583,14 +601,7 @@
     }
   }
 }
-@mixin overlay(
-  $cl-overlay: var(--cl-overlay),
-  $bg-overlay: var(--bg-overlay),
-  $cl-popup: var(--cl-popup),
-  $bg-popup: var(--bg-popup),
-  $cl-popup-header: var(--cl-popup-header),
-  $bg-popup-header: var(--bg-popup-header)
-) {
+@mixin overlay() {
   .overlay {
     position: fixed;
     top: 0;
@@ -601,7 +612,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    @include color($cl-overlay, $bg-overlay);
+    @include color(var(--cl-overlay), var(--bg-overlay));
     &.no-overlay {
       position: initial;
       top: initial;
@@ -612,7 +623,7 @@
     }
     &.popup {
       .wrapper {
-        @include color($cl-popup, $bg-popup);
+        @include color(var(--cl-popup), var(--bg-popup));
         padding: 0;
         border-radius: 4px;
         overflow: hidden;
@@ -621,7 +632,7 @@
         flex-direction: column;
         .header {
           @include flex-height(36px);
-          @include color($cl-popup-header, $bg-popup-header);
+          @include color(var(--cl-popup)-header, var(--bg-popup)-header);
           display: flex;
           position: relative;
           padding: 0 4px;
@@ -658,24 +669,13 @@
     }
   }
 }
-@mixin default_style(
-  $font-family: var(--font-family),
-  $font-size: var(--font-size),
-  $line-height: var(--line-height)
-) {
-  font-family: $font-family;
-  font-size: $font-size;
-  line-height: $line-height;
+@mixin default_style() {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
   font-feature-settings: "liga";
   word-break: break-word;
   text-overflow: ellipsis;
-}
-@mixin placeholder($color) {
-  &::placeholder {
-    color: $color;
-    font-size: 97%;
-    font-style: italic;
-  }
 }
 @mixin no-scrollbar() {
   ::-webkit-scrollbar {
@@ -694,24 +694,18 @@
     display: none;
   }
 }
-@mixin vertical-scrollbar(
-  $scrollbar-size: var(--scrollbar-size),
-  $scrollbar-track-bg: var(--scrollbar-track-bg),
-  $scrollbar-track-border: var(--scrollbar-track-border),
-  $scrollbar-thumb-bg: var(--scrollbar-thumb-bg),
-  $scrollbar-thumb-border: var(--scrollbar-thumb-border)
-) {
+@mixin vertical-scrollbar() {
   ::-webkit-scrollbar {
-    width: $scrollbar-size;
-    height: $scrollbar-size;
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
   }
   ::-webkit-scrollbar-track {
-    background-color: $scrollbar-track-bg;
-    border: $scrollbar-track-border;
+    background-color: var(--scrollbar-track-bg);
+    border: var(--scrollbar-track-border);
   }
   ::-webkit-scrollbar-thumb {
-    background-color: $scrollbar-thumb-bg;
-    border: $scrollbar-thumb-border;
+    background-color: var(--scrollbar-thumb-bg);
+    border: var(--scrollbar-thumb-border);
   }
   ::-webkit-scrollbar-button {
   }
@@ -724,36 +718,17 @@
   ::-webkit-scrollbar-button:vertical:end {
   }
 }
-@mixin pingpong-animation($w: 0px) {
-  0% {
-    left: 0;
-  }
-  50% {
-    left: calc(100% - #{$w});
-  }
-  100% {
-    left: 0;
-  }
-}
-@mixin left-to-right-animation($w: 0px) {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: calc(100% - #{$w});
-  }
-}
-@mixin table-style(
-  $height,
-  $thead-height,
-  $rheight: 26px,
-  $cwidth: 34px,
-  $bg: #252525,
-  $border: #7d7d7d,
-  $bg-head: #252525,
-  $cl-head: #d0bc44,
-  $hover: #515151,
-  $selected: #6f5353
+@mixin table(
+  $height: var(--table-height),
+  $thead-height: var(--table-thead-height),
+  $rheight: var(--table-row-height),
+  $cwidth: var(--table-col-width),
+  $bg: var(--table-bg),
+  $bd-cl: var(--table-bd-cl),
+  $bg-head: var(--table-thead-bg),
+  $cl-head: var(--table-thead-cl),
+  $hover: var(--table-row-hover-bg),
+  $selected: var(--table-row-selected-bg)
 ) {
   .table {
     height: $height;
@@ -765,11 +740,12 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-color: $border !important;
+    background-color: $bg;
+    border-color: $bd-cl !important;
     border: 1px solid;
     box-sizing: border-box;
     .trow {
-      border-color: $border !important;
+      border-color: $bd-cl !important;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -780,7 +756,7 @@
     }
     .tcell {
       @include flex-width($cwidth);
-      border-color: $border !important;
+      border-color: $bd-cl !important;
       cursor: pointer;
       box-sizing: border-box;
       font-size: 11px;
@@ -853,8 +829,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-bottom: 1px solid $border;
-            border-right: 1px solid $border;
+            border-bottom: 1px solid $bd-cl;
+            border-right: 1px solid $bd-cl;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -912,27 +888,40 @@
     }
   }
 }
-@mixin flex-width($w) {
-  flex: 0 0 $w;
-  width: $w;
-  min-width: $w;
-  max-width: $w;
-}
-@mixin flex-height($h) {
-  flex: 0 0 $h;
-  height: $h;
-  min-height: $h;
-  max-height: $h;
-}
-@mixin flex($f) {
-  flex: $f;
-  width: initial;
-  max-width: initial;
-  min-width: initial;
-}
-@mixin flex-column() {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+
+@mixin do-style() {
+  body.route {
+    @include vertical-scrollbar();
+    @include default_style();
+    @include colors();
+    @include common();
+    @include fonts();
+    @include input();
+    @include textarea();
+    @include select();
+    @include icon();
+    @include a();
+    @include p();
+    @include label();
+    @include iframe();
+    @include heading();
+    @include inputfield();
+    @include form();
+    @include logo();
+    @include notifications();
+    @include table();
+    @include button();
+    @include overlay();
+    @include layouts();
+    /*** print ***/
+    @media print {
+      background-color: var(--bg-printing);
+      display: block;
+      padding: 0 0;
+      margin: 0 0;
+      .no-printing {
+        display: none !important;
+      }
+    }
+  }
 }

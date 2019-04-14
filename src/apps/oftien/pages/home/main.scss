@@ -1,80 +1,34 @@
 @import "../../scss/index";
 
-$space: 56px;
-$s-space: 24px;
-$overview-h: 125px;
-$font-size-section-heading: 26px;
-$section-border: 2px solid var(--cl-lightgrey);
-
-$size-a4: 842px;
-
-@mixin contact-style() {
-  height: fit-content !important;
-  &:before {
-    content: "Contact";
-    color: var(--cl-highlight);
-    line-height: 32px;
-    font-size: $font-size-section-heading;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 0 0 16px;
-    padding-top: $space;
-    display: block;
-    line-height: 24px;
+@mixin overview-small() {
+  height: fit-content;
+  display: block;
+  .avatar {
+    margin: 0 auto 12px;
+  }
+  .info {
+    margin-right: var(--space) / 3;
+    text-align: center;
   }
   &:after {
     display: none;
   }
 }
-@mixin standard_layout {
-  @include flex-width(100%);
-  display: flex;
-  flex-direction: column;
-  .left,
-  .right {
-    @include flex-width(100%);
-    .wrraper {
-      display: flex;
-      flex-direction: column-reverse;
-      .contact {
-        @include contact-style();
-      }
-      .sections {
-        border-top: $section-border;
-      }
-    }
-  }
-  &.Left_Main,
-  &.Main_Right,
-  &.Left_Main_Right {
-    > .content .main .wrraper {
-      margin-right: 0;
-      margin-left: 0;
-    }
-  }
-}
-.page.page-home-main {
-  background-image: url(/static/apps/oftien/assets/bg1.png);
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: cover;
+@mixin style-main() {
   padding: 4px 0;
   height: 100%;
   overflow: auto;
-  h2 {
-    color: var(--cl-black);
-    text-transform: uppercase;
-  }
+  h2,
   h3 {
     text-transform: uppercase;
   }
   .left-banner {
     $left-banner-size: 28px;
-    left: $s-space;
-    top: $s-space;
+    left: var(--sspace);
+    top: var(--sspace);
     width: $left-banner-size;
     .word {
-      color: var(--cl-highlight);
+      color: var(--cl-primary);
       margin-bottom: $left-banner-size;
       &:hover {
         color: var(--cl-green);
@@ -88,14 +42,13 @@ $size-a4: 842px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 20px;
       box-shadow: 0 0 4px;
       text-transform: uppercase;
       background-color: var(--cl-grey);
       cursor: pointer;
       &:hover {
         color: var(--cl-yellow);
-        background-color: var(--cl-highlight);
+        background-color: var(--cl-primary);
       }
     }
   }
@@ -106,11 +59,10 @@ $size-a4: 842px;
     top: 90px;
   }
   .layout-option {
-    @extend .btn;
     width: 36px;
     align-items: flex-start !important;
     justify-content: space-between !important;
-    margin: $s-space 0 0 0 !important;
+    margin: var(--sspace) 0 0 0 !important;
     padding: 0 !important;
     border: 1px solid var(--cl-black) !important;
     box-shadow: 0 0 8px var(--cl-white) !important;
@@ -154,18 +106,17 @@ $size-a4: 842px;
       }
     }
     &.active {
-      background-color: var(--cl-highlight);
+      background-color: var(--cl-primary);
     }
   }
   .birthday {
     &:before {
       content: "Birthday: ";
-      opacity: 0.5;
+      opacity: var(--opacity);
     }
   }
   .funny {
-    font-size: 12px;
-    opacity: 0.5;
+    opacity: var(--opacity);
     &:before {
       content: "(";
     }
@@ -174,13 +125,7 @@ $size-a4: 842px;
     }
   }
   .contact {
-    min-height: 100%;
-    height: fit-content;
-    padding-bottom: 0;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    > * {
+    .blocks * {
       display: flex;
       align-items: center;
       i {
@@ -188,22 +133,18 @@ $size-a4: 842px;
       }
     }
   }
+  .name {
+    color: var(--cl-primary) !important;
+  }
+  .role {
+    color: var(--cl-primary2) !important;
+  }
   .location {
-    opacity: 0.6;
-    font-size: 13px;
-    &:before {
-      content: "|";
-      margin: 0 4px;
-    }
-    &:after {
-      content: "|";
-      margin: 0 4px;
-    }
+    color: var(--cl-secondary) !important;
   }
   .period {
-    opacity: 0.6;
     * {
-      font-size: 12px;
+      opacity: var(--opacity);
     }
     .start:after {
       content: "-";
@@ -214,7 +155,7 @@ $size-a4: 842px;
     display: block;
   }
   .fixed {
-    right: $s-space;
+    right: var(--sspace);
     z-index: 1;
     background-color: transparent;
     .btn:nth-child(n + 2) {
@@ -223,19 +164,24 @@ $size-a4: 842px;
     .scroll-up {
       display: none;
     }
-    &.top {
-      top: $s-space;
+    &.attop {
+      top: var(--sspace);
     }
-    &.bottom {
-      bottom: $s-space;
+    &.atbottom {
+      bottom: var(--sspace);
+    }
+  }
+  .section + .section {
+    &:after {
+      display: none !important;
     }
   }
   .section {
-    padding-bottom: $space;
-    border-bottom: $section-border;
+    padding-bottom: var(--space);
     vertical-align: top;
+    border-bottom: 1px solid var(--cl-border);
     h3 {
-      margin: $space 0 16px;
+      margin: var(--space) 0 16px;
     }
     &:first-child {
       > h3 {
@@ -246,82 +192,105 @@ $size-a4: 842px;
       border-bottom: none;
     }
   }
-  .section + .section {
-    border-bottom: 1px solid var(--cl-lightgrey);
-    &.contact {
-      @include contact-style();
-    }
-    &:after {
-      display: none !important;
-    }
-  }
-  .block {
-    margin-bottom: 12px;
-    vertical-align: top;
-  }
   .editor {
     display: none;
   }
   .company {
-    color: var(--cl-highlight);
+    color: var(--cl-primary);
     opacity: 1;
   }
+  .website,
+  .github,
+  .email,
+  .skype,
+  .mobile,
+  .phone,
+  .country,
+  .state,
+  .city,
+  .postcode,
+  .address,
+  .address1,
+  .address3 {
+    &:before {
+      content: attr(data-name) ": ";
+      text-transform: capitalize;
+      color: var(--cl-grey);
+      width: 60px;
+      opacity: var(--opacity);
+    }
+  }
+  .mobile {
+    .sms {
+      margin: 0 4px;
+    }
+  }
+  .education {
+    .block {
+      border-top: none;
+      width: calc(100%);
+    }
+  }
   .experiences {
-    .block > h4 {
-      display: none;
-    }
-    .name {
-      @extend .h4;
-      color: var(--cl-red);
-      padding-right: 12px;
-    }
-    .role {
-      @extend .h4;
-      color: var(--cl-green);
-      margin: 0 0 0 12px;
-      display: inline-block;
-      padding-left: 12px;
-      border-left: 1px solid;
-    }
-    .location {
-      color: var(--cl-blue);
+    .block {
+      border-top: none;
+      width: calc(100%);
+      h4 {
+        display: none;
+      }
+      .name {
+        padding-right: 12px;
+        margin-right: 12px;
+        border-right: 1px solid;
+      }
+      .role {
+        display: inline-block;
+        padding-right: 12px;
+        margin-right: 12px;
+        border-right: 1px solid;
+      }
+      .location {
+        display: inline-block;
+        padding-right: 12px;
+        margin-right: 12px;
+        border-right: 1px solid;
+      }
     }
   }
   .projects {
     .block {
-      display: inline-block;
-      width: 50%;
-      padding: 0 6px;
-      .heading {
-        color: var(--cl-black);
+      h4 {
+        color: var(--cl-secondary2);
       }
       .name {
         display: none;
       }
-      .role {
-        color: var(--cl-green);
-      }
       .company {
-        color: var(--cl-red);
         &:before {
           content: " at ";
           color: var(--cl-black);
         }
       }
       .used {
-        font-size: 12px;
         display: block;
-        // color: var(--cl-yellow);
+        margin-top: calc(var(--sspace) / 4);
         &:before {
           content: "Used: ";
-          opacity: 0.5;
+          opacity: var(--opacity);
         }
       }
     }
   }
+  .block {
+    display: inline-block;
+    width: calc(50% - var(--sspace));
+    padding: calc(var(--sspace) / 2) 0 0 0;
+    margin-right: var(--sspace);
+    border-top: 1px dashed var(--cl-border);
+    vertical-align: top;
+  }
   .overview {
-    height: $overview-h + $space;
-    padding: 0 0 $space;
+    padding: 0 0 var(--space);
     display: flex;
     position: relative;
     .avatar {
@@ -332,14 +301,12 @@ $size-a4: 842px;
       background-repeat: no-repeat;
       background-position: 0px -18px;
       background-size: 120px auto;
-      margin-right: $s-space;
+      margin-right: var(--sspace);
     }
     .intro {
-      font-weight: 500;
     }
     .quote {
-      font-weight: 400;
-      opacity: 0.6;
+      opacity: var(--opacity);
       &:before {
         content: "*** + ";
       }
@@ -361,97 +328,55 @@ $size-a4: 842px;
   .layout {
     @include flex-width(1024px);
     background-color: white;
-    padding: $space $space;
+    padding: var(--space) var(--space);
     box-shadow: 0 0 8px white;
     color: var(--cl-grey);
     height: fit-content;
-    > .content .main .wrraper {
-    }
     .left,
     .right {
       @include flex-width(25%);
+      .block {
+        width: 100%;
+        margin-right: 0;
+      }
       .overview {
-        height: fit-content;
-        display: block;
-        .avatar {
-          margin: 0 auto 12px;
-        }
-        .info {
-          margin-right: $space/3;
-          text-align: center;
-        }
-        &:after {
-          display: none;
-        }
+        @include overview-small();
       }
       .wrraper {
         height: fit-content;
-        .contact {
-          height: $overview-h + $space;
-          padding: 0 0 $space;
-          .website,
-          .github,
-          .email,
-          .skype,
-          .mobile,
-          .phone,
-          .country,
-          .state,
-          .city,
-          .postcode,
-          .address,
-          .address1,
-          .address3 {
-            &:before {
-              content: attr(data-name) ": ";
-              text-transform: capitalize;
-              color: var(--cl-grey);
-              width: 60px;
-              opacity: 0.5;
-            }
-          }
-          .mobile {
-            .sms {
-              margin: 0 4px;
-            }
-          }
-          &:after {
-            position: absolute;
-            bottom: 0;
-            content: "";
-            display: block;
-            height: 5px;
-            width: 100%;
-            background-color: var(--cl-lightgrey);
-            border-radius: 5px;
-          }
-        }
       }
+    }
+    &.Main {
     }
     &.Main_Right {
       > .content .main .wrraper {
-        margin-right: $space;
+        margin-right: var(--space);
       }
     }
     &.Left_Main {
       > .content .main .wrraper {
-        margin-left: $space;
+        margin-left: var(--space);
       }
     }
     &.Left_Main_Right {
       > .content .main .wrraper {
+        margin-right: var(--sspace);
+        margin-left: var(--sspace);
         .overview {
           .avatar {
-            margin-left: $space/3;
+            margin-left: var(--space) / 3;
           }
           .info {
-            margin-right: $space/3;
+            margin-right: var(--space) / 3;
           }
         }
         .section {
           padding: 0 0;
-          margin: 0 $space/3;
+          margin: 0 0;
         }
+      }
+      .block {
+        width: calc(100%);
       }
     }
   }
@@ -462,13 +387,9 @@ $size-a4: 842px;
     justify-content: flex-start;
     padding: 0;
     .layout {
-      @include standard_layout;
       @include flex-width(60%);
       flex-direction: column;
       margin: 0;
-      &.Left_Main {
-        flex-direction: column-reverse;
-      }
     }
     .editor {
       @include flex-width(40%);
@@ -495,168 +416,104 @@ $size-a4: 842px;
       display: none;
     }
   }
-  /*** screen 960px ***/
   @media screen and (max-width: 960px) {
-    padding: 0;
-    .left-banner {
-      display: none;
-    }
-    .skills {
-      .block {
-        display: inline-block;
-        width: 50%;
-        padding: 0 6px;
-      }
-    }
+    padding: var(--sspace) 0;
     .layout {
-      @include standard_layout;
-      &.Left_Main {
-        flex-direction: column-reverse;
-      }
-    }
-    .fixed.layout-options {
-      display: none;
-    }
-    &.editing {
-      .layout {
-        @include flex-width(0%);
-      }
-      .editor {
-        @include flex-width(100%);
-      }
-    }
-  }
-  /*** screen 768px ***/
-  @media screen and (max-width: 768px) {
-    .fixed.layout-options {
-      display: none;
-    }
-    .left-banner {
-      display: none;
-    }
-    .section {
-      padding-bottom: $s-space;
-      h3 {
-        margin: $s-space 0 16px;
-      }
-    }
-    .experiences {
-      .role {
-        font-size: 14px;
-        padding-left: 0;
-        margin-left: 4px;
-        border-left: none;
-        color: var(--cl-highlight);
-      }
-      .location {
-        display: block;
-        &:before,
-        &:after {
-          display: none;
-        }
-      }
-    }
-    .projects {
-      .block {
-        display: block;
-        width: 100%;
-        padding: 0 0;
-      }
-    }
-    .skills {
-      .block {
-        display: block;
-        width: 100%;
-        padding: 0 0;
-      }
-    }
-    .layout {
-      padding: $s-space $s-space $s-space/2;
-      > .content .main .wrraper .overview {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: fit-content;
-        text-align: center;
-        padding-bottom: $s-space;
-        .avatar {
-          margin: 0 0 $s-space/2;
-        }
-      }
-      .left,
-      .right {
-        .wrraper .contact {
-          padding-bottom: $s-space;
-          &:before {
-            padding-top: $s-space;
-            margin-top: 0;
-          }
-        }
-      }
-      &.Left_Main {
-        flex-direction: column-reverse;
-      }
-    }
-  }
-  /*** print ***/
-  @media print {
-    background-color: #fff;
-    display: block;
-    padding: 0 0;
-    margin: 0 0;
-    .no-printing,
-    .funny {
-      display: none !important;
-    }
-  }
-  @media print and (max-width: $size-a4) {
-    padding: $s-space $s-space;
-    .section {
-      padding-bottom: $s-space;
-      h3 {
-        margin: 32px 0 16px;
-      }
-    }
-    .skills {
-      .block {
-        display: inline-block;
-        width: 50%;
-        padding: 0 6px;
-      }
-    }
-    .layout,
-    .layout.Left_Main,
-    .layout.Main_Right,
-    .layout.Left_Main_Right {
-      @include standard_layout;
       @include flex-width(100%);
+      margin: 0;
       padding: 0;
+    }
+    .fixed.left-banner {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .layout.cols {
+      flex-direction: column;
       .left,
+      .content,
       .right {
-        .wrraper {
-          .contact {
-            margin-top: $s-space/2;
-            &:before {
-              margin: 0 0 2 * $s-space/3;
-              padding-top: $s-space;
-            }
-          }
-        }
+        @include flex-width(100%);
+        padding: 0 0;
       }
-      > .content .main .wrraper .overview {
-        padding-bottom: $s-space;
+      .main {
+        border-top: 1px solid var(--cl-border);
       }
     }
-    .layout.Left_Main {
-      flex-direction: column-reverse;
+    .layout.cols {
+      .wrraper,
+      > .content .main .wrraper {
+        padding: 0 var(--sspace);
+        margin: 0;
+        .section {
+          padding-bottom: var(--sspace);
+        }
+        .section {
+          padding-bottom: var(--sspace);
+          h3 {
+            margin-top: var(--sspace);
+          }
+        }
+        .block {
+          @include flex-width(100%);
+          margin: 0;
+        }
+        .overview {
+          @include overview-small();
+          padding-top: var(--sspace);
+        }
+      }
     }
   }
 }
+:root {
+  --space: 56px;
+  --sspace: 24px;
+  --cl-border: var(--cl-lightgrey);
+}
+.page.page-home-main {
+  .experiences {
+    .name {
+      @extend .h4;
+    }
+    .role {
+      @extend .h5;
+    }
+    .location,
+    .period {
+      @extend .smaller;
+    }
+  }
+  .projects {
+    .company,
+    .role {
+      @extend .smaller;
+      opacity: var(--opacity);
+    }
+  }
+  @include style-main();
+}
+/*** print ***/
 @media print {
-  #root,
-  .viewport,
-  .fullscreen,
-  .main-content {
-    position: initial;
+  :root {
+    --space: 24px;
+    --sspace: 12px;
+  }
+  body.route {
+    #root,
+    .viewport,
+    .fullscreen,
+    .main-content {
+      position: initial;
+    }
+    .page.page-home-main {
+      @include style-main();
+      padding: 0 0;
+      .layout {
+        @include flex-width(100%);
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }

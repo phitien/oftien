@@ -43,7 +43,6 @@ export default class Main extends Page {
   }
   get layoutSettings() {
     const { layout, settings } = this;
-    console.log("qq", settings, layouts);
     return settings[layout] || layouts[layout] || layouts.Main_Right;
   }
   get username() {
@@ -357,34 +356,37 @@ export default class Main extends Page {
     };
     return (
       <div key="contact" className="section contact">
-        {fields.map((o, i) =>
-          o.type === "mobile" || o.type === "phone" ? (
-            renderMobile(o, i)
-          ) : !o.protocol && !o.query ? (
-            <span key={i} className={o.type} data-name={o.type}>
-              {o.value}
-            </span>
-          ) : (
-            <a
-              key={i}
-              className={o.type}
-              data-name={o.type}
-              target={o.external ? "_blank" : ""}
-              rel="noopener noreferrer"
-              href={getHref(o)}
-            >
-              {o.value}
-              {o.type === "skype" ? <Icon icon="fab fa-skype" /> : null}
-            </a>
-          )
-        )}
+        <h3 class="heading">Contact</h3>
+        <div class="blocks">
+          {fields.map((o, i) =>
+            o.type === "mobile" || o.type === "phone" ? (
+              renderMobile(o, i)
+            ) : !o.protocol && !o.query ? (
+              <span key={i} className={o.type} data-name={o.type}>
+                {o.value}
+              </span>
+            ) : (
+              <a
+                key={i}
+                className={o.type}
+                data-name={o.type}
+                target={o.external ? "_blank" : ""}
+                rel="noopener noreferrer"
+                href={getHref(o)}
+              >
+                {o.value}
+                {o.type === "skype" ? <Icon icon="fab fa-skype" /> : null}
+              </a>
+            )
+          )}
+        </div>
       </div>
     );
   }
   renderButtons() {
     const { editing } = this.state;
     return [
-      <div key="top" className="fixed top no-printing">
+      <div key="top" className="fixed attop no-printing">
         <Button icon="fas fa-print" onClick={e => global.print()} />
         <Button icon="far fa-clone" onClick={this.onClone} />
         <Button icon="fas fa-save" onClick={this.onSave} />
@@ -402,7 +404,7 @@ export default class Main extends Page {
       <div key="layout-options" className="fixed layout-options no-printing">
         {this.renderLayoutOptions()}
       </div>,
-      <div key="bottom" className="fixed bottom no-printing">
+      <div key="bottom" className="fixed atbottom no-printing">
         <Button
           icon="fas fa-chevron-up"
           className="scroll-up"
@@ -445,7 +447,7 @@ export default class Main extends Page {
       <div
         key={name}
         title={name}
-        className={`layout-option ${name} ${active ? "active" : ""}`}
+        className={`btn layout-option ${name} ${active ? "active" : ""}`}
         onClick={async e => {
           await global.localStorage.setItem("layout", name);
           settings.layout = name;

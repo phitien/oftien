@@ -1,6 +1,7 @@
 :root {
   --font-family: roboto-condensed, sans-serif;
   --font-size: 14px;
+  --font-weight: 500;
   --line-height: 20px;
 
   --left-width: 280px;
@@ -17,6 +18,8 @@
   --scrollbar-track-border: none;
   --scrollbar-btn-bg: transparent;
 
+  --opacity: 0.7;
+
   --cl-red: #ff6464;
   --cl-green: #51aa66;
   --cl-blue: #06a4df;
@@ -32,7 +35,16 @@
   --cl-grey: #505050;
   --cl-lightgrey: #ebebeb;
   --cl-white: #ffffff;
-  --cl-highlight: var(--cl-blue);
+
+  --cl-primary: var(--cl-red);
+  --cl-primary2: var(--cl-green);
+  --cl-secondary: var(--cl-blue);
+  --cl-secondary2: var(--cl-blue);
+
+  --cl-placeholder: var(--cl-lightgrey);
+  --cl-error: var(--cl-red);
+  --cl-warning: var(--cl-orange);
+  --cl-message: var(--cl-black);
 
   --bg-body: #ffffff;
   --cl-text: var(--cl-black);
@@ -46,7 +58,8 @@
   --cl-right: var(--cl-text);
   --bg-main: var(--bg-body);
   --cl-main: var(--cl-text);
-  --cl-error: var(--cl-red);
+
+  --bg-printing: var(--cl-white);
 
   --bg-overlay: rgba(0, 0, 0, 0.4);
   --cl-overlay: var(--cl-white);
@@ -55,28 +68,37 @@
   --bg-popup-header: var(--cl-purple);
   --cl-popup-header: var(--cl-white);
 
-  --font-text: var(--font-family);
-  --font-size-body: 14px;
-  --font-main: var(--font-text);
-  --font-size-main: var(--font-size-body);
-  --font-top: var(--font-text);
-  --font-size-top: var(--font-size-body);
-  --font-bottom: var(--font-text);
-  --font-size-bottom: var(--font-size-body);
-  --font-left: var(--font-text);
-  --font-size-left: var(--font-size-body);
-  --font-right: var(--font-text);
-  --font-size-right: var(--font-size-body);
+  --font-main: var(--font-family);
+  --font-size-main: var(--font-size);
+  --font-top: var(--font-family);
+  --font-size-top: var(--font-size);
+  --font-bottom: var(--font-family);
+  --font-size-bottom: var(--font-size);
+  --font-left: var(--font-family);
+  --font-size-left: var(--font-size);
+  --font-right: var(--font-family);
+  --font-size-right: var(--font-size);
+
+  --font-size-h1: 3.1em;
+  --font-size-h2: 2.45em;
+  --font-size-h3: 1.85em;
+  --font-size-h4: 1.21em;
+  --font-size-h5: 1.15em;
+  --font-size-h6: 1.05em;
+
+  --font-size-regular: var(--font-size);
+  --font-size-bigger: var(--font-size-h6);
+  --font-size-smaller: 0.9em;
 
   --logo-width: 140px;
   --logo-height: 49px;
 
-  --form-el-height: 32px;
+  --form-el-height: 36px;
 
   --input-font-size: 14px;
   --input-line-height: var(--form-el-height);
   --input-padding: 0 4px;
-  --input-text-color: #000000;
+  --input-color: #000000;
   --input-bg-color: #ffffff;
   --input-border: 1px solid;
   --input-border-radius: 6px;
@@ -84,9 +106,9 @@
   --input-box-shadow-hover: 1px 1px 2px var(--cl-black);
 
   --textarea-font-size: var(--input-font-size);
-  --textarea-line-height: var(--input-line-height);
+  --textarea-line-height: var(--form-el-height);
   --textarea-padding: var(--input-padding);
-  --textarea-text-color: var(--input-text-color);
+  --textarea-text-color: var(--input-color);
   --textarea-bg-color: var(--input-bg-color);
   --textarea-border: var(--input-border);
   --textarea-border-radius: var(--input-border-radius);
@@ -94,9 +116,9 @@
   --textarea-box-shadow-hover: var(--input-box-shadow-hover);
 
   --select-font-size: var(--input-font-size);
-  --select-line-height: var(--input-line-height);
+  --select-line-height: var(--form-el-height);
   --select-padding: var(--input-padding);
-  --select-text-color: var(--input-text-color);
+  --select-text-color: var(--input-color);
   --select-bg-color: var(--input-bg-color);
   --select-border: var(--input-border);
   --select-border-radius: var(--input-border-radius);
@@ -104,13 +126,27 @@
   --select-box-shadow-hover: var(--input-box-shadow-hover);
 
   --btn-font-size: 20px;
-  --btn-line-height: var(--input-line-height);
+  --btn-line-height: var(--form-el-height);
   --btn-padding: 0 12px;
   --btn-text-color: #ffffff;
   --btn-bg-color: #333333;
-  --btn-bg-color-hover: var(--cl-highlight);
+  --btn-bg-color-hover: var(--cl-primary);
   --btn-text-color-hover: var(--cl-black);
   --btn-border: var(--input-border);
   --btn-box-shadow: 1px 2px 6px var(--btn-text-color);
   --btn-box-shadow-hover: 1px 3px 11px var(--btn-text-color);
+
+  --icon-font-size: 1em;
+  --icon-image-size: 1.83em;
+
+  --table-height: calc(100%);
+  --table-thead-height: var(--form-el-height);
+  --table-row-height: var(--form-el-height);
+  --table-col-width: 70px;
+  --table-bg: transparent;
+  --table-bd-cl: #7d7d7d;
+  --table-thead-bg: #252525;
+  --table-thead-cl: #d0bc44;
+  --table-row-hover-bg: #515151;
+  --table-row-selected-bg: #6f5353;
 }

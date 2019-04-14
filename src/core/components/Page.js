@@ -28,8 +28,17 @@ export class Page extends Component {
   get fontSize() {
     return global.localStorage.getItem("fontSize");
   }
-  get highlight() {
-    return global.localStorage.getItem("highlight");
+  get primary() {
+    return global.localStorage.getItem("primary");
+  }
+  get primary2() {
+    return global.localStorage.getItem("primary2");
+  }
+  get secondary() {
+    return global.localStorage.getItem("secondary");
+  }
+  get secondary2() {
+    return global.localStorage.getItem("secondary2");
   }
   get color() {
     return global.localStorage.getItem("color");
@@ -347,12 +356,16 @@ export class Page extends Component {
   }
   renderComponent() {
     const { fontFamily, fontWeight, fontSize, layout } = this;
-    const { color, bgcolor, highlight } = this;
+    const { color, bgcolor } = this;
+    const { primary, primary2, secondary, secondary2 } = this;
     const style = {};
     if (fontFamily) style["--font-family"] = fontFamily;
     if (fontWeight) style["--font-weight"] = fontWeight;
     if (fontSize) style["--font-size"] = fontSize;
-    if (highlight) style["--cl-highlight"] = highlight;
+    if (primary) style["--cl-primary"] = primary;
+    if (primary2) style["--cl-primary2"] = primary2;
+    if (secondary) style["--cl-secondary"] = secondary;
+    if (secondary2) style["--cl-secondary2"] = secondary2;
     if (color) style["--cl-text"] = color;
     if (bgcolor) style["--bg-body"] = bgcolor;
     const fnName = `render${layout}`;

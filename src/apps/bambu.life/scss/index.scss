@@ -2,38 +2,18 @@
 
 :root {
   --bg-body: #f0f0f0;
-  --cl-text: var(--cl-black);
   --bg-top: #232323;
   --cl-top: var(--cl-white);
   --bg-bottom: #232323;
   --cl-bottom: var(--cl-white);
-  --bg-left: var(--bg-body);
-  --cl-left: var(--cl-text);
-  --bg-right: var(--bg-body);
-  --cl-right: var(--cl-text);
-  --bg-main: var(--bg-body);
-  --cl-main: var(--cl-text);
-  --cl-error: var(--cl-red);
 
   --logo-height: 100%;
-  --cl-highlight: var(--cl-purple);
+  --cl-primary: var(--cl-purple);
   --font-size-bottom: 12px;
 }
 
+@include do-style();
 body {
-  @include vertical-scrollbar();
-  @include default_style();
-  @include colors();
-  @include common();
-  @include input-text();
-  @include textarea();
-  @include select();
-  @include inputfield();
-  @include layouts();
-  @include logo();
-  @include notifications();
-  @include button();
-  @include overlay();
   .logo {
     margin-left: 24px;
   }
