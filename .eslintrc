@@ -1,6 +1,7 @@
 {
   "extends": "react-app",
   "rules": {
+    "strict": "off",
     "eqeqeq": "off",
     "no-extend-native": "off",
     "no-unused-vars": "off",

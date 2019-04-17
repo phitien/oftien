@@ -1,23 +1,28 @@
 #!/usr/bin/env node
-/** Create api **/
+const fs = require("fs-extra");
+const path = require("path");
+
 process.on("unhandledRejection", err => {
+  console.log(err.message);
   throw err;
 });
 const env = async function(env) {
-  const fs = require("fs");
   /**** loads environment variables from a .env file into process.env *****/
   require("dotenv").config();
   env = env || process.env.ENV || "local";
+
   process.env.ENV = env;
   const ip = require("ip");
   process.env.REACT_APP_IP = ip.address();
   const envPath = `./config/.env.${process.env.ENV}`;
   const content = fs.readFileSync(envPath);
-  const lines = content
-    .toString()
-    .split("\n")
-    .filter(o => o && /^[A-Z]/.test(o))
-    .map(o => `REACT_APP_${o}`);
+  const lines = [`ENV=${process.env.ENV}`].concat(
+    content
+      .toString()
+      .split("\n")
+      .filter(o => o && /^[A-Z]/.test(o))
+      .map(o => `REACT_APP_${o}`)
+  );
   fs.writeFileSync(".env", lines.join("\n"));
   require("dotenv").config();
   process.env.REACT_APP_UI_PROTOCOL =
@@ -129,9 +134,12 @@ const env = async function(env) {
   fs.writeFileSync("./public/.env", lines.join("\n"));
   require("dotenv").config();
   process.env.PORT = process.env.REACT_APP_UI_PORT || 2810;
+  process.env.GENERATE_SOURCEMAP =
+    process.env.REACT_APP_GENERATE_SOURCEMAP !== "false";
 };
 const run = async function() {
   env();
+
   const spawn = require("react-dev-utils/crossSpawn");
   const args = process.argv.slice(3);
 
@@ -141,12 +149,40 @@ const run = async function() {
 
   const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
   const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
+
+  const configFile = "webpack.config.js";
+  const originalConfigDir = path.dirname(
+    require.resolve(`react-scripts/config/${configFile}`)
+  );
+  const configDir = path.dirname(require.resolve(`../config/${configFile}`));
+  try {
+    fs.copySync(
+      `${originalConfigDir}/${configFile}`,
+      `${configDir}/${configFile}.bak`,
+      { overwrite: true }
+    );
+    fs.copySync(
+      `${configDir}/${configFile}`,
+      `${originalConfigDir}/${configFile}`,
+      {
+        overwrite: true
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+
   const result = spawn.sync(
     "node",
     nodeArgs
       .concat(require.resolve(`react-scripts/scripts/${script}`))
       .concat(args.slice(scriptIndex + 1)),
     { stdio: "inherit" }
+  );
+  fs.copySync(
+    `${configDir}/${configFile}.bak`,
+    `${originalConfigDir}/${configFile}`,
+    { overwrite: true }
   );
   if (result.signal) {
     if (result.signal === "SIGKILL") {
@@ -162,6 +198,7 @@ const run = async function() {
           "be shutting down."
       );
     }
+
     process.exit(1);
   }
   process.exit(result.status);

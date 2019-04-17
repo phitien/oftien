@@ -1,6 +1,5 @@
 import React from "react";
 import classnames from "classnames";
-import * as icons from "@material-ui/icons";
 
 import Component from "./Component";
 
@@ -15,12 +14,6 @@ export class Icon extends Component {
         alt={title || description || ""}
         onClick={onClick}
       />
-    ) : icons[icon] ? (
-      React.createElement(icons[icon], {
-        title: title || description || "",
-        className: classnames("svg-icon", className),
-        onClick
-      })
     ) : (
       <i
         className={classnames("font-icon", icon, className)}

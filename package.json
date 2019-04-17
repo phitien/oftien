@@ -42,9 +42,9 @@
   },
   "scripts": {
     "setup": "sh setup.sh",
-    "build": "echo \"ENV=${ENV:-local}\" > .env && oftien run build",
+    "build": "echo \"ENV=${ENV:-production}\" > .env && NODE_ENV=production oftien run build",
     "test": "echo \"ENV=${ENV:-local}\" > .env && oftien run test",
-    "start": "echo \"ENV=${ENV:-local}\" > .env && concurrently \"oftien run start\" \"node services/api/app.js\"",
+    "start": "concurrently \"npm run be\" \"npm run ui\"",
     "ui": "echo \"ENV=${ENV:-local}\" > .env && oftien run start",
     "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start -c \"oftien run start ui\" ./",
     "ui-bg-stop": "forever stop scripts/app.js",
