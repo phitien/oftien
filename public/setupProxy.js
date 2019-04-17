@@ -3,6 +3,7 @@ const fs = require("fs");
 const proxy = require("http-proxy-middleware");
 const bodyParser = require("body-parser");
 
+require("./settings");
 const { constants } = global;
 
 /** Uploader **/

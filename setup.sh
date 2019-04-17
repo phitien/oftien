@@ -7,6 +7,7 @@ cd $curdir
 npm install
 npm install -g
 npm install forever -g
+npm install concurrently -g
 npm rebuild node-sass
 cp -rf $curdir/node_modules_override/. $curdir/node_modules
 
