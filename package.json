@@ -46,13 +46,13 @@
     "test": "echo \"ENV=${ENV:-local}\" > .env && oftien run test",
     "start": "echo \"ENV=${ENV:-local}\" > .env && concurrently \"oftien run start\" \"node services/api/app.js\"",
     "ui": "echo \"ENV=${ENV:-local}\" > .env && oftien run start",
-    "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start -c \"npm start ui\" ./",
+    "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start -c \"oftien run start ui\" ./",
     "ui-bg-stop": "forever stop scripts/app.js",
     "be": "echo \"ENV=${ENV:-local}\" > .env && node services/api/app.js",
     "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start services/api/app.js",
     "be-bg-stop": "forever stop services/api/app.js",
     "bambu.life": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && oftien run start",
-    "bambu.life-bg": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && forever start -c \"npm start ui\" ./"
+    "bambu.life-bg": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && forever start -c \"oftien run start ui\" ./"
   },
   "eslintConfig": {
     "extends": "react-app"
