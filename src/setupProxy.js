@@ -2,7 +2,7 @@ const fs = require("fs");
 const proxy = require("http-proxy-middleware");
 const bodyParser = require("body-parser");
 
-require("@oftien-env")();
+require("@oftien-tools/env");
 const { constants } = global;
 
 /** Uploader **/

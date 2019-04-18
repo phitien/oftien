@@ -3,7 +3,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { Route, Redirect } from "react-router-dom";
 
 //*note: keep these lines below in exact order
-require("@oftien-utils");
+require("@oftien-tools/addon");
 const { connect, createStore } = require("./core/redux");
 global.themes = require("./core/themes");
 //*note: keep these lines above in exact order

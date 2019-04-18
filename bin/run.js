@@ -57,6 +57,10 @@ const run = async function() {
     !fs.existsSync(archiveDir) && fs.mkdirSync(archiveDir);
     const dist = `${archiveDir}/${app}`;
     if (fs.existsSync(dist)) fs.removeSync(dist);
+    fs.renameSync(
+      `${__dirname}/../build/index.html`,
+      `${__dirname}/../build/_index.html`
+    );
     fs.renameSync(`${__dirname}/../build`, dist);
   }
   if (result.signal) {

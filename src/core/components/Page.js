@@ -47,7 +47,7 @@ export class Page extends Component {
     return global.localStorage.getItem("bgcolor");
   }
   get layout() {
-    const match = global.location.hash.match(/layout=([a-zA-Z_]+)/);
+    const match = this.props.location.hash.match(/layout=([a-zA-Z_]+)/);
     const layout = match
       ? match[1]
       : global.localStorage.getItem("layout") || this.constructor.layout;

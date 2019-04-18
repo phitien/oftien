@@ -488,7 +488,7 @@ export default class Main extends Page {
   }
   renderLayoutOption(name) {
     const { settings } = this;
-    const hash = global.location.hash;
+    const hash = this.props.location.hash;
     const parts = hash.split("&").filter(o => !/layout=.*/g.test(o));
     const active = name === this.layout;
     return (
@@ -501,7 +501,7 @@ export default class Main extends Page {
           settings.layout = name;
           this.setState({ settings }, async () => {
             await this.onDataChange();
-            global.location.hash = [...parts, `layout=${name}`].join("&");
+            this.props.location.hash = [...parts, `layout=${name}`].join("&");
           });
         }}
       />

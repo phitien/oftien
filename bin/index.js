@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require("@oftien-env")();
+require("@oftien-tools/env");
 const [nodepath, apapath, cmd] = process.argv;
 if (cmd === "mkpackage") require("./package").mkpackage();
 else if (cmd === "rmpackage") require("./package").rmpackage();
