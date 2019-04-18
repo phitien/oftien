@@ -1,6 +1,3 @@
-const _ = require("lodash");
-global._ = _;
-
 Array.prototype.merge = function(...args) {
   return this.concat(...args).filter(o => o);
 };
@@ -54,17 +51,7 @@ String.prototype.camel = function() {
     return p1.toLowerCase();
   });
 };
-Object.omit = _.omit;
-Object.isEmpty = _.isEmpty;
-/**** default environment variables *****/
 
-const rkey = "REACT_APP_";
-const rkeyReg = new RegExp(`^${rkey}.+`);
-global.constants = Object.keys(process.env)
-  .filter(o => rkeyReg.test(o))
-  .reduce((rs, o) => {
-    const v = process.env[o];
-    const k = o.substr(rkey.length);
-    rs[k] = v;
-    return rs;
-  }, {});
+global._ = require("lodash");
+Object.omit = global._.omit;
+Object.isEmpty = global._.isEmpty;

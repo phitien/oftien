@@ -1,8 +1,14 @@
-const fs = require("fs-extra");
-const path = require("path");
-const cvDir = path.join(__dirname, "../static/apps/oftien/cv");
-
 module.exports = function(app, uploader, bodyParser) {
+  const fs = require("fs-extra");
+  const path = require("path");
+  const cvDir = path.join(
+    app.rootDir,
+    "../",
+    app.staticDir
+      ? `${app.staticDir}/static/apps/oftien/cv`
+      : "./public/static/apps/oftien/cv"
+  );
+
   const body = bodyParser.json();
   /** get resume **/
   app.get("/api/v2/resume/:username", async function(req, res, next) {

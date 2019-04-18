@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Switch } from "react-router";
 import classnames from "classnames";
 
 import { connect } from "../redux";
@@ -21,8 +21,8 @@ export class Viewport extends Component {
     });
   }
   renderRoutes() {
-    return global.routes;
-    // return <Switch>{global.routes}</Switch>;
+    // return global.routes;
+    return <Switch>{global.routes}</Switch>;
   }
   renderMainContent() {
     return (
@@ -57,14 +57,12 @@ export class Viewport extends Component {
   renderComponent() {
     const { className } = this.props;
     return (
-      <Router>
-        <div className={classnames("viewport", className)}>
-          {this.renderMainContent()}
-          {this.renderPopups()}
-          {this.renderSpinner()}
-          {this.renderNotifications()}
-        </div>
-      </Router>
+      <div className={classnames("viewport", className)}>
+        {this.renderMainContent()}
+        {this.renderPopups()}
+        {this.renderSpinner()}
+        {this.renderNotifications()}
+      </div>
     );
   }
 }

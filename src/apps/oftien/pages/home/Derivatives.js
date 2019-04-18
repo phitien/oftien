@@ -8,5 +8,5 @@ export default class Derivatives extends Main {
   static isDefault = false;
   static path = "/cv/:username";
   static layout = "Main_Right";
-  static className = `${super.className} route-home-derivatives`;
+  static className = `${Main.className} route-home-derivatives`;
 }

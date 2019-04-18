@@ -2,9 +2,11 @@ import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { Route, Redirect } from "react-router-dom";
 
-import { connect, createStore } from "./redux";
-
-global.themes = require("./themes");
+//*note: keep these lines below in exact order
+require("@oftien-utils");
+const { connect, createStore } = require("./core/redux");
+global.themes = require("./core/themes");
+//*note: keep these lines above in exact order
 
 //constants
 const { constants } = global;
@@ -14,12 +16,12 @@ if (!app) throw new Error("Pleace indicate APP value in enviroment file");
 const { theme, logging } = constants;
 
 //import styles
-require("./scss/index.scss");
+require("./core/scss/index.scss");
 try {
-  require(`../apps/${app}/scss/index.scss`);
+  require(`./apps/${app}/scss/index.scss`);
 } catch (e) {}
 try {
-  require(`../apps/${app}/scss/${theme}.scss`);
+  require(`./apps/${app}/scss/${theme}.scss`);
 } catch (e) {}
 
 global.addStyle = (attr, value) => {
@@ -46,8 +48,8 @@ global.dispatchAll = async (payload, ...acts) => {
   acts = [].merge(...acts);
   return Promise.all(acts.map(type => global.dispatchLog({ type, payload })));
 };
-const coreModels = require(`./models`);
-const models = { ...coreModels, ...require(`../apps/${app}/models`) };
+const coreModels = require(`./core/models`);
+const models = { ...coreModels, ...require(`./apps/${app}/models`) };
 Object.keys(models).map(name => {
   if (models[name]) {
     const { defaultState, reducer, actions, apis } = models[name];
@@ -83,12 +85,12 @@ Object.keys(models).map(name => {
 global.store = createStore();
 //App
 global.App =
-  require(`../apps/${app}/components`).Application ||
-  require(`./components`).Application;
+  require(`./apps/${app}/components`).Application ||
+  require(`./core/components`).Application;
 //NotFound
 global.NotFound =
-  require(`../apps/${app}/components`).NotFound ||
-  require(`./components`).NotFound;
+  require(`./apps/${app}/components`).NotFound ||
+  require(`./core/components`).NotFound;
 //routes
 global.routes = [];
 const addRoutes = (p, pages) => {
@@ -129,4 +131,4 @@ const addRoute = (pkg, o, component) => {
     );
   });
 };
-addRoutes("", require(`../apps/${app}/pages`));
+addRoutes("", require(`./apps/${app}/pages`));

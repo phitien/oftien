@@ -1,9 +1,13 @@
 import queryHelper from "query-string";
 import stringify from "json-stringify-safe";
+import fetch from "node-fetch";
 
 const method = (global.method = (opts, data, path) =>
   (opts.method || "get").lower());
-const normaliseUrl = (global.normaliseUrl = url => url);
+const normaliseUrl = (global.normaliseUrl = url => {
+  if (/^http/.test(url)) return url;
+  return `${global.constants.uiBaseUrl}${url.replace(/\/\//g, "/")}`;
+});
 const url = (global.url = (opts, data, path) => {
   let uri = opts.url;
   let { query, body } = opts;
@@ -48,7 +52,8 @@ const api = (global.api = async (opts, data, path) => {
   if (spinner !== false)
     await dispatch({ type: "ApplicationSpinning", payload: true });
   await dispatchAll([opts, data, path], before);
-  return fetch(url(opts, data, path), options(opts, data, path))
+  const refinedUrl = await url(opts, data, path);
+  return fetch(refinedUrl, options(opts, data, path))
     .then(async res => {
       if (res.status === 404) {
         const err = { message: "API not found" };
