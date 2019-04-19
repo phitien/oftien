@@ -19,7 +19,7 @@ const url = (global.url = (opts, data, path) => {
   let querystr = idx >= 0 ? uri.substr(idx) : "";
   if (reqMethod === "get") {
     query = { ...query, ...body, ...data };
-    if (!Object.isEmpty(query))
+    if (!Object.empty(query))
       querystr = `${querystr}&${queryHelper.stringify(query)}`
         .split("&")
         .filter(o => o)

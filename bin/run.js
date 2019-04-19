@@ -21,7 +21,7 @@ const run = async function() {
   const originalConfigDir = path.dirname(
     require.resolve(`react-scripts/config/${configFile}`)
   );
-  const configDir = path.dirname(require.resolve(`../config/${configFile}`));
+  const configDir = path.dirname(require.resolve(`./${configFile}`));
   try {
     fs.copySync(
       `${originalConfigDir}/${configFile}`,
@@ -38,7 +38,13 @@ const run = async function() {
   } catch (e) {
     console.log(e);
   }
-
+  const app = process.env.REACT_APP_APP;
+  const publicDir = `${__dirname}/../public`;
+  const tmpDir = `${__dirname}/../.tmp`;
+  if (script === "build") {
+    fs.renameSync(`${publicDir}/index.html`, `${tmpDir}/index.html`);
+    fs.renameSync(`${publicDir}/index.ejs`, `${publicDir}/index.html`);
+  }
   const result = spawn.sync(
     "node",
     nodeArgs
@@ -52,16 +58,22 @@ const run = async function() {
     { overwrite: true }
   );
   if (script === "build") {
-    const app = process.env.REACT_APP_APP;
+    fs.renameSync(`${publicDir}/index.html`, `${publicDir}/index.ejs`);
+    fs.renameSync(`${tmpDir}/index.html`, `${publicDir}/index.html`);
     const archiveDir = `${__dirname}/../archive`;
     !fs.existsSync(archiveDir) && fs.mkdirSync(archiveDir);
     const dist = `${archiveDir}/${app}`;
     if (fs.existsSync(dist)) fs.removeSync(dist);
-    fs.renameSync(
-      `${__dirname}/../build/index.html`,
-      `${__dirname}/../build/_index.html`
+    const buildDir = path.join(__dirname, "/../build");
+    const content = fs.readFileSync(`${buildDir}/index.html`, "utf8");
+    fs.writeFileSync(
+      `${buildDir}/index.html`,
+      content
+        .replace(/{{oftien}}/g, "<oftien")
+        .replace(/{{\/oftien}}/g, "oftien>")
     );
-    fs.renameSync(`${__dirname}/../build`, dist);
+    fs.renameSync(`${buildDir}/index.html`, `${buildDir}/index.ejs`);
+    fs.renameSync(buildDir, dist);
   }
   if (result.signal) {
     if (result.signal === "SIGKILL") {

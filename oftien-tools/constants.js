@@ -1,7 +1,7 @@
-module.exports = function(env) {
+module.exports = function(o, env) {
   const rkey = "REACT_APP_";
   const rkeyReg = new RegExp(`^${rkey}.+`);
-  return Object.keys(env)
+  o.constants = Object.keys(env)
     .filter(o => rkeyReg.test(o))
     .reduce((rs, o) => {
       const v = env[o];

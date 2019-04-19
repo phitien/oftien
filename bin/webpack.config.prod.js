@@ -1,3 +1,6 @@
+process.env.NODE_ENV = "production";
+process.env.BABEL_ENV = "production";
+
 const path = require("path");
 const webpack = require("webpack");
 const resolve = require("resolve");
@@ -47,14 +50,8 @@ const env = getClientEnvironment();
 const getStyleLoaders = (cssOptions, preProcessor) => {
   const loaders = [
     require.resolve("style-loader"),
-    {
-      loader: MiniCssExtractPlugin.loader,
-      options: Object.assign({}, undefined)
-    },
-    {
-      loader: require.resolve("css-loader"),
-      options: cssOptions
-    },
+    { loader: MiniCssExtractPlugin.loader, options: {} },
+    { loader: require.resolve("css-loader"), options: cssOptions },
     {
       loader: require.resolve("postcss-loader"),
       options: {
@@ -62,9 +59,7 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
         plugins: () => [
           require("postcss-flexbugs-fixes"),
           require("postcss-preset-env")({
-            autoprefixer: {
-              flexbox: "no-2009"
-            },
+            autoprefixer: { flexbox: "no-2009" },
             stage: 3
           })
         ],
@@ -81,103 +76,30 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
   return loaders;
 };
 
-module.exports = {
-  mode: "production",
-  bail: true,
-  devtool: false,
-  entry: ["./src/ssd.js"].filter(Boolean),
-  output: {
-    path: "./build",
-    pathinfo: false,
-    filename: "static/js/[name].[contenthash:8].js",
-    chunkFilename: "static/js/[name].[contenthash:8].chunk.js",
-    publicPath: "./public",
-    devtoolModuleFilenameTemplate: info =>
-      path.relative("./src", info.absoluteResourcePath).replace(/\\/g, "/")
-  },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parse: { ecma: 8 },
-          compress: {
-            ecma: 5,
-            warnings: false,
-            comparisons: false,
-            inline: 2
-          },
-          mangle: {
-            safari10: true
-          },
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true
-          }
-        },
-        parallel: true,
-        cache: true,
-        sourceMap: false
-      }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          parser: safePostCssParser,
-          map: false
-        }
-      })
-    ],
-    splitChunks: {
-      chunks: "all",
-      name: false,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const name = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/
-            )[1];
-            if (name.includes("material-ui")) return "material-ui";
-            else if (name.includes("echarts")) return "echarts";
-            else return name.replace("@", "").substr(0, 1);
-          },
-          chunks: "initial"
-        }
-      }
-    },
-    runtimeChunk: true
-  },
-  resolve: {
-    modules: ["node_modules"].concat(
-      (process.env.NODE_PATH || "").split(path.delimiter).filter(Boolean)
-    ),
-    extensions: [
-      "web.mjs",
-      "mjs",
-      "web.js",
-      "js",
-      "web.ts",
-      "ts",
-      "web.tsx",
-      "tsx",
-      "json",
-      "web.jsx",
-      "jsx"
-    ]
+const resolveBuild = () => {
+  return {
+    modules: ["node_modules"],
+    extensions: ["web.mjs", "mjs", "web.js", "js"]
+      .concat(["web.ts", "ts", "web.tsx", "tsx", "json", "web.jsx", "jsx"])
       .map(ext => `.${ext}`)
       .filter(ext => !ext.includes("ts")),
-    alias: {
-      "react-native": "react-native-web"
-    },
+    alias: { "react-native": "react-native-web" },
     plugins: [
       PnpWebpackPlugin,
       new ModuleScopePlugin("./src", ["./package.json"])
     ]
-  },
-  resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)]
-  },
-  module: {
+  };
+};
+const cacheIdentifierBuild = () => {
+  return getCacheIdentifier("production", [
+    "babel-plugin-named-asset-import",
+    "babel-preset-react-app",
+    "react-dev-utils",
+    "react-scripts"
+  ]);
+};
+const moduleBuild = () => {
+  return {
     strictExportPresence: true,
     rules: [
       { parser: { requireEnsure: false } },
@@ -198,7 +120,7 @@ module.exports = {
             loader: require.resolve("eslint-loader")
           }
         ],
-        include: "./src"
+        include: `${__dirname}/./src`
       },
       {
         oneOf: [
@@ -212,7 +134,7 @@ module.exports = {
           },
           {
             test: /\.(js|mjs|jsx|ts|tsx)$/,
-            include: "./src",
+            include: `${__dirname}/src`,
             loader: require.resolve("babel-loader"),
             options: {
               customize: require.resolve(
@@ -221,12 +143,7 @@ module.exports = {
               babelrc: false,
               configFile: false,
               presets: [require.resolve("babel-preset-react-app")],
-              cacheIdentifier: getCacheIdentifier("production", [
-                "babel-plugin-named-asset-import",
-                "babel-preset-react-app",
-                "react-dev-utils",
-                "react-scripts"
-              ]),
+              cacheIdentifier: cacheIdentifierBuild(),
               plugins: [
                 [
                   require.resolve("babel-plugin-named-asset-import"),
@@ -260,22 +177,14 @@ module.exports = {
               ],
               cacheDirectory: true,
               cacheCompression: true,
-              cacheIdentifier: getCacheIdentifier("production", [
-                "babel-plugin-named-asset-import",
-                "babel-preset-react-app",
-                "react-dev-utils",
-                "react-scripts"
-              ]),
+              cacheIdentifier: cacheIdentifierBuild(),
               sourceMaps: false
             }
           },
           {
             test: cssRegex,
             exclude: cssModuleRegex,
-            use: getStyleLoaders({
-              importLoaders: 1,
-              sourceMap: false
-            }),
+            use: getStyleLoaders({ importLoaders: 1, sourceMap: false }),
             sideEffects: true
           },
           {
@@ -291,10 +200,7 @@ module.exports = {
             test: sassRegex,
             exclude: sassModuleRegex,
             use: getStyleLoaders(
-              {
-                importLoaders: 2,
-                sourceMap: false
-              },
+              { importLoaders: 2, sourceMap: false },
               "sass-loader"
             ),
             sideEffects: true
@@ -321,29 +227,26 @@ module.exports = {
         ]
       }
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {},
-        {
-          inject: true,
-          template: "./public/index.html",
-          minify: {
-            removeComments: true,
-            collapseWhitespace: true,
-            removeRedundantAttributes: true,
-            useShortDoctype: true,
-            removeEmptyAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            keepClosingSlash: true,
-            minifyJS: true,
-            minifyCSS: true,
-            minifyURLs: true
-          }
-        }
-      )
-    ),
+  };
+};
+const pluginsBuild = () => {
+  return [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: "./public/index.html",
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
     new ModuleNotFoundPlugin("."),
     new webpack.DefinePlugin(env.stringified),
@@ -351,10 +254,7 @@ module.exports = {
       filename: "static/css/[name].[contenthash:8].css",
       chunkFilename: "static/css/[name].[contenthash:8].chunk.css"
     }),
-    new ManifestPlugin({
-      fileName: "asset-manifest.json",
-      publicPath: "/"
-    }),
+    new ManifestPlugin({ fileName: "asset-manifest.json", publicPath: "/" }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new WorkboxWebpackPlugin.GenerateSW({
       clientsClaim: true,
@@ -366,15 +266,35 @@ module.exports = {
         new RegExp("/[^/]+\\.[^/]+$")
       ]
     })
-  ].filter(Boolean),
-  node: {
-    module: "empty",
-    dgram: "empty",
-    dns: "mock",
-    fs: "empty",
-    net: "empty",
-    tls: "empty",
-    child_process: "empty"
-  },
-  performance: false
+  ].filter(Boolean);
 };
+const configBuild = () => {
+  return {
+    mode: "production",
+    bail: true,
+    devtool: false,
+    entry: ["./src/index.js"],
+    output: {
+      path: `${__dirname}/build`,
+      pathinfo: false,
+      filename: "static/js/[name].[contenthash:8].js",
+      chunkFilename: "static/js/[name].[contenthash:8].chunk.js",
+      publicPath: "./public"
+    },
+    resolve: resolveBuild(),
+    resolveLoader: { plugins: [PnpWebpackPlugin.moduleLoader(module)] },
+    module: moduleBuild(),
+    plugins: pluginsBuild(),
+    node: {
+      module: "empty",
+      dgram: "empty",
+      dns: "mock",
+      fs: "empty",
+      net: "empty",
+      tls: "empty",
+      child_process: "empty"
+    },
+    performance: false
+  };
+};
+module.exports = configBuild();

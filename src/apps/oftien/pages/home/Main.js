@@ -21,6 +21,30 @@ export default class Main extends Page {
     username: this.username,
     settings: {}
   };
+  get title() {
+    const { info } = this.state;
+    const { name } = info || {};
+    return `${name}'s Profile`;
+  }
+  get keywords() {
+    const { info } = this.state;
+    const { keywords } = info || {};
+    return keywords;
+  }
+  get author() {
+    const { info } = this.state;
+    const { author } = info || {};
+    return author;
+  }
+  get description() {
+    const { info } = this.state;
+    const { description } = info || {};
+    return description;
+  }
+  get inlineStyle() {
+    const { settings } = this;
+    return settings.style;
+  }
   get layout() {
     return super.layout || this.settings.layout;
   }
@@ -300,13 +324,6 @@ export default class Main extends Page {
     const sections = this.getSections("main");
     return (
       <div className="wrraper">
-        <Helmet>
-          <title>{`${name}'s Profile`}</title>
-          <meta name="keywords" content={keywords} />
-          <meta name="author" content={author} />
-          <meta name="description" content={description} />
-          {settings.style ? <style>{settings.style}</style> : null}
-        </Helmet>
         <div className="sections">
           {Object.keys(sections).map((k, j) =>
             this[`render${k.ucfirst()}`]

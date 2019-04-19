@@ -54,7 +54,6 @@ String.prototype.camel = function() {
 
 global._ = require("lodash");
 Object.omit = global._.omit;
-Object.isEmpty = global._.isEmpty;
+Object.empty = global._.isEmpty;
 
-if (global.constants && process.env)
-  Object.assign(global.constants, require("./constants")(process.env));
+if (Object.empty(global.constants)) require("./constants")(global, process.env);

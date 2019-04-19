@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import { Helmet } from "react-helmet";
 
 import Component from "./Component";
 
@@ -19,6 +20,21 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
+  get title() {
+    return null;
+  }
+  get keywords() {
+    return null;
+  }
+  get author() {
+    return null;
+  }
+  get description() {
+    return null;
+  }
+  get inlineStyle() {
+    return null;
+  }
   get fontFamily() {
     return global.localStorage.getItem("fontFamily");
   }
@@ -374,16 +390,34 @@ export class Page extends Component {
     const { layout } = this;
     const fnName = `render${layout}`;
     return (
-      <div key="page" className={this.className} ref={e => (this.pageDom = e)}>
-        {layout === "Main" ? (
-          <div className="layout cols Main">{this.renderMain()}</div>
-        ) : this[fnName] ? (
-          this[fnName]()
-        ) : (
-          this.renderMain()
-        )}
-        {this.renderExtra()}
-      </div>
+      <>
+        <Helmet>
+          {!this.title ? null : <title>{this.title}</title>}
+          {!this.keywords ? null : (
+            <meta name="keywords" content={this.keywords} />
+          )}
+          {!this.author ? null : <meta name="author" content={this.author} />}
+          {!this.description ? null : (
+            <meta name="description" content={this.description} />
+          )}
+          {!this.inlineStyle ? null : <style>{this.inlineStyle}</style>}
+        </Helmet>
+
+        <div
+          key="page"
+          className={this.className}
+          ref={e => (this.pageDom = e)}
+        >
+          {layout === "Main" ? (
+            <div className="layout cols Main">{this.renderMain()}</div>
+          ) : this[fnName] ? (
+            this[fnName]()
+          ) : (
+            this.renderMain()
+          )}
+          {this.renderExtra()}
+        </div>
+      </>
     );
   }
 }

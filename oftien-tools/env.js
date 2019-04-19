@@ -128,4 +128,4 @@ process.env.PORT = process.env.REACT_APP_UI_PORT || 2810;
 process.env.GENERATE_SOURCEMAP =
   process.env.REACT_APP_GENERATE_SOURCEMAP !== "false";
 
-global.constants = require("./constants")(process.env);
+if (Object.empty(global.constants)) require("./constants")(global, process.env);
