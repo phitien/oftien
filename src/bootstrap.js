@@ -93,15 +93,15 @@ global.NotFound =
   require(`./core/components`).NotFound;
 //routes
 global.routes = [];
-const addRoutes = (p, pages) => {
+const addRoutes = (p, pages) =>
   Object.keys(pages)
     .filter(o => pages[o])
     .map(o => {
       const component = pages[o];
       if (component.name) addRoute(p, o, component);
       else addRoutes(o, component);
+      return o;
     });
-};
 const addRoute = (pkg, o, component) => {
   const { path, isDefault } = component;
   const connectedCmp = connect({ component });
@@ -129,6 +129,7 @@ const addRoute = (pkg, o, component) => {
         }
       />
     );
+    return p;
   });
 };
 addRoutes("", require(`./apps/${app}/pages`));

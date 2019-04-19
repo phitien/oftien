@@ -1,7 +1,5 @@
 import "./derivatives.scss";
 
-import React from "react";
-
 import Main from "./Main";
 
 export default class Derivatives extends Main {

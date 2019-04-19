@@ -6,7 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 
 require("./bootstrap");
 
-const { App, store, theme, constants } = global;
+const { App, store, theme } = global;
 
 ReactDOM.hydrate(
   <Router>

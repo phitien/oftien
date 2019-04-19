@@ -1,7 +1,6 @@
 import "./main.scss";
 
 import React from "react";
-import { Helmet } from "react-helmet";
 import uuidv4 from "uuid/v4";
 import { ChromePicker } from "react-color";
 
@@ -317,10 +316,6 @@ export default class Main extends Page {
     );
   }
   renderMain() {
-    const { state, settings } = this;
-    const { info } = state;
-    const { name, avatar } = info || {};
-    const { keywords, author, description } = info || {};
     const sections = this.getSections("main");
     return (
       <div className="wrraper">
