@@ -16,6 +16,21 @@ export default class Main extends Page {
   static path = "/";
   static layout = "Top_LeftMain_Bottom";
   static className = "route-home-main";
+  static get apis() {
+    return [
+      [
+        global.apis.Stock.detail,
+        {
+          function:
+            global.localStorage.getItem("cfunction") || "TIME_SERIES_DAILY",
+          symbol: global.localStorage.getItem("stock") || "MSFT",
+          apikey:
+            global.localStorage.getItem("apikey") ||
+            global.constants.alphavantageApiKey
+        }
+      ]
+    ];
+  }
   state = {
     zoom: JSON.parse(global.localStorage.getItem("zoom")) || {},
     apikey:

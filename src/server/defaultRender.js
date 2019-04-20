@@ -17,7 +17,9 @@ export default async (req, res) => {
   const [pathname, search] = url.split("?");
   const location = { pathname, search };
   dispatch({ type: "ApplicationLocation", payload: location });
-  const currentRoute = global.routes.find(o => o.props.class.apis);
+  const currentRoute = global.routes
+    .filter(o => o.props.class)
+    .find(o => o.props.class.apis);
   let title = "";
   let keywords = "";
   let author = "";

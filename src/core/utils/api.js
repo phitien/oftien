@@ -47,6 +47,13 @@ const headers = (global.headers = (opts, data, path) => {
   };
 });
 const api = (global.api = async (opts, data, path) => {
+  if (!opts)
+    return new Promise((resolve, reject) => {
+      resolve({
+        error: true,
+        message: "API call without providing any params"
+      });
+    });
   const { constants, dispatch, dispatchAll } = global;
   const { spinner, dataField, before, after, success, failure } = opts;
   if (spinner !== false)

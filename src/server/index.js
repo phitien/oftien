@@ -7,8 +7,18 @@ import { renderToString } from "react-dom/server";
 import defaultRender from "./defaultRender";
 
 require("@oftien-tools/env");
-global.sessionStorage = { getItem(n) {}, setItem(n, v) {} };
-global.localStorage = { getItem(n) {}, setItem(n, v) {} };
+global.sessionStorage = {
+  getItem(n) {
+    return null;
+  },
+  setItem(n, v) {}
+};
+global.localStorage = {
+  getItem(n) {
+    return null;
+  },
+  setItem(n, v) {}
+};
 global.location = { pathname: "/", search: "", hash: "" };
 
 const setupProxy = require("../setupProxy");

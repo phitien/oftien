@@ -93,7 +93,7 @@ global.NotFound =
   require(`./core/components`).NotFound;
 //routes
 global.routes = [];
-const addRoutes = (p, pages) =>
+const addRoutes = (p, pages) => {
   Object.keys(pages)
     .filter(o => pages[o])
     .map(o => {
@@ -102,14 +102,19 @@ const addRoutes = (p, pages) =>
       else addRoutes(o, component);
       return o;
     });
+  global.routes = global.routes.filter(o => o && !Object.empty(o));
+};
+
 const addRoute = (pkg, o, component) => {
-  component.pkg = pkg;
-  global.routes.push(
-    React.createElement(Route, {
-      key: global.routes.length,
-      exact: true,
-      ...component.getRoute
-    })
-  );
+  if (component) {
+    component.pkg = pkg;
+    global.routes.push(
+      React.createElement(Route, {
+        key: global.routes.length,
+        exact: true,
+        ...component.getRoute
+      })
+    );
+  }
 };
 addRoutes("", require(`./apps/${app}/pages`));
