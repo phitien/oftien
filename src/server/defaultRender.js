@@ -9,20 +9,38 @@ export default async (req, res) => {
   const fs = require("fs");
   const path = require("path");
   const context = {};
-  // await api(apis.Resume.fetch, null, ["phitien"]);
-  const { App, theme, constants, api, apis, store } = global;
+  const { App, theme, constants, api, apis, store, dispatch } = global;
+  //call api to get applicaton config
+  await api(apis.Application.config);
+  //call route apis
+  const url = req.url;
+  const [pathname, search] = url.split("?");
+  const location = { pathname, search };
+  dispatch({ type: "ApplicationLocation", payload: location });
+  const currentRoute = global.routes.find(o => o.props.class.apis);
+  let title = "";
+  let keywords = "";
+  let author = "";
+  let description = "";
+  let logo = "";
+
+  if (currentRoute) {
+    const { apis } = currentRoute.props.class;
+    [].merge(apis).map(async args => await api(...args));
+    ({ title, keywords, author, description, logo } = currentRoute.props.class);
+  }
   const html = renderToString(
-    <Router location={req.url} context={context}>
+    <Router location={location} context={context}>
       <App store={store} theme={theme} />
     </Router>
   );
   return res.render("index", {
     app,
-    title: "",
-    keywords: "",
-    author: "",
-    description: "",
-    logo: "",
+    title,
+    keywords,
+    author,
+    description,
+    logo,
     html
   });
 };

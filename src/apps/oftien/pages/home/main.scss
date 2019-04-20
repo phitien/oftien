@@ -344,10 +344,8 @@
   }
   .layout {
     @include flex-width(1024px);
-    background-color: white;
     padding: var(--space) var(--space);
     box-shadow: 0 0 8px white;
-    color: var(--cl-grey);
     height: fit-content;
     .left,
     .right {

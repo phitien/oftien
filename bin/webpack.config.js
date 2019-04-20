@@ -50,6 +50,8 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
+const names = ["ABCDEFG", "HIJKLMN", "OPQRSTU", "VWXYZ", "0123456789"];
+
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
@@ -257,7 +259,13 @@ module.exports = function(webpackEnv) {
               )[1];
               if (name.includes("material-ui")) return "material-ui";
               else if (name.includes("echarts")) return "echarts";
-              else return name.replace("@", "").substr(0, 1);
+              else {
+                const a = name
+                  .replace("@", "")
+                  .substr(0, 1)
+                  .toUpperCase();
+                return names.indexOf(names.find(o => o.includes(a)));
+              }
             },
             chunks: "initial"
           }

@@ -6,10 +6,11 @@ import * as serviceWorker from "./serviceWorker";
 
 require("./bootstrap");
 
-const { App, store, theme } = global;
-
+const { App, store, theme, dispatch, location } = global;
+dispatch({ type: "ApplicationLocation", payload: location });
+const context = {};
 ReactDOM.hydrate(
-  <Router>
+  <Router location={location} context={context}>
     <App store={store} theme={theme} />
   </Router>,
   document.getElementById("root")

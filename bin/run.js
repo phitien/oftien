@@ -42,6 +42,8 @@ const run = async function() {
   const publicDir = `${__dirname}/../public`;
   const tmpDir = `${__dirname}/../.tmp`;
   if (script === "build") {
+    process.env.NODE_ENV = "production";
+    process.env.BABEL_ENV = "production";
     fs.renameSync(`${publicDir}/index.html`, `${tmpDir}/index.html`);
     fs.renameSync(`${publicDir}/index.ejs`, `${publicDir}/index.html`);
   }

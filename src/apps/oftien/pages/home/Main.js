@@ -3,49 +3,63 @@ import "./main.scss";
 import React from "react";
 import uuidv4 from "uuid/v4";
 import { ChromePicker } from "react-color";
-
 import { Button, Icon, Page } from "../../../../core";
 
-import { loadProfile, colors, layouts } from "./utils";
+import { colors, layouts } from "./utils";
 
 export default class Main extends Page {
   static isDefault = true;
   static path = "/";
   static layout = "Main_Right";
   static className = "route-home-main";
-
-  exclusionsKeys = ["editing", "username", "settings", "className"];
-  state = {
-    editing: false,
-    username: this.username,
-    settings: {}
-  };
-  get title() {
-    const { info } = this.state;
+  static get apis() {
+    const { match } = this;
+    if (!match) return null;
+    const username =
+      (match && match.params && match.params.username) || "oftien";
+    const { api, apis } = global;
+    return [[apis.Resume.fetch, null, [username]]];
+  }
+  static get title() {
+    const { info } = this.storeState.Resume.detail;
     const { name } = info || {};
     return `${name}'s Profile`;
   }
-  get keywords() {
-    const { info } = this.state;
+  static get keywords() {
+    const { info } = this.storeState.Resume.detail;
     const { keywords } = info || {};
     return keywords;
   }
-  get author() {
-    const { info } = this.state;
+  static get author() {
+    const { info } = this.storeState.Resume.detail;
     const { author } = info || {};
     return author;
   }
-  get description() {
-    const { info } = this.state;
+  static get description() {
+    const { info } = this.storeState.Resume.detail;
     const { description } = info || {};
     return description;
+  }
+  exclusionsKeys = [
+    "editing",
+    "username",
+    "settings",
+    "className",
+    "colorPickerFor"
+  ];
+  state = {
+    editing: false,
+    username: this.username
+  };
+  get resume() {
+    return this.props.Resume.detail || { settings: {} };
   }
   get inlineStyle() {
     const { settings } = this;
     return settings.style;
   }
   get layout() {
-    return super.layout || this.settings.layout;
+    return this.settings.layout || super.layout;
   }
   get fontFamily() {
     return this.settings.fontFamily || super.fontFamily;
@@ -82,10 +96,10 @@ export default class Main extends Page {
     return this.props.match.params.username || "oftien";
   }
   get settings() {
-    const settings = { ...layouts, ...this.state.settings };
     return {
       avatarMargin: "0px 0px",
-      ...settings
+      ...layouts,
+      ...this.resume.settings
     };
   }
 
@@ -96,53 +110,38 @@ export default class Main extends Page {
       if (this.scrollTop > 0) me.addClass("scrolling");
       else me.removeClass("scrolling");
     });
-    this.loadProfile();
-    this.createEditor();
-  }
-  async loadProfile() {
-    const { username } = this;
-    await loadProfile(username);
-    this.setState({
-      ...JSON.parse(JSON.stringify(this.props.Resume.detail)),
-      username
-    });
+    this.setState({ username: this.username }, this.createEditor.bind(this));
   }
   getSections(p) {
-    const { state, layoutSettings } = this;
+    const { resume, layoutSettings } = this;
     const sections = layoutSettings[p] ? [].merge(layoutSettings[p]) : [];
     return sections.reduce((rs, k) => {
-      if (state.hasOwnProperty(k)) rs[k] = state[k];
+      if (resume.hasOwnProperty(k)) rs[k] = resume[k];
       return rs;
     }, {});
   }
   createEditor() {
     const { JSONEditor } = global;
-    const { exclusionsKeys } = this;
     if (JSONEditor) {
       this.editor = new JSONEditor(this.editorDom, {
-        onChange: () => {
+        onChange: async () => {
+          const { settings, resume, exclusionsKeys } = this;
           const state = this.editor.get();
-          const keys = Object.keys(this.state)
-            .filter(k => !exclusionsKeys.includes(k))
-            .diff(Object.keys(state));
-          keys.map(k => delete this.state[k]);
-          this.setState(state);
+          const oldState = Object.omit(resume, ...exclusionsKeys);
+          const keys = Object.keys(oldState).diff(Object.keys(state));
+          keys.map(k => delete resume[k]);
+          await this.props.ResumeLoad({ ...state, settings });
         }
       });
       this.editorSettings = new JSONEditor(this.editorSettingsDom, {
-        onChange: () => this.setState({ settings: this.editorSettings.get() })
+        onChange: async () =>
+          await this.props.ResumeSave({ settings: this.editorSettings.get() })
       });
     }
   }
   onDataChange = () => {
-    const data = Object.omit(
-      this.state,
-      "settings",
-      "editing",
-      "username",
-      "className",
-      "colorPickerFor"
-    );
+    const { exclusionsKeys } = this;
+    const data = Object.omit(this.resume, ...exclusionsKeys, "settings");
     this.editor.set(data);
     this.editorSettings.set(this.settings);
   };
@@ -167,14 +166,18 @@ export default class Main extends Page {
   };
   onSave = e => {
     const { api, apis } = global;
-    const data = Object.omit(this.state, "editing", "username", "className");
+    const { exclusionsKeys, settings } = this;
+    const data = Object.omit(this.resume, ...exclusionsKeys);
     const { username } = this.state;
-    return api(apis.Resume.save, { ...data, username: this.username }, [
-      username
-    ]).then(res => {
-      if (!res.error && this.username !== username)
-        this.props.history.replace(`/${username}`);
-    });
+    return api(
+      apis.Resume.save,
+      { ...data, settings, username: this.username },
+      [username]
+    ).then(res =>
+      !res.error && this.username !== username
+        ? this.props.history.replace(`/${username}`)
+        : false
+    );
   };
 
   renderSection(heading, children) {
@@ -253,8 +256,8 @@ export default class Main extends Page {
     return null;
   }
   renderInfo() {
-    const { state, layoutSettings, settings } = this;
-    const info = state.info || {};
+    const { resume, layoutSettings, settings } = this;
+    const info = resume.info || {};
     const infoFields = [].merge(layoutSettings.info);
     const { name, avatar } = info || {};
     return (
@@ -298,12 +301,10 @@ export default class Main extends Page {
                     className="letter"
                     style={{ "--cl-primary": color, color }}
                     onClick={async e => {
-                      // await global.localStorage.setItem("primary", color);
                       settings.primary = color;
-                      this.setState({ settings }, async () => {
-                        await this.onDataChange();
-                        global.addStyle("--cl-primary", color);
-                      });
+                      await this.props.ResumeSave({ settings });
+                      await this.onDataChange();
+                      return global.addStyle("--cl-primary", color);
                     }}
                   >
                     {o}
@@ -338,8 +339,8 @@ export default class Main extends Page {
     );
   }
   renderContact() {
-    const { state, layoutSettings } = this;
-    const contact = [].merge(state.contact);
+    const { resume, layoutSettings } = this;
+    const contact = [].merge(resume.contact);
     const search = [].merge(layoutSettings.contact);
     const fields = [];
     contact.map(o => (search.includes(o.type) ? fields.push(o) : false));
@@ -500,8 +501,6 @@ export default class Main extends Page {
   }
   renderLayoutOption(name) {
     const { settings } = this;
-    const hash = this.props.location.hash;
-    const parts = hash.split("&").filter(o => !/layout=.*/g.test(o));
     const active = name === this.layout;
     return (
       <div
@@ -509,12 +508,10 @@ export default class Main extends Page {
         title={name}
         className={`btn layout-option ${name} ${active ? "active" : ""}`}
         onClick={async e => {
-          await global.localStorage.setItem("layout", name);
           settings.layout = name;
-          this.setState({ settings }, async () => {
-            await this.onDataChange();
-            this.props.location.hash = [...parts, `layout=${name}`].join("&");
-          });
+          await global.localStorage.setItem("layout", settings.layout);
+          await this.props.ResumeSave({ settings });
+          await this.onDataChange();
         }}
       />
     );

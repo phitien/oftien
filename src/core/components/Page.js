@@ -1,11 +1,11 @@
 import React from "react";
 import classnames from "classnames";
 import { Helmet } from "react-helmet";
-
 import Component from "./Component";
+import { Redirect, matchPath } from "react-router-dom";
+const { connect } = require("../redux");
 
 export class Page extends Component {
-  state = { layout: null };
   static layouts = [].merge(
     ["Main"], //empty
     //cols layouts
@@ -20,18 +20,59 @@ export class Page extends Component {
     ["Top_LeftMain_Bottom", "Top_MainRight_Bottom"],
     ["LeftMain_Bottom", "LeftMainRight_Bottom", "MainRight_Bottom"]
   );
-  get title() {
+  static pkg = "";
+  static get apis() {
     return null;
   }
-  get keywords() {
-    return null;
+  static get match() {
+    return matchPath(
+      this.storeState.Application.location.pathname,
+      this.getRoute
+    );
   }
-  get author() {
-    return null;
+  static get getRoute() {
+    const { pkg, name } = this;
+    const { path, isDefault } = this;
+    const connectedCmp = connect({ component: this });
+    const paths = [].merge(path);
+    const routes = [];
+    if (isDefault && path !== "/")
+      return {
+        class: this,
+        path: "/",
+        default: true,
+        render: () => <Redirect to={path || `/${name.lcfirst()}`} />
+      };
+    return {
+      class: this,
+      path: path || `/${name.lcfirst()}`,
+      render: props =>
+        React.createElement(connectedCmp, {
+          ...props,
+          className: `page-${pkg ? `${pkg.lower()}-` : ""}${name.lower()}`
+        })
+    };
   }
-  get description() {
-    return null;
+  static get storeState() {
+    return global.store.getState();
   }
+  static get title() {
+    return this.storeState.Application.name;
+  }
+  static get keywords() {
+    return this.storeState.Application.keywords;
+  }
+  static get author() {
+    return this.storeState.Application.author;
+  }
+  static get description() {
+    return this.storeState.Application.description;
+  }
+  static get logo() {
+    return this.storeState.Application.logo;
+  }
+  state = { layout: null };
+
   get inlineStyle() {
     return null;
   }
@@ -76,7 +117,11 @@ export class Page extends Component {
   get jPageDom() {
     return global.jQuery(this.pageDom);
   }
-  componentDidMount() {
+  async componentDidMount() {
+    //call apis
+    const apis = this.constructor.apis;
+    if (apis && apis.length) apis.map(async args => await global.api(...args));
+    //set style variables
     const { fontFamily, fontWeight, fontSize } = this;
     const { color, bgcolor } = this;
     const { primary, primary2, secondary, secondary2 } = this;
@@ -386,39 +431,41 @@ export class Page extends Component {
   renderExtra() {
     return null;
   }
+  renderHelmet() {
+    return (
+      <Helmet key="helmet">
+        {!this.constructor.title ? null : (
+          <title>{this.constructor.title}</title>
+        )}
+        {!this.constructor.keywords ? null : (
+          <meta name="keywords" content={this.constructor.keywords} />
+        )}
+        {!this.constructor.author ? null : (
+          <meta name="author" content={this.constructor.author} />
+        )}
+        {!this.constructor.description ? null : (
+          <meta name="description" content={this.constructor.description} />
+        )}
+        {!this.inlineStyle ? null : <style>{this.inlineStyle}</style>}
+      </Helmet>
+    );
+  }
   renderComponent() {
     const { layout } = this;
     const fnName = `render${layout}`;
-    return (
-      <>
-        <Helmet>
-          {!this.title ? null : <title>{this.title}</title>}
-          {!this.keywords ? null : (
-            <meta name="keywords" content={this.keywords} />
-          )}
-          {!this.author ? null : <meta name="author" content={this.author} />}
-          {!this.description ? null : (
-            <meta name="description" content={this.description} />
-          )}
-          {!this.inlineStyle ? null : <style>{this.inlineStyle}</style>}
-        </Helmet>
-
-        <div
-          key="page"
-          className={this.className}
-          ref={e => (this.pageDom = e)}
-        >
-          {layout === "Main" ? (
-            <div className="layout cols Main">{this.renderMain()}</div>
-          ) : this[fnName] ? (
-            this[fnName]()
-          ) : (
-            this.renderMain()
-          )}
-          {this.renderExtra()}
-        </div>
-      </>
-    );
+    return [
+      this.renderHelmet(),
+      <div key="page" className={this.className} ref={e => (this.pageDom = e)}>
+        {layout === "Main" ? (
+          <div className="layout cols Main">{this.renderMain()}</div>
+        ) : this[fnName] ? (
+          this[fnName]()
+        ) : (
+          this.renderMain()
+        )}
+        {this.renderExtra()}
+      </div>
+    ];
   }
 }
 export default Page;

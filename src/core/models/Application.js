@@ -1,10 +1,17 @@
 const { app } = global.constants;
 
-export const defaultState = { loading: false, popups: [], notifications: [] };
+export const defaultState = {
+  loading: false,
+  apis: [],
+  location: { pathname: "/", search: "" },
+  popups: [],
+  notifications: []
+};
 defaultState.token = null;
 defaultState.user = {};
 defaultState.menu = [];
 export const actions = [].merge(
+  ["Location"],
   ["LoadConfig", "LoadToken", "Authenticate", "Unauthorized", "Logout"],
   ["Spinning"],
   ["ClearError", "AddError", "Notify", "Warn", "RemoveNotification"],
@@ -20,6 +27,13 @@ export const apis = {
 export function reducer(state = defaultState, action) {
   const { type, payload } = action;
   const { tokenName } = global.constants;
+  if (type === "ApplicationLocation") {
+    state.location = { ...state.location, ...payload };
+    return { ...state };
+  }
+  if (type === "ApplicationApis") {
+    return { ...state, apis: [].merge(payload) };
+  }
   if (type === "ApplicationAddPopup") {
     state.popups.push(payload);
     return { ...state };

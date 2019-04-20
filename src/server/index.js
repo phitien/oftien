@@ -7,7 +7,9 @@ import { renderToString } from "react-dom/server";
 import defaultRender from "./defaultRender";
 
 require("@oftien-tools/env");
+global.sessionStorage = { getItem(n) {}, setItem(n, v) {} };
 global.localStorage = { getItem(n) {}, setItem(n, v) {} };
+global.location = { pathname: "/", search: "", hash: "" };
 
 const setupProxy = require("../setupProxy");
 const bootstrap = require("../bootstrap");
@@ -18,15 +20,16 @@ const app = process.env.REACT_APP_APP;
 const path = require("path");
 const staticDir = path.join(__dirname, `../../archive/${app}`);
 const server = express();
-// server.engine("html", ejs.renderFile);
-server.set("view engine", "ejs");
 server.set("views", staticDir);
 server.locals.delimiter = "oftien";
+server.set("view engine", "ejs");
+// server.engine("html", ejs.renderFile);
+// server.set("view engine", "html");
 
 server.staticDir = staticDir;
+setupProxy(server);
 server.use(express.static(server.staticDir));
 server.use("/", defaultRender);
-setupProxy(server);
 server.use("*", defaultRender);
 
 server.listen(PORT, () => {

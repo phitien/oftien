@@ -1,9 +1,9 @@
 export const defaultState = {
   filter: { size: 10, page: 0 },
   resumes: [],
-  detail: {}
+  detail: { settings: {} }
 };
-export const actions = [].merge(["List", "Filter", "Save"]);
+export const actions = [].merge(["Load", "Save"]);
 export const apis = {
   fetch: {
     method: "get",
@@ -21,6 +21,9 @@ export const apis = {
 export function reducer(state = defaultState, action) {
   const { type, payload } = action;
   if (type === "ResumeLoad") return { ...state, detail: { ...payload } };
-  if (type === "ResumeSave") return { ...state, detail: { ...payload } };
+  if (type === "ResumeSave") {
+    state.detail = { ...state.detail, ...payload };
+    return { ...state };
+  }
   return state;
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 //*note: keep these lines below in exact order
 require("@oftien-tools/addon");
-const { connect, createStore } = require("./core/redux");
+const { createStore } = require("./core/redux");
 global.themes = require("./core/themes");
 //*note: keep these lines above in exact order
 
@@ -103,33 +103,13 @@ const addRoutes = (p, pages) =>
       return o;
     });
 const addRoute = (pkg, o, component) => {
-  const { path, isDefault } = component;
-  const connectedCmp = connect({ component });
-  const paths = [].merge(path);
-  paths.map((p, i) => {
-    if (isDefault && p !== "/")
-      global.routes.push(
-        <Route
-          key="default"
-          exact
-          path="/"
-          render={() => <Redirect to={p || `/${o.lcfirst()}`} />}
-        />
-      );
-    global.routes.push(
-      <Route
-        key={`${o}${i}${component.name}`}
-        exact
-        path={p || `/${o.lcfirst()}`}
-        render={props =>
-          React.createElement(connectedCmp, {
-            ...props,
-            className: `page-${pkg ? `${pkg.lower()}-` : ""}${o.lower()}`
-          })
-        }
-      />
-    );
-    return p;
-  });
+  component.pkg = pkg;
+  global.routes.push(
+    React.createElement(Route, {
+      key: global.routes.length,
+      exact: true,
+      ...component.getRoute
+    })
+  );
 };
 addRoutes("", require(`./apps/${app}/pages`));
