@@ -13,7 +13,6 @@
     "babel-plugin-wildcard": "^5.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
@@ -85,7 +84,7 @@
     "bambu.life-build": "echo \"ENV=${ENV:-bambu.life}\" > .env && oftien run build",
     "bambu.life-ssr": "echo \"ENV=${ENV:-bambu.life}\" > .env && node src/ssr",
     "preinstall": "if [ -d \"node_modules\" ]; then \n cd node_modules && rm -rf @oftien-tools && cd .. \nfi",
-    "postinstall": "cd node_modules && ln -s ../oftien-tools @oftien-tools && cd .."
+    "postinstall": "cd node_modules && ln -s ../oftien-tools @oftien-tools && cd .. && git checkout oftien-tools"
   },
   "eslintConfig": {
     "extends": "react-app"

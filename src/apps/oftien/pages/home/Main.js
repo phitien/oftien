@@ -17,7 +17,7 @@ export default class Main extends Page {
     if (!match) return null;
     const username =
       (match && match.params && match.params.username) || "oftien";
-    const { api, apis } = global;
+    const { apis } = global;
     return [[apis.Resume.fetch, null, [username]]];
   }
   static get title() {

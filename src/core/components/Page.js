@@ -34,8 +34,6 @@ export class Page extends Component {
     const { pkg, name } = this;
     const { path, isDefault } = this;
     const connectedCmp = connect({ component: this });
-    const paths = [].merge(path);
-    const routes = [];
     if (isDefault && path !== "/")
       return {
         class: this,
