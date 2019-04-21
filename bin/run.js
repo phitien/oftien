@@ -2,10 +2,10 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-process.on("unhandledRejection", err => {
-  console.log(err.message);
-  throw err;
-});
+// process.on("unhandledRejection", err => {
+//   console.log(err.message);
+//   throw err;
+// });
 const run = async function() {
   const spawn = require("react-dev-utils/crossSpawn");
   const args = process.argv.slice(3);
@@ -23,11 +23,12 @@ const run = async function() {
   );
   const configDir = path.dirname(require.resolve(`./${configFile}`));
   try {
-    fs.copySync(
-      `${originalConfigDir}/${configFile}`,
-      `${configDir}/${configFile}.bak`,
-      { overwrite: true }
-    );
+    if (!fs.existsSync(`${configDir}/${configFile}.bak`))
+      fs.copySync(
+        `${originalConfigDir}/${configFile}`,
+        `${configDir}/${configFile}.bak`,
+        { overwrite: true }
+      );
     fs.copySync(
       `${configDir}/${configFile}`,
       `${originalConfigDir}/${configFile}`,
@@ -39,13 +40,41 @@ const run = async function() {
     console.log(e);
   }
   const app = process.env.REACT_APP_APP;
-  const publicDir = `${__dirname}/../public`;
-  const tmpDir = `${__dirname}/../.tmp`;
+  const appsDir = path.resolve(__dirname, `../src/apps`);
+  const appsBakDir = path.resolve(__dirname, `../.tmp/apps`);
+  const publicDir = path.resolve(__dirname, `../public`);
+  const tmpDir = path.resolve(__dirname, `../.tmp`);
+  const archiveDir = path.resolve(__dirname, `../archive`);
+  const revertApps = () =>
+    fs
+      .readdirSync(appsBakDir)
+      .filter(o => fs.statSync(path.join(appsBakDir, o)).isDirectory())
+      .map(o => {
+        fs.renameSync(`${appsBakDir}/${o}`, `${appsDir}/${o}`);
+      });
+  const revertToOrigin = () => {
+    revertApps();
+    if (fs.existsSync(`${tmpDir}/index.html`)) {
+      fs.renameSync(`${publicDir}/index.html`, `${publicDir}/index.ejs`);
+      fs.renameSync(`${tmpDir}/index.html`, `${publicDir}/index.html`);
+    }
+  };
+  revertToOrigin();
   if (script === "build") {
     process.env.NODE_ENV = "production";
     process.env.BABEL_ENV = "production";
+    fs.readdirSync(appsDir)
+      .filter(
+        o => o !== app && fs.statSync(path.join(appsDir, o)).isDirectory()
+      )
+      .map(o => {
+        fs.renameSync(`${appsDir}/${o}`, `${appsBakDir}/${o}`);
+      });
     fs.renameSync(`${publicDir}/index.html`, `${tmpDir}/index.html`);
     fs.renameSync(`${publicDir}/index.ejs`, `${publicDir}/index.html`);
+    !fs.existsSync(archiveDir) && fs.mkdirSync(archiveDir);
+    const dist = `${archiveDir}/${app}`;
+    fs.removeSync(dist);
   }
   const result = spawn.sync(
     "node",
@@ -60,13 +89,9 @@ const run = async function() {
     { overwrite: true }
   );
   if (script === "build") {
-    fs.renameSync(`${publicDir}/index.html`, `${publicDir}/index.ejs`);
-    fs.renameSync(`${tmpDir}/index.html`, `${publicDir}/index.html`);
-    const archiveDir = `${__dirname}/../archive`;
-    !fs.existsSync(archiveDir) && fs.mkdirSync(archiveDir);
+    revertToOrigin();
     const dist = `${archiveDir}/${app}`;
-    if (fs.existsSync(dist)) fs.removeSync(dist);
-    const buildDir = path.join(__dirname, "/../build");
+    const buildDir = path.resolve(__dirname, "../build");
     const content = fs.readFileSync(`${buildDir}/index.html`, "utf8");
     fs.writeFileSync(
       `${buildDir}/index.html`,

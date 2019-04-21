@@ -15,11 +15,17 @@ if (!app) throw new Error("Pleace indicate APP value in enviroment file");
 
 const { theme, logging } = constants;
 
-//import styles
+//import base css
 require("./core/scss/index.scss");
+//import base theme css
+try {
+  require(`./core/scss/${theme}.scss`);
+} catch (e) {}
+//import app css
 try {
   require(`./apps/${app}/scss/index.scss`);
 } catch (e) {}
+//import app theme css
 try {
   require(`./apps/${app}/scss/${theme}.scss`);
 } catch (e) {}
