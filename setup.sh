@@ -4,16 +4,19 @@ curdir=$(pwd)
 
 ## ui
 cd $curdir
-npm i
-npm i -g
-npm i -g babel-cli
-npm i forever -g
-npm i concurrently -g
-npm rebuild node-sass
+rm yarn*
+rm -rf node_modules
+yarn cache clean
+yarn --no-lockfile
+yarn global add
+yarn global add babel-cli
+yarn global add forever
+yarn remove node-sass && yarn add node-sass@latest
 cp -rf $curdir/node_modules_override/. $curdir/node_modules
-cd node_modules && ln -s ../oftien-utils @oftien-utils && ln -s ../oftien-env @oftien-env
+cd node_modules && ln -s ../oftien-tools @oftien-tools && cd ..
+git checkout oftien-tools
 ## backend
-cd $curdir/public/services/api
-npm run setup
+cd $curdir/services/api
+yarn run setup
 
 cd $curdir

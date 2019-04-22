@@ -9,7 +9,7 @@ process.env.REACT_APP_ENV =
   process.env.ENV || process.env.REACT_APP_ENV || "local";
 process.env.ENV = process.env.REACT_APP_ENV;
 process.env.REACT_APP_IP = ip.address();
-const envPath = `./config/.env.${process.env.ENV}`;
+const envPath = path.resolve(__dirname, "config", `.env.${process.env.ENV}`);
 const content = fs.readFileSync(envPath);
 const lines = [`ENV=${process.env.ENV}`].concat(
   content

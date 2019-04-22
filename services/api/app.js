@@ -1,14 +1,5 @@
 /**********************************************************************/
-require("../../../bootstrap");
-process.env.PORT = process.env.bePort;
-const chalk = require("chalk");
-console.log(
-  chalk.cyan(
-    `ENV: ${chalk.yellow(process.env.ENV)} - ${chalk.white(
-      "backend"
-    )} - ${chalk.white(process.env.PORT)}`
-  )
-);
+require("@oftien-tools/env");
 /**********************************************************************/
 /**
  * app.js

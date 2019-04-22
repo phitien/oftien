@@ -22,10 +22,9 @@ module.exports.bootstrap = async function(done) {
     sails.config.appPath,
     ".tmp/bootstrap-version.json"
   );
-
   const migrationFn = async function() {
     //migration
-    const migrate = require("./migrate");
+    const migrate = require("../migrate");
     sails.log("Running migration patches...");
     const patches = Object.keys(migrate);
     async function doPatching() {
@@ -67,11 +66,13 @@ module.exports.bootstrap = async function(done) {
           sails.config.environment +
           '" Sails environment, to be precise), skipping the rest of the bootstrap to avoid data loss...'
       );
-      process.argv.forEach(async o => {
-        if (o === "--migrate") await migrationFn();
-      });
       return done();
     } //•
+    if (
+      sails.config.environment === "development" &&
+      process.argv.find(o => o === "--migrate")
+    )
+      await migrationFn();
 
     // Compare bootstrap version from code base to the version that was last run
     var lastRunBootstrapInfo = await sails.helpers.fs

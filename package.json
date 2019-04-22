@@ -52,6 +52,7 @@
     "classnames": "^2.2.6",
     "echarts": "^4.2.0-rc.2",
     "echarts-for-react": "^2.0.15-beta.0",
+    "forever": "^1.0.0",
     "gojs": "^2.0.0-beta9",
     "json-stringify-safe": "^5.0.1",
     "jsoneditor": "^5.32.3",
@@ -77,14 +78,12 @@
     "start": "concurrently \"npm run be\" \"npm run ui\"",
     "ui": "echo \"ENV=${ENV:-local}\" > .env && oftien run start",
     "ui-bg": "echo \"ENV=${ENV:-local}\" > .env && oftien run build && forever start -c \"yarn run ssr\" ./",
-    "be": "echo \"ENV=${ENV:-local}\" > .env && node services/api/app.js",
-    "be-bg": "echo \"ENV=${ENV:-local}\" > .env && forever start services/api/app.js",
+    "be": "echo \"ENV=${ENV:-local}\" > .env && cd services/api && node app.js",
+    "be-bg": "echo \"ENV=${ENV:-local}\" > .env && cd services/api && forever start app.js",
     "bambu.life": "echo \"ENV=${ENV:-\"bambu.life\"}\" > .env && oftien run start",
     "bambu.life-bg": "echo \"ENV=${ENV:-bambu.life}\" > .env && oftien run build && forever start -c \"yarn run bambu.life-ssr\" ./",
     "bambu.life-build": "echo \"ENV=${ENV:-bambu.life}\" > .env && oftien run build",
-    "bambu.life-ssr": "echo \"ENV=${ENV:-bambu.life}\" > .env && node src/ssr",
-    "preinstall": "if [ -d \"node_modules\" ]; then \n cd node_modules && rm -rf @oftien-tools && cd .. \nfi",
-    "postinstall": "cd node_modules && ln -s ../oftien-tools @oftien-tools && cd .. && git checkout oftien-tools"
+    "bambu.life-ssr": "echo \"ENV=${ENV:-bambu.life}\" > .env && node src/ssr"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -7,7 +7,7 @@ module.exports = {
       type: "string",
       unique: true,
       isEmail: true,
-      example: "phi.tien@amaris.ai"
+      example: "dev@oftien.com"
     },
     password: {
       type: "string",

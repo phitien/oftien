@@ -1,33 +1,34 @@
 function envBuilder() {
-  const PORT = process.env.bePort;
-  const rootUrl = process.env.beOrigin;
+  const PORT = global.constants.bePort;
+  const rootUrl = global.constants.beOrigin;
   const baseUrl = `${rootUrl}:${PORT}`;
-  const dbAdapter = process.env.dbAdapter;
-  const dbLink = process.env.dbLink;
-  const uiBaseUrl = process.env.uiBaseUrl;
+  const dbAdapter = global.constants.dbAdapter;
+  const dbLink = global.constants.dbLink;
+  const uiBaseUrl = global.constants.uiBaseUrl;
   const allowOrigins = Array.from(
-    new Set(process.env.allowOrigins || [uiBaseUrl])
+    new Set(global.constants.allowOrigins || [uiBaseUrl])
   );
-  const internalEmailAddress = process.env.internalEmailAddress;
-  const modelsMigrate = process.env.modelsMigrate;
-  const logLevel = process.env.logLevel;
+  const internalEmailAddress = global.constants.internalEmailAddress;
+  const modelsMigrate = global.constants.modelsMigrate;
+  const logLevel = global.constants.logLevel;
   const activationRequired =
-    process.env.activationRequired && process.env.activationRequired === "true"
+    global.constants.activationRequired &&
+    global.constants.activationRequired === "true"
       ? true
       : false;
-  const httpCache = process.env.httpCache;
-  const tokenName = process.env.tokenName;
-  const jwtSecret = process.env.jwtSecret;
-  const maxAge = parseInt(process.env.maxAge);
-  const sessionBuffer = parseInt(process.env.sessionBuffer);
+  const httpCache = global.constants.httpCache;
+  const tokenName = global.constants.tokenName;
+  const jwtSecret = global.constants.jwtSecret;
+  const maxAge = parseInt(global.constants.maxAge);
+  const sessionBuffer = parseInt(global.constants.sessionBuffer);
   const modelAttributeId =
     dbAdapter === "sails-mongo"
       ? { type: "string", columnName: "_id" }
       : { type: "number", autoIncrement: true, columnName: "id" };
-  const dataEncryptionKeys = process.env.dataEncryptionKeys;
-  const emailAccount = process.env.emailAccount || "apa.amaris@gmail.com";
-  const emailPassword = process.env.emailPassword || "Password@1234";
-  const SSL = process.env.SSL || undefined;
+  const dataEncryptionKeys = global.constants.dataEncryptionKeys;
+  const emailAccount = global.constants.emailAccount || "oftien@gmail.com";
+  const emailPassword = global.constants.emailPassword || "Password@1234";
+  const SSL = global.constants.SSL || undefined;
 
   return {
     uploads: {
