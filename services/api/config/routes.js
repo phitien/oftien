@@ -26,5 +26,7 @@ module.exports.routes = {
   "GET /api/v1/groups/:id": { action: "group/detail" }, // get detail of a user group
 
   "GET /api/v1/actions": { action: "action/list" }, // get list of user actions
-  "GET /api/v1/actions/:id": { action: "action/detail" } // get detail of a user action
+  "GET /api/v1/actions/:id": { action: "action/detail" }, // get detail of a user action
+
+  "GET /api/v1/resume/of/:username": { action: "resume/of" } // get detail of a user
 };

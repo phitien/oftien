@@ -3,11 +3,15 @@ module.exports = {
     name: {
       type: "string"
     },
-    username: {
+    email: {
       type: "string",
       unique: true,
       isEmail: true,
       example: "dev@oftien.com"
+    },
+    username: {
+      type: "string",
+      unique: true
     },
     password: {
       type: "string",
@@ -34,6 +38,13 @@ email status until they click the link in the confirmation email.`
     isSuperAdmin: { type: "boolean", defaultsTo: false },
     profile: { model: "UserProfile" },
     preferences: { model: "UserPreferences" },
+    setting: { model: "Setting" },
+    layouts: { collection: "Layout" },
+    contacts: { collection: "Contact" },
+    educations: { collection: "Education" },
+    experiences: { collection: "Experience" },
+    projects: { collection: "Project" },
+    skills: { collection: "Skill" },
     groups: { collection: "UserGroup", via: "users" },
     actions: { collection: "UserAction", via: "users" }
   },
